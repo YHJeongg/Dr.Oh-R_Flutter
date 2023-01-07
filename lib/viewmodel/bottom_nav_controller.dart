@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../components/message_popup.dart';
@@ -51,10 +50,8 @@ class BottomNavController extends GetxController {
         builder: (context) => MessagePopup(
           title: '시스템',
           message: '종료하시겠습니까?',
-          okCallback: () {
-            exit(0);
-          },
-          cancelCallback: Get.back,
+          okCallback: () => SystemNavigator.pop(),
+          cancelCallback: () => Get.back(),
         ),
       );
       return true;
