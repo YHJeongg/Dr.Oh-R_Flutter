@@ -1,0 +1,69 @@
+import 'package:dr_oh_app/view/hospital.dart';
+import 'package:dr_oh_app/view/information.dart';
+import 'package:dr_oh_app/view/mypage.dart';
+import 'package:dr_oh_app/view/survey.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'view/home.dart';
+import 'viewmodel/bottom_nav_controller.dart';
+
+class App extends GetView<BottomNavController> {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: controller.willPopAction,
+      child: Obx(
+        () => Scaffold(
+          body: IndexedStack(
+            index: controller.pageIndex.value, // 현재 페이지 확인
+            children: const [
+              Home(),
+              Survey(),
+              Hospital(),
+              Information(),
+              MyPage(),
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            currentIndex: controller.pageIndex.value, // items의 몇번째 페이지인지 지정
+            elevation: 0,
+            onTap: controller.changeBottomNav,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                activeIcon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                activeIcon: Icon(Icons.home),
+                label: 'Survey',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                activeIcon: Icon(Icons.home),
+                label: 'Hospital',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                activeIcon: Icon(Icons.home),
+                label: 'Information',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                activeIcon: Icon(Icons.home),
+                label: 'MyPage',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
