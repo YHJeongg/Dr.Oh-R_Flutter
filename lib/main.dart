@@ -1,5 +1,4 @@
 import 'package:dr_oh_app/app.dart';
-import 'package:dr_oh_app/view/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
