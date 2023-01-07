@@ -8,6 +8,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        elevation: 0,
       ),
       body: const Text('Home'),
     );

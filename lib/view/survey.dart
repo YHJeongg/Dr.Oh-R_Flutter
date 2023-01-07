@@ -8,6 +8,7 @@ class Survey extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('survey'),
+        elevation: 0,
       ),
       body: const Text('survey'),
     );

@@ -8,6 +8,7 @@ class Hospital extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('hospital'),
+        elevation: 0,
       ),
       body: const Text('hospital'),
     );

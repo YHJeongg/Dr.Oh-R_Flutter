@@ -33,6 +33,9 @@ class App extends GetView<BottomNavController> {
             showUnselectedLabels: false,
             currentIndex: controller.pageIndex.value, // items의 몇번째 페이지인지 지정
             elevation: 0,
+            // Date: 2023-01-07, SangwonKim
+            // Desc: 임시 : 내비게이션바 바탕색 -> transparent사용 -> DarkMode에 용이
+            backgroundColor: Colors.transparent.withOpacity(0.1),
             onTap: controller.changeBottomNav,
             items: const [
               BottomNavigationBarItem(

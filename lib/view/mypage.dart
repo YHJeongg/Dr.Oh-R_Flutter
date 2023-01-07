@@ -8,6 +8,7 @@ class MyPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('MyPage'),
+        elevation: 0,
       ),
       body: const Text('MyPage'),
     );

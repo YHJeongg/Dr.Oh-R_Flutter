@@ -8,6 +8,7 @@ class Information extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Information'),
+        elevation: 0,
       ),
       body: const Text('Information'),
     );
