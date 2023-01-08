@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Join extends StatefulWidget {
   const Join({super.key});
@@ -8,7 +9,7 @@ class Join extends StatefulWidget {
 }
 
 class _JoinState extends State<Join> {
-  RegExp idpwReg=RegExp(r"^[0-9a-z]{8,}$");//영문 소문자, 숫자만으로 8자리 이상
+  RegExp idpwReg=RegExp(r"^[0-9a-z]{8,}$");//영문 소문자, 숫자만으로 8자리 이상 정규식
   late TextEditingController idCont;
   late TextEditingController pwCont;
   late TextEditingController pwcheckCont;
