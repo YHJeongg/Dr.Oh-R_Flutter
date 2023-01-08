@@ -21,6 +21,7 @@ class _BodyInfoState extends State<BodyInfo> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -44,6 +45,7 @@ class _BodyInfoState extends State<BodyInfo> {
                 ),
               ),
             ),
+            ElevatedButton(onPressed: () {}, child: const Text('저장'))
           ],
         ),
       ),
