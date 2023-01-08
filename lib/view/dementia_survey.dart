@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 
 //임시
 const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+const List<Widget> gender = <Widget>[Text('여자'), Text('남자')];
 
 class DementiaSurvey extends StatelessWidget {
   DementiaSurvey({super.key});
 
   final PageController controller = PageController();
   final bool _isChecked = false;
-  final TextEditingController educController = TextEditingController();
-  String dropdownValue = list.first;
+  String dropdownValue = list.first; //임시
+  final List<bool> _selectedGender = <bool>[true, false];
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +102,7 @@ class DementiaSurvey extends StatelessWidget {
               ), //1st END
             ],
           ),
+
           //-------2nd page(설문 시작 전 질문 사항) --------
           Column(
             children: [
@@ -149,35 +151,40 @@ class DementiaSurvey extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 300,
-                      child: TextField(
-                        controller: educController,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(), hintText: "교육 연수 입력"),
-                      ),
-                    ),
-                    SizedBox(
                       height: 30,
                     ),
+                    SizedBox(width: 300, child: _dropDownBtn('교육 연수')),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(width: 300, child: _dropDownBtn('연봉(단위: 만원)')),
+                    SizedBox(
+                      height: 20,
+                    ),
                     SizedBox(
                       width: 300,
-                      child: DropdownButton<String>(
-                        value: dropdownValue,
-                        elevation: 16,
-                        // style: const TextStyle(color: Colors.deepPurple),
-                        
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          //
-                        },
-                        items: list.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                      child: _dropDownBtn('생년월일'),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[_gender()],
                       ),
                     ),
+                  ],
+                ),
+              ),
+              Container(
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          //
+                        },
+                        child: Text('다음'))
                   ],
                 ),
               ),
@@ -185,6 +192,49 @@ class DementiaSurvey extends StatelessWidget {
           ),
         ]);
       },
+    );
+  } //_pages
+
+//dropdown buttons(교육연수, 연봉, 생년월일)
+  Widget _dropDownBtn(String hintText) {
+    return DropdownButtonFormField(
+      decoration: InputDecoration(
+          hintText: hintText,
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      onChanged: (value) {
+        //
+      },
+    );
+  }
+
+//성별 토글 버튼
+  Widget _gender() {
+    return ToggleButtons(
+      //direction: vertical ? Axis.vertical : Axis.horizontal,
+      onPressed: (int index) {
+        //
+        // for (int i = 0; i < _selectedGender.length; i++) {
+        //     _selectedGender[i] = i == index;
+        //   }
+      },
+      borderRadius: const BorderRadius.all(Radius.circular(8)),
+      //selectedBorderColor: Colors.red[700],
+      //selectedColor: Colors.white,
+      //fillColor: Colors.red[200],
+      //color: Colors.red[400],
+      constraints: const BoxConstraints(
+        minHeight: 40.0,
+        minWidth: 80.0,
+      ),
+      isSelected: _selectedGender,
+      children: gender,
     );
   }
 } //End

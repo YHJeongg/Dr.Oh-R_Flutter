@@ -5,6 +5,13 @@ class DiabetesSurvey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('당뇨병 검사'),
+      ),
+    );
   }
-}
+//--------Widget---------
+
+
+}//end
