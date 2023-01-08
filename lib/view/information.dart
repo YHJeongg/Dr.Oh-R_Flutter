@@ -23,155 +23,67 @@ class Information extends StatelessWidget {
             children: [
               // Date: 2023-01-08, SangwonKim
               // 당뇨병 정보 버튼
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(const InfoDiabetes());
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                ),
-                child: SizedBox(
-                  height: 120,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        '당뇨병 정보',
-                        style: TextStyle(
-                          fontSize: 24,
-                          // fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              _btn(const InfoDiabetes(), '당뇨병 정보', context),
               const SizedBox(
                 height: 20,
               ),
               // Date: 2023-01-08, SangwonKim
               // 뇌졸중 정보 버튼
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(const InfoStroke());
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                ),
-                child: SizedBox(
-                  height: 120,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        '뇌졸중 정보',
-                        style: TextStyle(
-                          fontSize: 24,
-                          // fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              _btn(const InfoStroke(), '뇌졸중 정보', context),
               const SizedBox(
                 height: 20,
               ),
               // Date: 2023-01-08, SangwonKim
               // 치매 정보 버튼
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(const InfoDementia());
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                ),
-                child: SizedBox(
-                  height: 120,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        '치매 정보',
-                        style: TextStyle(
-                          fontSize: 24,
-                          // fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              _btn(const InfoDementia(), '치매 정보', context),
               const SizedBox(
                 height: 20,
               ),
               // Date: 2023-01-08, SangwonKim
               // BMI 정보 버튼
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(const InfoBmi());
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                ),
-                child: SizedBox(
-                  height: 120,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'BMI 정보',
-                        style: TextStyle(
-                          fontSize: 24,
-                          // fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              _btn(const InfoBmi(), 'BMI 정보', context),
               const SizedBox(
                 height: 20,
               ),
               // Date: 2023-01-08, SangwonKim
               // BMI 계산 버튼
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(const InfoBmiCalc());
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                ),
-                child: SizedBox(
-                  height: 120,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'BMI 계산',
-                        style: TextStyle(
-                          fontSize: 24,
-                          // fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              _btn(const InfoBmiCalc(), 'BMI 계산', context),
             ],
           ),
         ),
       ),
     );
   }
-}
+
+  // --- Widgets
+
+  // Date: 2023-01-08, SangwonKim
+  // 버튼 위젯
+  _btn(dynamic page, String title, BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Get.to(page);
+      },
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+      ),
+      child: SizedBox(
+        height: 120,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 24,
+                // fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+} // End
