@@ -5,6 +5,14 @@ class StrokeSurvey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('뇌졸중 검사'),
+      ),
+    );
   }
-}
+//----Widget------
+
+
+
+}//end
