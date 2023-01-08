@@ -37,7 +37,7 @@ class DementiaSurvey extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                 height: 200,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -64,7 +64,7 @@ class DementiaSurvey extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                 height: 200,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -85,7 +85,7 @@ class DementiaSurvey extends StatelessWidget {
                         //provider
                       },
                     ),
-                    Text('개인정보보호법')
+                    const Text('개인정보보호법')
                   ],
                 ),
               ),
@@ -96,7 +96,7 @@ class DementiaSurvey extends StatelessWidget {
                         onPressed: () {
                           //
                         },
-                        child: Text('다음'))
+                        child: const Text('다음'))
                   ],
                 ),
               ), //1st END
@@ -108,7 +108,7 @@ class DementiaSurvey extends StatelessWidget {
             children: [
               Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                   height: 200,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -134,7 +134,7 @@ class DementiaSurvey extends StatelessWidget {
               Container(
                 //container design은 크기 보려고 임시로 해놨습니다.
                 alignment: Alignment.center,
-                margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                 height: 350,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -150,29 +150,27 @@ class DementiaSurvey extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     SizedBox(width: 300, child: _dropDownBtn('교육 연수')),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     SizedBox(width: 300, child: _dropDownBtn('연봉(단위: 만원)')),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     SizedBox(
                       width: 300,
                       child: _dropDownBtn('생년월일'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[_gender()],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[_gender()],
                     ),
                   ],
                 ),
@@ -184,7 +182,7 @@ class DementiaSurvey extends StatelessWidget {
                         onPressed: () {
                           //
                         },
-                        child: Text('다음'))
+                        child: const Text('다음'))
                   ],
                 ),
               ),
