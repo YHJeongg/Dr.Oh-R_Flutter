@@ -1,4 +1,5 @@
 import 'package:dr_oh_app/view/info_bmi.dart';
+import 'package:dr_oh_app/view/info_bmi_calc.dart';
 import 'package:dr_oh_app/view/info_dementia.dart';
 import 'package:dr_oh_app/view/info_diabetes.dart';
 import 'package:dr_oh_app/view/info_stroke.dart';
@@ -32,7 +33,7 @@ class Information extends StatelessWidget {
                   ),
                 ),
                 child: SizedBox(
-                  height: 140,
+                  height: 120,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -62,7 +63,7 @@ class Information extends StatelessWidget {
                   ),
                 ),
                 child: SizedBox(
-                  height: 140,
+                  height: 120,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -92,7 +93,7 @@ class Information extends StatelessWidget {
                   ),
                 ),
                 child: SizedBox(
-                  height: 140,
+                  height: 120,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -122,7 +123,7 @@ class Information extends StatelessWidget {
                   ),
                 ),
                 child: SizedBox(
-                  height: 140,
+                  height: 120,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -140,7 +141,33 @@ class Information extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-
+              // Date: 2023-01-08, SangwonKim
+              // BMI 계산 버튼
+              ElevatedButton(
+                onPressed: () {
+                  Get.to(const InfoBmiCalc());
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                ),
+                child: SizedBox(
+                  height: 120,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'BMI 계산',
+                        style: TextStyle(
+                          fontSize: 24,
+                          // fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
