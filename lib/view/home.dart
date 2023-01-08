@@ -1,6 +1,7 @@
 import 'package:dr_oh_app/view/body_info.dart';
 import 'package:dr_oh_app/view/checkup_history.dart';
 import 'package:dr_oh_app/view/hospital_visit.dart';
+import 'package:dr_oh_app/view/medication.dart';
 import 'package:dr_oh_app/viewmodel/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -55,6 +56,19 @@ class Home extends StatelessWidget {
     );
   }
 
+  Widget _sizedBox() {
+    return const SizedBox(
+      height: 20,
+    );
+  }
+
+  Widget _welcome() {
+    return const Padding(
+      padding: EdgeInsets.all(15),
+      child: Text('님 건강한 하루 되세요'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,14 +81,13 @@ class Home extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
+              _welcome(),
               Container(
                 decoration: _borderBox(),
                 width: 350,
                 child: _calendar(),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              _sizedBox(),
               Container(
                 decoration: _borderBox(),
                 width: 350,
@@ -83,7 +96,7 @@ class Home extends StatelessWidget {
                     const Text('신체정보가 없습니다'),
                     ElevatedButton(
                       onPressed: () {
-                        Get.to(const BodyInfo());
+                        Get.to(() => const BodyInfo());
                       },
                       child: const Text(
                         '입력하러 가기',
@@ -92,32 +105,53 @@ class Home extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                decoration: _borderBox(),
-                width: 350,
-                child: Column(
-                  children: [
-                    const Text('최근 내원이력'),
-                    Row(
-                      children: [],
+              _sizedBox(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    decoration: _borderBox(),
+                    width: 165,
+                    child: Column(
+                      children: [
+                        const Text('최근 내원이력'),
+                        Row(
+                          children: [],
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.to(() => const HospitalVisit());
+                          },
+                          child: const Text(
+                            '추가',
+                          ),
+                        ),
+                      ],
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.to(HospitalVisit());
-                      },
-                      child: const Text(
-                        '추가',
-                      ),
+                  ),
+                  Container(
+                    decoration: _borderBox(),
+                    width: 165,
+                    child: Column(
+                      children: [
+                        const Text('최근 투약이력'),
+                        Row(
+                          children: [],
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.to(() => const Medication());
+                          },
+                          child: const Text(
+                            '추가',
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              _sizedBox(),
             ],
           ),
         ),

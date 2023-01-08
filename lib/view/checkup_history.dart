@@ -24,6 +24,7 @@ class CheckupHistory extends StatelessWidget {
               '검진날짜: ${selectedDate.toString().substring(0, 10)}',
               style: const TextStyle(fontSize: 20),
             ),
+            Text('검진항목: '),
           ],
         ),
       ),
