@@ -7,9 +7,9 @@ const List<Widget> gender = <Widget>[Text('여자'), Text('남자')];
 class DementiaSurvey extends StatelessWidget {
   DementiaSurvey({super.key});
 
-  final PageController controller = PageController();
+  final PageController _nextController = PageController();
   final bool _isChecked = false;
-  String dropdownValue = list.first; //임시
+  final String dropdownValue = list.first; //임시
   final List<bool> _selectedGender = <bool>[true, false];
 
   @override
@@ -31,8 +31,8 @@ class DementiaSurvey extends StatelessWidget {
         initialPage: 0, //시작 페이지
       ),
       itemBuilder: (BuildContext context, int index) {
-        //-----1st page(개인정보보호법)-------
-        return PageView(children: <Widget>[
+        return PageView(controller: _nextController, children: <Widget>[
+          //-----1st page(개인정보보호법)-------
           Column(
             children: [
               Container(
@@ -89,19 +89,14 @@ class DementiaSurvey extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                child: Column(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          //
-                        },
-                        child: const Text('다음'))
-                  ],
-                ),
-              ), //1st END
+              Column(
+                children: [
+                  _btnNext(1)
+                ],
+              ),
             ],
-          ),
+          ), //1st End
+
 
           //-------2nd page(설문 시작 전 질문 사항) --------
           Column(
@@ -178,16 +173,40 @@ class DementiaSurvey extends StatelessWidget {
               Container(
                 child: Column(
                   children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          //
-                        },
-                        child: const Text('다음'))
+                    _btnNext(2)
                   ],
                 ),
               ),
             ],
-          ),
+          ), //2nd page End
+
+          //--------- 3rd page(검사 시작 전 확인 페이지)----------
+          Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                height: 200,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        //offset: Offset(0, 2)
+                      ),
+                    ]),
+                child: Column(
+                  children: [
+                    Text('치매 검사를 시작하시겠습니까?'),
+                    _btnNext(3)
+                  ],
+                ),
+              )
+            ],
+          ), //3rd page End
         ]);
       },
     );
@@ -217,10 +236,9 @@ class DementiaSurvey extends StatelessWidget {
     return ToggleButtons(
       //direction: vertical ? Axis.vertical : Axis.horizontal,
       onPressed: (int index) {
-        //
-        // for (int i = 0; i < _selectedGender.length; i++) {
-        //     _selectedGender[i] = i == index;
-        //   }
+        for (int i = 0; i < _selectedGender.length; i++) {
+          _selectedGender[i] = i == index;
+        }
       },
       borderRadius: const BorderRadius.all(Radius.circular(8)),
       //selectedBorderColor: Colors.red[700],
@@ -229,10 +247,50 @@ class DementiaSurvey extends StatelessWidget {
       //color: Colors.red[400],
       constraints: const BoxConstraints(
         minHeight: 40.0,
-        minWidth: 80.0,
+        minWidth: 150.0,
       ),
       isSelected: _selectedGender,
       children: gender,
     );
+  } //_gender
+
+  Widget surveyStart() {
+    return Container(
+      alignment: Alignment.center,
+      margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      height: 200,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              //offset: Offset(0, 2)
+            ),
+          ]),
+      child: Column(
+        children: [
+          Text('치매 검사를 시작하시겠습니까?'),
+          _btnNext(4)
+        ],
+      ),
+    );
+  } //surveyStart
+
+  Widget _btnNext(int pageNum) {
+    return ElevatedButton(
+        onPressed: () {
+          //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
+          if (_nextController.hasClients) {
+            _nextController.animateToPage(
+              pageNum,
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.easeInOut,
+            );
+          }
+        },
+        child: const Text('다음'));
   }
 } //End
