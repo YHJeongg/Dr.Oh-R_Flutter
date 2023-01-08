@@ -1,6 +1,9 @@
 import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/components/style.dart';
+<<<<<<< HEAD
 import 'package:dr_oh_app/view/home.dart';
+=======
+>>>>>>> 56bb610 ([UPDATE] 앱종료 수정)
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
