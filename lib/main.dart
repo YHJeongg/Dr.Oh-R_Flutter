@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
         // color code 변경: primary > 99CD89
         primarySwatch:
             ColorService.createMaterialColor(const Color(0xFF99CD89)),
+        primaryColorDark: const Color(0xFF5B9D46),
+        primaryColorLight: const Color(0xFFCCE6C4),
         // Date: 2023-01-07, SangwonKim
         // Desc: app바 테마 설정
         appBarTheme: AppBarTheme(
