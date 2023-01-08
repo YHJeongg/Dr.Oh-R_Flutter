@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../components/message_popup.dart';
 
+// Date: 2023-01-07, jyh
 // 선택된 페이지를 보기 쉽게 문자로 만듬
 enum PageName { HOME, SURVEY, HOSPITAL, INFORMATION, MYPAGE }
 
