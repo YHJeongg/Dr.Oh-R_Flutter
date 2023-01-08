@@ -16,6 +16,7 @@ class InfoBmi extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
+                // --------------------------------------------
                 // 체질량지수 START
                 const Text(
                   '체질량지수(BMI)',
@@ -37,6 +38,7 @@ class InfoBmi extends StatelessWidget {
                   height: 40,
                   thickness: 1,
                 ),
+                // --------------------------------------------
                 // 올바른 식생활 지침 START
                 const Text(
                   '올바른 식생활 지침',

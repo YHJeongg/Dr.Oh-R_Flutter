@@ -20,7 +20,6 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
       ),
       body: Center(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(height: 50,),
             Text(
