@@ -1,4 +1,8 @@
+import 'package:dr_oh_app/view/findid.dart';
+import 'package:dr_oh_app/view/findpw.dart';
+import 'package:dr_oh_app/view/join.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
@@ -48,8 +52,8 @@ class _LoginState extends State<Login> {
                   (idCont.text.trim().isEmpty && pwCont.text.trim().isEmpty)
                       ? null
                       : () {
-                        _login();
-                      },
+                          _login();
+                        },
               icon: const Icon(
                 Icons.login,
               ),
@@ -57,6 +61,34 @@ class _LoginState extends State<Login> {
                 '로그인',
               ),
             ),
+            TextButton(
+              onPressed: () {
+                Get.to(const Join());
+              },
+              child: const Text(
+                '회원가입',
+              ),
+            ),
+            Row(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.to(const Findid());
+                  },
+                  child: const Text(
+                    'ID 찾기',
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Get.to(const Findpw());
+                  },
+                  child: const Text(
+                    '비밀번호 찾기',
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -67,7 +99,7 @@ class _LoginState extends State<Login> {
 
   //Desc: 로그인 버튼 눌렀을 때
   //Date: 2023-01-07
-  _login() async{
-
+  _login() async {
+    //--
   }
 }
