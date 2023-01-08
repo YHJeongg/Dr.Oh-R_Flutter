@@ -36,6 +36,9 @@ class App extends GetView<BottomNavController> {
             // Date: 2023-01-07, SangwonKim
             // Desc: 임시 : 내비게이션바 바탕색 -> transparent사용 -> DarkMode에 용이
             backgroundColor: Colors.transparent.withOpacity(0.1),
+            // Date: 2023-01-08, SangwonKim
+            // Desc: 내비게이션바 선택된 아이콘 칼라 > primary-진하게 > colorcode: 5B9D46
+            selectedItemColor: const Color(0xFF5B9D46),
             onTap: controller.changeBottomNav,
             items: const [
               BottomNavigationBarItem(
