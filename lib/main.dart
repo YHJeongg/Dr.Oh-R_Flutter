@@ -1,11 +1,7 @@
 import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/components/style.dart';
-<<<<<<< HEAD
-import 'package:dr_oh_app/view/home.dart';
-=======
->>>>>>> 56bb610 ([UPDATE] 앱종료 수정)
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 import 'binding/init_bindings.dart';
 
@@ -23,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Date: 2023-01-07, SangwonKim
         // 프라이머리 스와치 컬러 : figma > primary-진하게 > colorcode: 5B9D46
-        // Update Date: 2023-01-08, SangwonKim 
+        // Update Date: 2023-01-08, SangwonKim
         // color code 변경: primary > 99CD89
         primarySwatch:
             ColorService.createMaterialColor(const Color(0xFF99CD89)),
