@@ -21,7 +21,7 @@ class SurveyPrivacy extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(surveyName),
-        elevation: 0,
+        elevation: 1,
       ),
 
       body: _pages(),

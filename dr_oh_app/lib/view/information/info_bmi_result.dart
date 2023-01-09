@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../model/model.dart';
+import '../../model/bmi_model.dart';
 
 class InfoBmiResult extends StatefulWidget {
   const InfoBmiResult({super.key});

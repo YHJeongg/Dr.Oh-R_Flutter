@@ -1,4 +1,4 @@
-import 'package:dr_oh_app/model/model.dart';
+import 'package:dr_oh_app/model/bmi_model.dart';
 import 'package:dr_oh_app/view/information/info_bmi_result.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
