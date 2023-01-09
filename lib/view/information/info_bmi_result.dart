@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/model.dart';
+import '../../model/model.dart';
 
 class InfoBmiResult extends StatefulWidget {
   const InfoBmiResult({super.key});
@@ -21,7 +21,9 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 50,),
+            const SizedBox(
+              height: 50,
+            ),
             Text(
               Message.bmiResultStr.toString(),
               style: const TextStyle(
@@ -63,10 +65,7 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
               Message.bmiResultContent.toString(),
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                height: 1.5
-              ),
+                  fontSize: 16, fontWeight: FontWeight.bold, height: 1.5),
             ),
           ],
         ),
