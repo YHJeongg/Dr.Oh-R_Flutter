@@ -1,11 +1,10 @@
-import 'package:dr_oh_app/view/hospital.dart';
-import 'package:dr_oh_app/view/information.dart';
-import 'package:dr_oh_app/view/mypage.dart';
-import 'package:dr_oh_app/view/survey.dart';
+import 'package:dr_oh_app/view/home/home.dart';
+import 'package:dr_oh_app/view/hospital/hospital.dart';
+import 'package:dr_oh_app/view/information/information.dart';
+import 'package:dr_oh_app/view/mypage/mypage.dart';
+import 'package:dr_oh_app/view/survey/survey.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'view/home.dart';
 import 'viewmodel/bottom_nav_controller.dart';
 
 class App extends GetView<BottomNavController> {

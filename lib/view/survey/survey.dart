@@ -1,6 +1,4 @@
-import 'package:dr_oh_app/view/dementia_survey.dart';
-import 'package:dr_oh_app/view/diabetes_survey.dart';
-import 'package:dr_oh_app/view/stroke_survey.dart';
+import 'package:dr_oh_app/components/survey_privacy.dart';
 import 'package:flutter/material.dart';
 
 class Survey extends StatelessWidget {
@@ -19,15 +17,15 @@ class Survey extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            _btn(DiabetesSurvey(), '당뇨병 검사 하러가기', context),
+            _btn(SurveyPrivacy(surveyName: '당뇨병 검사'), '당뇨병 검사 하러가기', context),
             const SizedBox(
               height: 40,
             ),
-            _btn(StrokeSurvey(), '뇌졸중 검사 하러가기', context),
+            _btn(SurveyPrivacy(surveyName: '뇌졸중 검사'), '뇌졸중 검사 하러가기', context),
             const SizedBox(
               height: 40,
             ),
-            _btn(DementiaSurvey(), '치매 검사 하러가기', context),
+            _btn(SurveyPrivacy(surveyName: '치매 검사'), '치매 검사 하러가기', context),
             ],
         ),
       ),

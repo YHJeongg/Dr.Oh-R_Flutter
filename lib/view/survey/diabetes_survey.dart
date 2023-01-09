@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DiabetesSurvey extends StatelessWidget {
-  const DiabetesSurvey({super.key});
+ const DiabetesSurvey({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,9 +9,7 @@ class DiabetesSurvey extends StatelessWidget {
       appBar: AppBar(
         title: Text('당뇨병 검사'),
       ),
+    
     );
   }
-//--------Widget---------
-
-
 }//end
