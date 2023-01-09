@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "715379691042",
+    "project_id": "droh-ccec9",
+    "storage_bucket": "droh-ccec9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715379691042:android:b2c0250274036c748a447b",
+        "android_client_info": {
+          "package_name": "com.example.dr_oh_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "715379691042-ku7r75bt77n6bfj4kjii8hdaaufeto0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwbO83I5v_kG698MvQaCfFPREzX4GehBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "715379691042-ku7r75bt77n6bfj4kjii8hdaaufeto0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

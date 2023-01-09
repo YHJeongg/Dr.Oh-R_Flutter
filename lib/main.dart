@@ -1,11 +1,19 @@
 import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/components/style.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'binding/init_bindings.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  // Date: 2023-01-09, jyh
+  // firebase 연동
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
