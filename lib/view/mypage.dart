@@ -12,7 +12,7 @@ class MyPage extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
-          color: Colors.blue,
+          color: const Color(0xFF99CD89),
         ),
         width: Get.width,
         height: 30,
@@ -104,7 +104,7 @@ class MyPage extends StatelessWidget {
     );
   }
 
-  Widget _btnContent() {
+  Widget _userInfo() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 27),
       child: Column(
@@ -114,34 +114,74 @@ class MyPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 _btnContentActions(
-                  "컨텐츠1",
+                  "즐겨찾기한 병원",
                   const Icon(
-                    Icons.mail_outline,
-                    color: Color(0xFFF9893E),
+                    Icons.local_hospital,
+                    color: Color(0xFF99CD89),
                   ),
                 ),
                 const Divider(),
                 _btnContentActions(
-                  "컨텐츠2",
+                  "내가 쓴 글",
                   const Icon(
                     Icons.payment,
-                    color: Color(0xFFF9893E),
+                    color: Color(0xFF99CD89),
                   ),
                 ),
                 const Divider(),
                 _btnContentActions(
-                  "컨텐츠3",
-                  const Icon(
-                    Icons.help_outline,
-                    color: Color(0xFFF9893E),
-                  ),
-                ),
-                const Divider(),
-                _btnContentActions(
-                  "컨텐츠4",
+                  "회원 탈퇴",
                   const Icon(
                     Icons.info_outline,
-                    color: Color(0xFFF9893E),
+                    color: Color(0xFF99CD89),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _additionalInfo() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 27),
+      child: Column(
+        children: <Widget>[
+          Card(
+            elevation: 4,
+            child: Column(
+              children: <Widget>[
+                _btnContentActions(
+                  "당뇨병 그래프",
+                  const Icon(
+                    Icons.bar_chart,
+                    color: Color(0xFF99CD89),
+                  ),
+                ),
+                const Divider(),
+                _btnContentActions(
+                  "뇌졸중 그래프",
+                  const Icon(
+                    Icons.show_chart,
+                    color: Color(0xFF99CD89),
+                  ),
+                ),
+                const Divider(),
+                _btnContentActions(
+                  "치매 그래프",
+                  const Icon(
+                    Icons.area_chart,
+                    color: Color(0xFF99CD89),
+                  ),
+                ),
+                const Divider(),
+                _btnContentActions(
+                  "BMI 그래프",
+                  const Icon(
+                    Icons.pie_chart,
+                    color: Color(0xFF99CD89),
                   ),
                 ),
               ],
@@ -181,10 +221,26 @@ class MyPage extends StatelessWidget {
             _profile(),
             const SizedBox(height: 30),
             _head('추가정보'),
-            _btnContent(),
+            _additionalInfo(),
             const SizedBox(height: 30),
             _head('사용자정보'),
-            _btnContent(),
+            _userInfo(),
+            const SizedBox(height: 30),
+            const Text(
+              "Dr. Oh",
+              style: TextStyle(
+                  color: Color(0xFF99CD89),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 5),
+            const Text(
+              "Version 0.0.1",
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+              ),
+            ),
           ],
         ),
       ),
