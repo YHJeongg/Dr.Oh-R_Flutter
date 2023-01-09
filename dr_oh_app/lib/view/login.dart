@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/view/join.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,7 +91,9 @@ class _LoginState extends State<Login> {
     return SizedBox(
       width: Get.width,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.offAll(() => const App());
+        },
         child: const Text('로그인'),
       ),
     );
