@@ -1,12 +1,13 @@
-import 'package:dr_oh_app/view/body_info.dart';
-import 'package:dr_oh_app/view/checkup_history.dart';
-import 'package:dr_oh_app/view/hospital_visit.dart';
-import 'package:dr_oh_app/view/medication.dart';
 import 'package:dr_oh_app/viewmodel/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
+
+import 'body_info.dart';
+import 'checkup_history.dart';
+import 'hospital_visit.dart';
+import 'medication.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);

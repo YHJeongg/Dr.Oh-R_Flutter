@@ -383,4 +383,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Google API Key
+GoogleService-Info.plist
+
 # End of https://www.toptal.com/developers/gitignore/api/dart,flutter,visualstudiocode,eclipse,java,firebase,macos,windows,linux,swift,kotlin
