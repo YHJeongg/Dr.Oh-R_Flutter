@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class Join extends StatefulWidget {
@@ -34,23 +35,44 @@ class _JoinState extends State<Join> {
     correctpw = false;
   }
 
-  Widget _joinText() {
-    return Column(
-      children: const [
-        Text('아이디'),
-        Text('이름'),
-        Text('비밀번호'),
-        Text('비밀번호 확인'),
-        Text('이메일'),
-        Text('출생연도'),
-        Text('성별'),
+  Widget _joinText(String txt) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          children: [
+            Text(
+              txt,
+              style: const TextStyle(fontSize: 17),
+            ),
+          ],
+        ),
+        const SizedBox(width: 20),
+        Column(
+          children: [
+            SizedBox(
+              width: Get.width / 2.1,
+              height: 70,
+              child: TextField(
+                controller: ageCont,
+                onChanged: (value) {
+                  //--
+                },
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
 
-  Widget _joinTextField() {
-    return Column(
-      children: [],
+  Widget _joinBtn() {
+    return SizedBox(
+      width: Get.width,
+      child: ElevatedButton(
+        onPressed: () {},
+        child: const Text('회원가입'),
+      ),
     );
   }
 
@@ -61,46 +83,59 @@ class _JoinState extends State<Join> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            '회원가입',
-          ),
-          elevation: 0,
-        ),
+        // appBar: AppBar(
+        //   title: const Text(
+        //     '회원가입',
+        //   ),
+        //   elevation: 0,
+        // ),
         body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          child: SafeArea(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Column(
                   children: [
-                    Column(
+                    const SizedBox(height: 30),
+                    const Text(
+                      "Dr. Oh",
+                      style: TextStyle(
+                          color: Color(0xFF99CD89),
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 30),
+                    _joinText('아이디'),
+                    _joinText('이름'),
+                    _joinText('비밀번호'),
+                    _joinText('비밀번호 확인'),
+                    _joinText('이메일'),
+                    const SizedBox(height: 50),
+                    _joinBtn(),
+                    const SizedBox(height: 70),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        _joinText(),
+                        const Text(
+                          '계정이 있으신가요?',
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            '로그인하기',
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                  child: ElevatedButton(
-                    onPressed: nameCont.text.trim().isNotEmpty &&
-                            pwcheck &&
-                            idcheck &&
-                            correctid
-                        ? () {
-                            //--
-                          }
-                        : null,
-                    child: const Text(
-                      '회원가입',
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),
