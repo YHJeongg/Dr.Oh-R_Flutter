@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Date: 2023-01-09, SangwonKim
+// Desc: 임시<<
 class StrokeSurvey2 extends StatelessWidget {
   StrokeSurvey2({super.key});
 

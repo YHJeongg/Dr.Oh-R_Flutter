@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+// Date: 2023-01-09, SangwonKim
+// Desc: 임시<<
 class StrokeSurveyPage extends StatefulWidget {
   const StrokeSurveyPage({super.key});
 
