@@ -1,3 +1,5 @@
+import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
+import 'package:dr_oh_app/view/mypage/sign_out.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -114,28 +116,28 @@ class MyPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 _btnContentActions(
-                  "즐겨찾기한 병원",
-                  const Icon(
-                    Icons.local_hospital,
-                    color: Color(0xFF99CD89),
-                  ),
-                ),
+                    "즐겨찾기한 병원",
+                    const Icon(
+                      Icons.local_hospital,
+                      color: Color(0xFF99CD89),
+                    ),
+                    SignOut()),
                 const Divider(),
                 _btnContentActions(
-                  "내가 쓴 글",
-                  const Icon(
-                    Icons.payment,
-                    color: Color(0xFF99CD89),
-                  ),
-                ),
+                    "내가 쓴 글",
+                    const Icon(
+                      Icons.payment,
+                      color: Color(0xFF99CD89),
+                    ),
+                    SignOut()),
                 const Divider(),
                 _btnContentActions(
-                  "회원 탈퇴",
-                  const Icon(
-                    Icons.info_outline,
-                    color: Color(0xFF99CD89),
-                  ),
-                ),
+                    "회원 탈퇴",
+                    const Icon(
+                      Icons.info_outline,
+                      color: Color(0xFF99CD89),
+                    ),
+                    SignOut()),
               ],
             ),
           ),
@@ -154,36 +156,36 @@ class MyPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 _btnContentActions(
-                  "당뇨병 그래프",
-                  const Icon(
-                    Icons.bar_chart,
-                    color: Color(0xFF99CD89),
-                  ),
-                ),
+                    "당뇨병 그래프",
+                    const Icon(
+                      Icons.bar_chart,
+                      color: Color(0xFF99CD89),
+                    ),
+                    SignOut()),
                 const Divider(),
                 _btnContentActions(
-                  "뇌졸중 그래프",
-                  const Icon(
-                    Icons.show_chart,
-                    color: Color(0xFF99CD89),
-                  ),
-                ),
+                    "뇌졸중 그래프",
+                    const Icon(
+                      Icons.show_chart,
+                      color: Color(0xFF99CD89),
+                    ),
+                    SignOut()),
                 const Divider(),
                 _btnContentActions(
-                  "치매 그래프",
-                  const Icon(
-                    Icons.area_chart,
-                    color: Color(0xFF99CD89),
-                  ),
-                ),
+                    "치매 그래프",
+                    const Icon(
+                      Icons.area_chart,
+                      color: Color(0xFF99CD89),
+                    ),
+                    SignOut()),
                 const Divider(),
                 _btnContentActions(
-                  "BMI 그래프",
-                  const Icon(
-                    Icons.pie_chart,
-                    color: Color(0xFF99CD89),
-                  ),
-                ),
+                    "BMI 그래프",
+                    const Icon(
+                      Icons.pie_chart,
+                      color: Color(0xFF99CD89),
+                    ),
+                    SignOut()),
               ],
             ),
           ),
@@ -192,7 +194,7 @@ class MyPage extends StatelessWidget {
     );
   }
 
-  Widget _btnContentActions(String text, Icon icon) {
+  Widget _btnContentActions(String text, Icon icon, dynamic? path) {
     return ListTile(
       leading: icon == null ? const Icon(Icons.error) : icon,
       title: Text(text),
@@ -201,6 +203,9 @@ class MyPage extends StatelessWidget {
         size: 15,
         color: Colors.grey,
       ),
+      onTap: () {
+        Get.to(path);
+      },
     );
   }
 
@@ -219,6 +224,18 @@ class MyPage extends StatelessWidget {
             _head('기본정보'),
             const SizedBox(height: 3),
             _profile(),
+            SizedBox(
+                height: 30,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Get.to(() => EditMemberInfo());
+                        },
+                        child: const Text('수정')),
+                  ],
+                )),
             const SizedBox(height: 30),
             _head('추가정보'),
             _additionalInfo(),
