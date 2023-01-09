@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
+// Date: 2023-01-09, jyh
+// Join View 완성
 class Join extends StatefulWidget {
   const Join({super.key});
 
@@ -15,11 +16,10 @@ class _JoinState extends State<Join> {
   late TextEditingController pwCont;
   late TextEditingController pwcheckCont;
   late TextEditingController nameCont;
-  late TextEditingController ageCont;
-  late bool idcheck;
-  late bool pwcheck;
-  late bool correctid;
-  late bool correctpw;
+  late TextEditingController dateCont;
+
+  late bool _checkBoxValue1;
+  late bool _checkBoxValue2;
 
   @override
   void initState() {
@@ -28,11 +28,9 @@ class _JoinState extends State<Join> {
     pwCont = TextEditingController();
     pwcheckCont = TextEditingController();
     nameCont = TextEditingController();
-    ageCont = TextEditingController();
-    idcheck = true;
-    pwcheck = false;
-    correctid = false;
-    correctpw = false;
+    dateCont = TextEditingController();
+    _checkBoxValue1 = true;
+    _checkBoxValue2 = false;
   }
 
   Widget _joinText(String txt) {
@@ -54,7 +52,7 @@ class _JoinState extends State<Join> {
               width: Get.width / 2.1,
               height: 70,
               child: TextField(
-                controller: ageCont,
+                controller: idCont,
                 onChanged: (value) {
                   //--
                 },
@@ -73,6 +71,82 @@ class _JoinState extends State<Join> {
         onPressed: () {},
         child: const Text('회원가입'),
       ),
+    );
+  }
+
+  Widget _genderCheckBox() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          children: const [
+            Text(
+              '성별',
+              style: TextStyle(fontSize: 17),
+            ),
+          ],
+        ),
+        const SizedBox(width: 20),
+        Column(
+          children: [
+            Row(
+              children: [
+                const Text('남자 : '),
+                Checkbox(
+                  value: _checkBoxValue1,
+                  onChanged: (value) {
+                    setState(() {
+                      _checkBoxValue1 = value!;
+                      _checkBoxValue2 = !value;
+                    });
+                  },
+                ),
+                const SizedBox(width: 35),
+                const Text('여자 : '),
+                Checkbox(
+                  value: _checkBoxValue2,
+                  onChanged: (value) {
+                    setState(() {
+                      _checkBoxValue2 = value!;
+                      _checkBoxValue1 = !value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _dateText() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          children: const [
+            Text(
+              '출생연도',
+              style: TextStyle(fontSize: 17),
+            ),
+          ],
+        ),
+        const SizedBox(width: 20),
+        Column(
+          children: [
+            SizedBox(
+              width: Get.width / 2.1,
+              height: 70,
+              child: TextField(
+                controller: dateCont,
+                readOnly: true,
+                onTap: () => showDatePickerPop(),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -110,6 +184,9 @@ class _JoinState extends State<Join> {
                     _joinText('비밀번호'),
                     _joinText('비밀번호 확인'),
                     _joinText('이메일'),
+                    _dateText(),
+                    const SizedBox(height: 10),
+                    _genderCheckBox(),
                     const SizedBox(height: 50),
                     _joinBtn(),
                     const SizedBox(height: 70),
@@ -141,5 +218,27 @@ class _JoinState extends State<Join> {
         ),
       ),
     );
+  }
+
+  // DatePicker 띄우기
+  void showDatePickerPop() {
+    Future<DateTime?> selectedDate = showDatePicker(
+      context: context,
+      initialDate: DateTime(2022), //초기값
+      firstDate: DateTime(1950), //시작일
+      lastDate: DateTime(2023), //마지막일
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.dark(), //다크 테마
+          child: child!,
+        );
+      },
+    );
+
+    selectedDate.then((dateTime) {
+      setState(() {
+        dateCont.text = dateTime.toString().substring(0, 10);
+      });
+    });
   }
 }
