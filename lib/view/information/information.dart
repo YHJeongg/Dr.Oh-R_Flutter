@@ -1,8 +1,8 @@
-import 'package:dr_oh_app/view/info_bmi.dart';
-import 'package:dr_oh_app/view/info_bmi_calc.dart';
-import 'package:dr_oh_app/view/info_dementia.dart';
-import 'package:dr_oh_app/view/info_diabetes.dart';
-import 'package:dr_oh_app/view/info_stroke.dart';
+import 'package:dr_oh_app/view/information/info_bmi.dart';
+import 'package:dr_oh_app/view/information/info_bmi_calc.dart';
+import 'package:dr_oh_app/view/information/info_dementia.dart';
+import 'package:dr_oh_app/view/information/info_diabetes.dart';
+import 'package:dr_oh_app/view/information/info_stroke.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

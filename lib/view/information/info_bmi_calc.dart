@@ -1,7 +1,7 @@
-import 'package:dr_oh_app/view/info_bmi_result.dart';
+import 'package:dr_oh_app/model/model.dart';
+import 'package:dr_oh_app/view/information/info_bmi_result.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../model/model.dart';
 
 class InfoBmiCalc extends StatefulWidget {
   const InfoBmiCalc({super.key});
