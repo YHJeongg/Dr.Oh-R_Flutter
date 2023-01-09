@@ -1,12 +1,39 @@
+import 'package:dr_oh_app/components/news_provider.dart';
+import 'package:dr_oh_app/model/news.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
 import 'package:dr_oh_app/view/home/hospital_visit.dart';
 import 'package:dr_oh_app/view/home/medication.dart';
+import 'package:dr_oh_app/view/home/news_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  List<News> news = [];
+  bool isLoading = true;
+  NewsProvider newsProvider = NewsProvider();
+
+  Future initNews() async {
+    news = await newsProvider.getNews();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initNews().then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
 
   // Desc: Calendar Date Picker
   // 검진기록이 있는 날짜 선택, 조회용
@@ -119,6 +146,56 @@ class Home extends StatelessWidget {
     );
   }
 
+  // Desc: Health 카테고리 기사 헤드라인 (NewsAPI)
+  // Date: 2023-01-09
+  Widget _news() {
+    return Container(
+      decoration: _borderBox(),
+      height: 180,
+      width: 350,
+      child: isLoading
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [CircularProgressIndicator()],
+            )
+          : Flex(
+              direction: Axis.horizontal,
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: news.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: 150,
+                          width: 180,
+                          padding: const EdgeInsets.all(15),
+                          child: Card(
+                            elevation: 2,
+                            child: Column(
+                              children: [
+                                Text(
+                                  news[index].title,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                  maxLines: 2,
+                                ),
+                                Text(
+                                  news[index].description,
+                                  maxLines: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+              ],
+            ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,7 +240,7 @@ class Home extends StatelessWidget {
                 child: Column(
                   children: [
                     const Text('신체정보가 없습니다'),
-                    _button(BodyInfo(), '입력하러 가기')
+                    _button(const BodyInfo(), '입력하러 가기')
                   ],
                 ),
               ),
@@ -182,7 +259,7 @@ class Home extends StatelessWidget {
                         Row(
                           children: [],
                         ),
-                        _button(HospitalVisit(), '추가')
+                        _button(const HospitalVisit(), '추가')
                       ],
                     ),
                   ),
@@ -195,13 +272,18 @@ class Home extends StatelessWidget {
                         Row(
                           children: [],
                         ),
-                        _button(Medication(), '추가')
+                        _button(const Medication(), '추가')
                       ],
                     ),
                   ),
                 ],
               ),
               _sizedBox(),
+              _head('뉴스'),
+              const SizedBox(
+                height: 3,
+              ),
+              _news(),
             ],
           ),
         ),
