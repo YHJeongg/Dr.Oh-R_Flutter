@@ -1,7 +1,9 @@
 import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/view/join.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../viewmodel/auth_controller.dart';
@@ -13,6 +15,25 @@ class Login extends StatefulWidget {
 
   @override
   State<Login> createState() => _LoginState();
+}
+
+// 구글 로그인
+Future<UserCredential> signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication? googleAuth =
+      await googleUser?.authentication;
+
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
+  );
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
 }
 
 class _LoginState extends State<Login> {
@@ -153,10 +174,13 @@ class _LoginState extends State<Login> {
                   const Text('또는'),
                   const SizedBox(height: 30),
                   // API연동전 임시 Text
-                  const Text(
-                    '구글로 계속하기',
-                    style: TextStyle(
-                      color: Colors.blue,
+                  const TextButton(
+                    onPressed: signInWithGoogle,
+                    child: Text(
+                      '구글로 계속하기',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
