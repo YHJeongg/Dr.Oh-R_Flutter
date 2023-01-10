@@ -1,7 +1,8 @@
+import 'package:dr_oh_app/model/diabetes_message.dart';
 import 'package:flutter/material.dart';
 
 class DAnswer {
-  List<Widget> dAnserList = const [FirstA(), SecondA(), FirstA(), ThirdA(),FifthA()];
+  List<Widget> dAnserList = const [FirstA(), SecondA(), FirstA(), FourthA(),FifthA()];
 }
 
 class FirstA extends StatefulWidget {
@@ -12,13 +13,11 @@ class FirstA extends StatefulWidget {
 }
 
 class _FirstAState extends State<FirstA> {
-  late String favalue;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    favalue = 'yes';
   }
 
   @override
@@ -26,21 +25,30 @@ class _FirstAState extends State<FirstA> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const Text(
+          '예',
+        ),
         Radio(
-          value: "Yes",
-          groupValue: favalue,
+          value: "TRUE",
+          groupValue: DiabetesMessage.physact,
           onChanged: (value) {
             setState(() {
-              favalue = value!;
+              DiabetesMessage.physact = value!;
             });
           },
         ),
+        const SizedBox(
+          width: 20,
+        ),
+        const Text(
+          '아니오',
+        ),
         Radio(
-          value: "No",
-          groupValue: favalue,
+          value: "FALSE",
+          groupValue: DiabetesMessage.physact,
           onChanged: (value) {
             setState(() {
-              favalue = value!;
+              DiabetesMessage.physact = value!;
             });
           },
         ),
@@ -98,6 +106,58 @@ class ThirdA extends StatefulWidget {
 }
 
 class _ThirdAState extends State<ThirdA> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          '예',
+        ),
+        Radio(
+          value: "TRUE",
+          groupValue: DiabetesMessage.diffwalk,
+          onChanged: (value) {
+            setState(() {
+              DiabetesMessage.diffwalk = value!;
+            });
+          },
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        const Text(
+          '아니오',
+        ),
+        Radio(
+          value: "FALSE",
+          groupValue: DiabetesMessage.diffwalk,
+          onChanged: (value) {
+            setState(() {
+              DiabetesMessage.diffwalk = value!;
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class FourthA extends StatefulWidget {
+  const FourthA({super.key});
+
+  @override
+  State<FourthA> createState() => _FourthAState();
+}
+
+class _FourthAState extends State<FourthA> {
   late bool first;
   late bool second;
   late bool third;
@@ -118,37 +178,52 @@ class _ThirdAState extends State<ThirdA> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const Text(
+          '고혈압',
+        ),
         Checkbox(
-          value: first,
+          value: DiabetesMessage.highbp,
           onChanged: (value) {
             setState(() {
-              first = value!;
+              DiabetesMessage.highbp = value!;
+              fourth=false;
             });
           },
         ),
+        const Text(
+          '뇌졸중',
+        ),
         Checkbox(
-          value: second,
+          value: DiabetesMessage.stroke,
           onChanged: (value) {
             setState(() {
-              second = value!;
+              DiabetesMessage.stroke = value!;
+              fourth=false;
             });
           },
         ),
+        const Text(
+          '심장 질환',
+        ),
         Checkbox(
-          value: third,
+          value: DiabetesMessage.hdattack,
           onChanged: (value) {
             setState(() {
-              third = value!;
+              DiabetesMessage.hdattack = value!;
+              fourth=false;
             });
           },
+        ),
+        const Text(
+          '해당 없음',
         ),
         Checkbox(
           value: fourth,
           onChanged: (value) {
             setState(() {
-              first=false;
-              second=false;
-              third=false;
+              DiabetesMessage.highbp=false;
+              DiabetesMessage.stroke=false;
+              DiabetesMessage.hdattack=false;
               fourth=value!;
             });
           },
@@ -182,7 +257,7 @@ class _FifthAState extends State<FifthA> {
         SizedBox(
           width: 100,
           child: TextField(
-            controller: dayCont,
+            controller: DiabetesMessage.physhealth,
             keyboardType: TextInputType.number,
           ),
         ),
