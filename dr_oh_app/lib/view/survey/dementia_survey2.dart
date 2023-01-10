@@ -3,8 +3,8 @@ import 'package:dr_oh_app/components/dementia_answer_list.dart';
 import 'package:dr_oh_app/model/firebase_dementia.dart';
 import 'package:flutter/material.dart';
 
-class DementiaSurveySecond extends StatelessWidget {
-  const DementiaSurveySecond({super.key});
+class DementiaSurveySecond extends StatelessWidget with DementiaAnswer {
+  DementiaSurveySecond({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +15,9 @@ class DementiaSurveySecond extends StatelessWidget {
       ),
       body: firestore(),
     );
-  }//build
+  } //build
 
   //---------------Widget---------------
-
 
   //firestore
   Widget firestore() {
@@ -36,45 +35,53 @@ class DementiaSurveySecond extends StatelessWidget {
         final documents = snapshot.data!.docs;
 
         return ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            children:
-                documents.map((e) => _buildItemWidget(e, documents)).toList());
+          // shrinkWrap: true,
+          // scrollDirection: Axis.vertical,
+          // children:
+          // documents.map((e) => _buildItemWidget(e, documents)).toList());
+          children: snapshot.data!.docs.map((doc) {
+            DementiaAnswer answerList = DementiaAnswer();
+            return Card(
+              child: ListTile(
+                title: Column(
+                  children: [
+                    Text('${doc['seq']} ${doc['question']}'),
+                    // answerList.dementiaAnswer[doc['seq'] - 1],
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        );
       },
     );
   } //firestore read data
 
 //read questions from firestore
-  Widget _buildItemWidget(
-    DocumentSnapshot doc, List<QueryDocumentSnapshot<Object?>> docF) {
-    
-    DementiaAnswer answerList = DementiaAnswer();
-    
-    final dementia = Dementia(seq: doc['seq'], question: doc['question']);
-    
+  // Widget _buildItemWidget(
+  //     DocumentSnapshot doc, List<QueryDocumentSnapshot<Object?>> docF) {
+  //   DementiaAnswer answerList = DementiaAnswer();
 
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true, 
-      physics: const AlwaysScrollableScrollPhysics(),
-      itemCount: docF.length,
-      itemBuilder: (context, index) {
-    return Column(
-        mainAxisSize: MainAxisSize.min,
-      children: [
-        Flexible(
-          
-          child: ListTile(
-            title: Text('${dementia.seq}번 ${dementia.question}'),
-            subtitle: answerList.dementiaAnswer[dementia.seq-1]
-          ),
-        ),
-      ],
-    );
-      },);
-  } //_buildItemWidget
+  //   final dementia = Dementia(seq: doc['seq'], question: doc['question']);
 
-
-
+  //   return ListView.builder(
+  //     scrollDirection: Axis.vertical,
+  //     shrinkWrap: true,
+  //     physics: const AlwaysScrollableScrollPhysics(),
+  //     itemCount: docF.length,
+  //     itemBuilder: (context, index) {
+  //       return Column(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           Flexible(
+  //             child: ListTile(
+  //                 title: Text('${dementia.seq}번 ${dementia.question}'),
+  //                 subtitle: answerList.dementiaAnswer[dementia.seq - 1]),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // } //_buildItemWidget
 
 }//end
