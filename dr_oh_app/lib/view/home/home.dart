@@ -1,4 +1,5 @@
 import 'package:dr_oh_app/components/news_api.dart';
+import 'package:dr_oh_app/model/checkup_history_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
@@ -7,6 +8,7 @@ import 'package:dr_oh_app/view/home/medication.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/view/mypage/mypage.dart';
 import 'package:dr_oh_app/viewmodel/bottom_nav_controller.dart';
+import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -20,11 +22,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  //** News API
   List<NewsModel> news = [];
-
   bool isLoading = true;
-
   NewsAPI newsAPI = NewsAPI();
+  // News API */
+
+  CheckupHistoryViewModel _checkupHistoryViewModel = CheckupHistoryViewModel();
 
   Future initNews() async {
     news = await newsAPI.getNews();
@@ -49,10 +53,6 @@ class _HomeState extends State<Home> {
       children: [
         Column(
           children: [
-            const Text(
-              '마지막 검진일은 @@일입니다',
-              style: TextStyle(fontSize: 14),
-            ),
             SizedBox(
               height: 300,
               child: CalendarDatePicker(
@@ -262,6 +262,27 @@ class _HomeState extends State<Home> {
                         size: 15,
                       ),
                     ),
+                  ],
+                ),
+              ),
+              _sizedBox(),
+              Container(
+                decoration: _borderBox(),
+                height: 40,
+                width: 350,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    StreamBuilder(
+                      stream: _checkupHistoryViewModel.stream,
+                      builder: (context, snapshot) {
+                        return Text(
+                          '마지막 검진일은 ${_checkupHistoryViewModel.date.toString().substring(0, 10)} 입니다.',
+                          style: const TextStyle(fontSize: 14),
+                        );
+                      },
+                    ),
+                    TextButton(onPressed: () {}, child: const Text('전체기록 보기')),
                   ],
                 ),
               ),

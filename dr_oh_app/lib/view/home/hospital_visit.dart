@@ -35,13 +35,6 @@ class _HospitalVisitState extends State<HospitalVisit> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    dateController.text = DateTime.now().toString().substring(0, 10);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
