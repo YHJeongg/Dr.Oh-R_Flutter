@@ -3,14 +3,14 @@ import 'package:dr_oh_app/model/firebase_dementia.dart';
 import 'package:flutter/material.dart';
 
 //Date: 2023-01-09 anna
-class SurveyDementia extends StatelessWidget {
+class SurveyDiabetes extends StatelessWidget {
   final String surveyName;
   final bool _isChecked = false;
   final PageController _nextController = PageController();
   List questionList = [];
   //final DatabaseHandler handler;
 
-  SurveyDementia({
+  SurveyDiabetes({
     Key? key,
     required this.surveyName,
   }) : super(key: key);
@@ -20,7 +20,7 @@ class SurveyDementia extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(surveyName),
-        elevation: 1,
+        elevation: 0,
       ),
       body: _pages(),
     );
@@ -40,9 +40,7 @@ class SurveyDementia extends StatelessWidget {
           _privacyAct(),
 
           //설문 시작
-          Expanded(
-            //height: 200,
-            child: SingleChildScrollView(child: firestore()))
+          firestore()
         ]);
       },
     );
@@ -71,13 +69,12 @@ class SurveyDementia extends StatelessWidget {
             final documents = snapshot.data!.docs;
             
             return ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              
-              children: documents.map((index) => _buildItemWidget(index)).toList()
-              
-          
-            );
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            
+            children: documents.map((index) => _buildItemWidget(index)).toList()
+            
+          );
           },
         ),
       ],
@@ -97,11 +94,16 @@ class SurveyDementia extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
         height: 100,
         color: Colors.amberAccent,
-        child: Card(
-          child: Column(
-            children: [
-              Text('${dementia.seq} 번. ${dementia.question}.'),
-            ],
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 200,
+          
+          child: Card(
+            child: Column(
+              children: [
+                Text('${dementia.seq} 번. ${dementia.question}.'),
+              ],
+            ),
           ),
         ),
       );

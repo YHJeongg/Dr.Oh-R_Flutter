@@ -1,6 +1,6 @@
-import 'package:dr_oh_app/components/survey_dementia.dart';
-import 'package:dr_oh_app/components/survey_diabetes.dart';
-import 'package:dr_oh_app/components/survey_stroke.dart';
+import 'package:dr_oh_app/components/survey_dementia_widget.dart';
+import 'package:dr_oh_app/components/survey_diabetes_widget.dart';
+import 'package:dr_oh_app/components/survey_stroke_widget.dart';
 import 'package:flutter/material.dart';
 
 class Survey extends StatelessWidget {

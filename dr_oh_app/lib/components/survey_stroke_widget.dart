@@ -1,17 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dr_oh_app/components/diabets_answer_list.dart';
 import 'package:dr_oh_app/model/firebase_dementia.dart';
 import 'package:flutter/material.dart';
 
 //Date: 2023-01-09 anna
-class SurveyDiabetes extends StatelessWidget {
+class SurveyStroke extends StatelessWidget {
   final String surveyName;
   final bool _isChecked = false;
   final PageController _nextController = PageController();
   List questionList = [];
   //final DatabaseHandler handler;
 
-  SurveyDiabetes({
+  SurveyStroke({
     Key? key,
     required this.surveyName,
   }) : super(key: key);
@@ -34,84 +33,87 @@ class SurveyDiabetes extends StatelessWidget {
         initialPage: 0, //시작 페이지
       ),
       itemBuilder: (BuildContext context, int index) {
-        return PageView(controller: _nextController, children: <Widget>[
+        return PageView(
+          controller: _nextController, 
+          children: <Widget>[
           //-----1st page(개인정보보호법)-------
           _privacyAct(),
 
           //설문 시작
-          firestore()
+          //firestore()
         ]);
       },
     );
   } //_pages
 
+
 //----------widget--------------
 
   //firestore
   Widget firestore() {
-    return StreamBuilder<QuerySnapshot>(
-      //firestore에서 데이터 가져오기
-      stream: FirebaseFirestore.instance
+    return Column(
+      children: [
+        StreamBuilder<QuerySnapshot>(
+          //firestore에서 데이터 가져오기
+          stream: FirebaseFirestore.instance
 
           //parameter로 설문지 DB table 이름만 변경하면 됩니다.
-          .collection('Diabetes')
-          .orderBy('seq', descending: false)
-          .snapshots(),
-      //화면 구성
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        final documents = snapshot.data!.docs;
-
-        return ListView(
+              .collection('Stroke')
+              .orderBy('seq', descending: false)
+              .snapshots(),
+          //화면 구성
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final documents = snapshot.data!.docs;
+            
+            return ListView(
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            children:
-                documents.map((index) => _buildItemWidget(index)).toList());
-      },
+            
+            children: documents.map((index) => _buildItemWidget(index)).toList()
+            
+          );
+          },
+        ),
+      ],
     );
   } //firestore read data
+
+
 
 //read questions from firestore
   Widget _buildItemWidget(DocumentSnapshot doc) {
     final dementia = Dementia(seq: doc['seq'], question: doc['question']);
-    DAnswer answer = DAnswer();
-
-    return Column(
-      children: [
-        Text('${dementia.seq} 번. ${dementia.question}.'),
-        answer.dAnserList[dementia.seq - 1],
-      ],
+    return ListView.builder(
+      itemCount: dementia.seq,
+      itemBuilder: (BuildContext context, int index) {
+      return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        height: 100,
+        color: Colors.amberAccent,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 200,
+          
+          child: Card(
+            child: Column(
+              children: [
+                Text('${dementia.seq} 번. ${dementia.question}.'),
+              ],
+            ),
+          ),
+        ),
+      );
+        
+      },
     );
-    // SizedBox(
-    //   height: 100,
-    //   child: ListView.builder(
-    //     itemCount: dementia.seq,
-    //     itemBuilder: (BuildContext context, int index) {
-    //     return Container(
-    //       alignment: Alignment.center,
-    //       margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-    //       height: 100,
-    //       color: Colors.amberAccent,
-    //       child: SizedBox(
-    //         width: MediaQuery.of(context).size.width,
-    //         height: 200,
-
-    //         child: Card(
-    //           child: Column(
-    //             children: [
-    //               Text('${dementia.seq} 번. ${dementia.question}.'),
-    //             ],
-    //           ),
-    //         ),
-    //       ),
-    //     );
-
-    //     },
-    //   ),
-    // );
   } //_buildItemWidget
+
+
+
 
 //개인정보보호법 페이지
   Widget _privacyAct() {

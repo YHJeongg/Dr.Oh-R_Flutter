@@ -1,21 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dr_oh_app/components/diabets_answer_list.dart';
 import 'package:dr_oh_app/model/firebase_dementia.dart';
-import 'package:dr_oh_app/model/stroke_survey_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+//임시
+List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+List<Widget> gender = <Widget>[const Text('여자'), const Text('남자')];
+
+
 
 //Date: 2023-01-09 anna
-class SurveyStroke extends StatelessWidget {
+class SurveyDementia extends StatelessWidget {
   final String surveyName;
   final bool _isChecked = false;
   final PageController _nextController = PageController();
-  List questionList = [];
+  final List questionList = [];
   //final DatabaseHandler handler;
+  final List<bool> _selectedGender = <bool>[true, false];
+  final String dropdownValue = list.first; //임시
 
-  SurveyStroke({
+
+
+  SurveyDementia({
     Key? key,
     required this.surveyName,
   }) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +39,8 @@ class SurveyStroke extends StatelessWidget {
     );
   }
 
+
+
 //-------------page Widget----------
   Widget _pages() {
     return PageView.builder(
@@ -38,6 +51,8 @@ class SurveyStroke extends StatelessWidget {
         return PageView(controller: _nextController, children: <Widget>[
           //-----1st page(개인정보보호법)-------
           _privacyAct(),
+
+          personal(),
 
           //설문 시작
           firestore()
@@ -55,9 +70,7 @@ class SurveyStroke extends StatelessWidget {
         StreamBuilder<QuerySnapshot>(
           //firestore에서 데이터 가져오기
           stream: FirebaseFirestore.instance
-
-              //parameter로 설문지 DB table 이름만 변경하면 됩니다.
-              .collection('Stroke')
+              .collection('Dementia')
               .orderBy('seq', descending: false)
               .snapshots(),
           //화면 구성
@@ -70,52 +83,39 @@ class SurveyStroke extends StatelessWidget {
             return ListView(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                children:
-                    documents.map((index) => _buildItemWidget(index)).toList());
+                children: documents
+                    .map((e) => _buildItemWidget(e, documents))
+                    .toList());
           },
         ),
       ],
     );
   } //firestore read data
 
+
 //read questions from firestore
-  Widget _buildItemWidget(DocumentSnapshot doc) {
-    final strokeSurveyModel = StrokeSurveyModel(seq: doc['seq'], question: doc['question']);
-    DAnswer answer = DAnswer();
+  Widget _buildItemWidget(DocumentSnapshot doc, List<QueryDocumentSnapshot<Object?>> docF) {
 
-    return Column(
-      children: [
-        Text('${strokeSurveyModel.seq} 번. ${strokeSurveyModel.question}.'),
-        // 답안지 세팅하기<<<---///swkim
-        // answer.dAnserList[strokeSurveyModel.seq - 1],
-      ],
+   final dementia = Dementia(seq: doc['seq'], question: doc['question']);
+
+    return SizedBox(
+      height: Get.height,
+      width: Get.width,
+      child: PageView.builder(
+        controller: PageController(initialPage: 0),
+        itemCount: docF.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            child: ListTile(
+              title: Text(dementia.question),
+            ),
+          );
+        },
+      ),
     );
-
-    // return ListView.builder(
-    //   itemCount: dementia.seq,
-    //   itemBuilder: (BuildContext context, int index) {
-    //   return Container(
-    //     alignment: Alignment.center,
-    //     margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-    //     height: 100,
-    //     color: Colors.amberAccent,
-    //     child: SizedBox(
-    //       width: MediaQuery.of(context).size.width,
-    //       height: 200,
-
-    //       child: Card(
-    //         child: Column(
-    //           children: [
-    //             Text('${dementia.seq} 번. ${dementia.question}.'),
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //   );
-
-    //   },
-    // );
   } //_buildItemWidget
+
+
 
 //개인정보보호법 페이지
   Widget _privacyAct() {
@@ -278,12 +278,135 @@ class SurveyStroke extends StatelessWidget {
           if (_nextController.hasClients) {
             _nextController.animateToPage(
               pageNum,
-              duration: Duration(milliseconds: 400),
+              duration: const Duration(milliseconds: 400),
               curve: Curves.easeInOut,
             );
           }
         },
-        child: Text('다음'));
+        child: const Text('다음'));
   } //btnNext
+
+
+
+  Widget personal(){
+    return Column(
+            children: [
+              Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  height: 200,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          //offset: Offset(0, 2)
+                        ),
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        '검사 시행 전 검사를 받는 분의\n교육 수준을 파악하기 위해\n아래와 같은 정보를 입력해 주시기\n바랍니다.',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  )),
+              Container(
+                //container design은 크기 보려고 임시로 해놨습니다.
+                alignment: Alignment.center,
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                height: 350,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        //offset: Offset(0, 2)
+                      ),
+                    ]),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    SizedBox(width: 300, child: _dropDownBtn('교육 연수')),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(width: 300, child: _dropDownBtn('연봉(단위: 만원)')),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: 300,
+                      child: _dropDownBtn('생년월일'),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[_gender()],
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                children: [_btnNext(2)],
+              ),
+            ],
+          ); //2nd page End
+
+  }
+
+  //성별 토글 버튼
+  Widget _gender() {
+    return ToggleButtons(
+      //direction: vertical ? Axis.vertical : Axis.horizontal,
+      onPressed: (int index) {
+        for (int i = 0; i < _selectedGender.length; i++) {
+          _selectedGender[i] = i == index;
+        }
+      },
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+      //selectedBorderColor: Colors.red[700],
+      //selectedColor: Colors.white,
+      //fillColor: Colors.red[200],
+      //color: Colors.red[400],
+      constraints: BoxConstraints(
+        minHeight: 40.0,
+        minWidth: 150.0,
+      ),
+      isSelected: _selectedGender,
+      children: gender,
+    );
+  } //_gender
+//dropdown buttons(교육연수, 연봉, 생년월일)
+  Widget _dropDownBtn(String hintText) {
+    return DropdownButtonFormField(
+      decoration: InputDecoration(
+          hintText: hintText,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      onChanged: (value) {
+        //
+      },
+    );
+  }
 
 }
