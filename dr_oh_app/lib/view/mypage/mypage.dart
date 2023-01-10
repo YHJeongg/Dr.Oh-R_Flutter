@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/view/mypage/sign_out.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Date: 2023-01-08, jyh
 // 화면구성중
@@ -39,7 +42,7 @@ class MyPage extends StatelessWidget {
     );
   }
 
-  Widget _profile() {
+  Widget _profile(String name, String gender, String birthdate, String email) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Container(
@@ -81,19 +84,19 @@ class MyPage extends StatelessWidget {
               ),
               const Divider(thickness: 0.5, height: 1, color: Colors.grey),
               const SizedBox(height: 10),
-              _profileContent('이름', '홍길동', 4),
+              _profileContent('이름', name, 4),
               const SizedBox(height: 10),
               const Divider(thickness: 0.5, height: 1, color: Colors.grey),
               const SizedBox(height: 10),
-              _profileContent('성별', '남', 4),
+              _profileContent('성별', gender, 4),
               const SizedBox(height: 10),
               const Divider(thickness: 0.5, height: 1, color: Colors.grey),
               const SizedBox(height: 10),
-              _profileContent('생년월일', '1996-01-26', 5.2),
+              _profileContent('생년월일', birthdate, 5.2),
               const SizedBox(height: 10),
               const Divider(thickness: 0.5, height: 1, color: Colors.grey),
               const SizedBox(height: 10),
-              _profileContent('이메일', 'test@naver.com', 4.5),
+              _profileContent('이메일', email, 4.5),
               const SizedBox(height: 10),
             ],
           ),
@@ -236,6 +239,28 @@ class MyPage extends StatelessWidget {
     );
   }
 
+  // Desc: 회원정보 가져오기
+  // Date: 2023-01-10
+  Widget _getMemberInfo(DocumentSnapshot doc) {
+    final user = UserModel(
+      name: doc['name'],
+      gender: doc['gender'],
+      birthdate: doc['birthdate'],
+      email: doc['email'],
+    );
+    return _profile(user.name.toString(), user.gender.toString(),
+        user.birthdate.toString(), user.email.toString());
+  }
+
+  // Desc: shared preferences 받기
+  // Date: 2023-01-10
+  _initSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    // setState(() {
+    //   id = prefs.getString('id');
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -250,7 +275,22 @@ class MyPage extends StatelessWidget {
             const SizedBox(height: 30),
             _head('기본정보'),
             const SizedBox(height: 3),
-            _profile(),
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .where('id', isEqualTo: 'qwer')
+                  .snapshots(),
+              builder: ((context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                final documents = snapshot.data!.docs;
+
+                return documents.map((e) => _getMemberInfo(e)).first;
+              }),
+            ),
             const SizedBox(height: 30),
             _head('추가정보'),
             _additionalInfo(),
