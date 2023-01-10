@@ -1,10 +1,11 @@
+import 'package:dr_oh_app/components/diabetes_privacy.dart';
 import 'package:dr_oh_app/view/survey/dementia_survey2.dart';
-import 'package:dr_oh_app/view/survey/dementia_survey_test.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 //임시
-List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+List<String> edu = <String>['초등학교 졸업', '중학교 졸업', '고등학교 졸업', '대학(2~4년제)', '대학원 이상'];
+List<String> wage = <String>['사무직 및 영업직', '소규모 자영업자', '현장(숙련)작업자','미숙련 작업자','학생, 가정주부'];
 List<Widget> gender = <Widget>[Text('여자'), Text('남자')];
 
 class DementiaSurvey extends StatelessWidget {
@@ -12,7 +13,7 @@ class DementiaSurvey extends StatelessWidget {
 
   final PageController _nextController = PageController();
   final bool _isChecked = false;
-  final String dropdownValue = list.first; //임시
+  final String dropdownValue = edu.first; //임시
   final List<bool> _selectedGender = <bool>[true, false];
   //final GlobalKey expansionTileKey = GlobalKey();
 
@@ -23,7 +24,6 @@ class DementiaSurvey extends StatelessWidget {
         title: Text('치매 검사'),
         elevation: 0,
       ),
-
       body: _pages(),
     );
   } //build
@@ -40,7 +40,8 @@ class DementiaSurvey extends StatelessWidget {
         return PageView(controller: _nextController, children: <Widget>[
           //-----1st page(개인정보보호법)-------
 
-_privacyAct(),
+          DiaPrivacy(pageCont: _nextController),
+          
           //-------2nd page(설문 시작 전 질문 사항) 이건 당뇨, 뇌졸중이랑 다른 부분이라 따로 위젯을 안뺐음(필요하면 뺌) --------
           Column(
             children: [
@@ -61,7 +62,7 @@ _privacyAct(),
                       ]),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text(
                         '검사 시행 전 검사를 받는 분의\n교육 수준을 파악하기 위해\n아래와 같은 정보를 입력해 주시기\n바랍니다.',
                         style: TextStyle(
@@ -91,18 +92,18 @@ _privacyAct(),
                     SizedBox(
                       height: 30,
                     ),
-                    SizedBox(width: 300, child: _dropDownBtn('교육 연수')),
+                    SizedBox(width: 300, child: _dropDownBtn(edu, '교육 연수')),
                     SizedBox(
                       height: 20,
                     ),
-                    SizedBox(width: 300, child: _dropDownBtn('연봉(단위: 만원)')),
+                    SizedBox(width: 300, child: _dropDownBtn(wage,'연봉(단위: 만원)')),
                     SizedBox(
                       height: 20,
                     ),
-                    SizedBox(
-                      width: 300,
-                      child: _dropDownBtn('생년월일'),
-                    ),
+                    // SizedBox(
+                    //   width: 300,
+                    //   child: _dropDownBtn('생년월일'),
+                    // ),
                     SizedBox(
                       height: 20,
                     ),
@@ -158,7 +159,7 @@ _privacyAct(),
                         Checkbox(
                           value: _isChecked,
                           onChanged: (value) {
-                            //
+                            
                           },
                         ),
                         const Text('개인정보 수집/이용 동의'),
@@ -283,13 +284,13 @@ _privacyAct(),
   } //privateAct
 
 //dropdown buttons(교육연수, 연봉, 생년월일)
-  Widget _dropDownBtn(String hintText) {
+  Widget _dropDownBtn(List<String> category, String hintText) {
     return DropdownButtonFormField(
       decoration: InputDecoration(
           hintText: hintText,
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0)))),
-      items: list.map<DropdownMenuItem<String>>((String value) {
+      items: category.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
@@ -366,7 +367,8 @@ _privacyAct(),
           child: Column(
             children: [
               ElevatedButton(
-                onPressed: () => Get.off(const DementiaSurveySecond()), child: Text('다음 설문'))
+                  onPressed: () => Get.off(const DementiaSurveySecond()),
+                  child: const Text('다음 설문'))
             ],
           ),
         ),

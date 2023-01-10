@@ -15,17 +15,16 @@ class DementiaSurveySecond extends StatelessWidget {
       ),
       body: firestore(),
     );
-  }//build
+  } //build
 
   //---------------Widget---------------
-
 
   //firestore
   Widget firestore() {
     return StreamBuilder<QuerySnapshot>(
       //firestore에서 데이터 가져오기
       stream: FirebaseFirestore.instance
-          .collection('Dementia')
+          .collection('Dementia_small')
           .orderBy('seq', descending: false)
           .snapshots(),
       //화면 구성
@@ -35,46 +34,44 @@ class DementiaSurveySecond extends StatelessWidget {
         }
         final documents = snapshot.data!.docs;
 
-        return ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            children:
-                documents.map((e) => _buildItemWidget(e, documents)).toList());
+        return SingleChildScrollView(
+          // width: 500,
+          // height: 600,
+          child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              children:
+                  documents.map((e) => _buildItemWidget(e)).toList()),
+        );
       },
     );
   } //firestore read data
 
 //read questions from firestore
   Widget _buildItemWidget(
-    DocumentSnapshot doc, List<QueryDocumentSnapshot<Object?>> docF) {
-    
+    DocumentSnapshot doc) {
     DementiaAnswer answerList = DementiaAnswer();
-    
+
     final dementia = Dementia(seq: doc['seq'], question: doc['question']);
-    
+print(dementia.seq);
 
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true, 
-      physics: const AlwaysScrollableScrollPhysics(),
-      itemCount: docF.length,
-      itemBuilder: (context, index) {
-    return Column(
-        mainAxisSize: MainAxisSize.min,
-      children: [
-        Flexible(
-          
-          child: ListTile(
-            title: Text('${dementia.seq}번 ${dementia.question}'),
-            subtitle: answerList.dementiaAnswer[dementia.seq-1]
+    return SingleChildScrollView(
+      // height: 100,
+      // width: 100,
+      
+      child: Column(
+        children: [
+          SizedBox(
+            height: 30,
           ),
-        ),
-      ],
+          Text('${dementia.seq}. ${dementia.question}'),
+          SizedBox(
+            height: 30,
+          ),
+          answerList.dementiaAnswerTest[dementia.seq - 1]
+        ],
+      ),
     );
-      },);
   } //_buildItemWidget
-
-
-
 
 }//end
