@@ -44,6 +44,11 @@
 			<version>2.1.0</version>
 		</dependency>
 		<!-- /RServe -->
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

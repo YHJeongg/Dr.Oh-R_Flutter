@@ -2,7 +2,7 @@ import 'package:dr_oh_app/model/diabetes_message.dart';
 import 'package:flutter/material.dart';
 
 class DAnswer {
-  List<Widget> dAnserList = const [FirstA(), SecondA(), FirstA(), FourthA(),FifthA()];
+  List<Widget> dAnserList = const [FirstA(), SecondA(), ThirdA(), FourthA(),FifthA()];
 }
 
 class FirstA extends StatefulWidget {
@@ -91,6 +91,7 @@ class _SecondAState extends State<SecondA> {
             setState(() {
               score = value;
             });
+            DiabetesMessage.genhealth=value;
           },
         )
       ],
@@ -126,7 +127,7 @@ class _ThirdAState extends State<ThirdA> {
           groupValue: DiabetesMessage.diffwalk,
           onChanged: (value) {
             setState(() {
-              DiabetesMessage.diffwalk = value!;
+              DiabetesMessage.diffwalk = 'TRUE';
             });
           },
         ),
@@ -141,7 +142,7 @@ class _ThirdAState extends State<ThirdA> {
           groupValue: DiabetesMessage.diffwalk,
           onChanged: (value) {
             setState(() {
-              DiabetesMessage.diffwalk = value!;
+              DiabetesMessage.diffwalk = 'FALSE';
             });
           },
         ),

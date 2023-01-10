@@ -5,7 +5,7 @@ class DiabetesMessage {
   static double height = 0;
   static double weight = 0;
   static String physact = '';
-  static int genhealth = 0;
+  static double genhealth = 0;
   static bool hdattack = false;
   static bool highbp = false;
   static bool stroke = false;
