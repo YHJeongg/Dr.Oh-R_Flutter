@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/model/diabetes_message.dart';
 import 'package:flutter/material.dart';
 
 class DUserInfo extends StatefulWidget {
@@ -120,6 +121,9 @@ class _DUserInfoState extends State<DUserInfo> {
               () {
                 //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
                 if (widget.pageCont.hasClients) {
+                  DiabetesMessage.age=curyear-int.parse(ageCont.text.trim());
+                  DiabetesMessage.height=double.parse(heightCont.text.trim());
+                  DiabetesMessage.weight=double.parse(weightCont.text.trim());
                   widget.pageCont.animateToPage(
                     2,
                     duration: const Duration(milliseconds: 400),
