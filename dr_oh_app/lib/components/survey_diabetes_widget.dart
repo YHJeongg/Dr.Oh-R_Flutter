@@ -4,7 +4,6 @@ import 'package:dr_oh_app/components/diabetes_user_info.dart';
 import 'package:dr_oh_app/components/diabets_answer_list.dart';
 import 'package:dr_oh_app/model/diabetes_message.dart';
 import 'package:dr_oh_app/model/firebase_dementia.dart';
-import 'package:dr_oh_app/model/model.dart';
 import 'package:dr_oh_app/repository/localdata/diabetes_predict.dart';
 import 'package:dr_oh_app/view/survey/diabetes_result.dart';
 import 'package:flutter/material.dart';
