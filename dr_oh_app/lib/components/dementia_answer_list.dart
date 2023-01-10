@@ -21,6 +21,8 @@ class DementiaAnswer {
     NList(),
     OList()
   ];
+  List<Widget> dementiaAnswerTest = const[ZList(), AList(), DList(), HList()];
+
   List<String> dementiaText = const [
     '1',
     '2',
@@ -55,13 +57,18 @@ class _ZListState extends State<ZList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: yearController,
-          decoration: const InputDecoration(hintText: '1990'),
-        )
-      ],
+
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          TextField(
+            controller: yearController,
+            decoration: const InputDecoration(hintText: '1990'),
+          )
+        ],
+      ),
+
     );
   }
 }
@@ -76,32 +83,33 @@ class AList extends StatefulWidget {
 class _AListState extends State<AList> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 20,
-      child: Row(
-        children: [
-          ElevatedButton(
-              onPressed: () {
-                //
-              },
-              child: const Text('봄')),
-          ElevatedButton(
-              onPressed: () {
-                //
-              },
-              child: const Text('여름')),
-          ElevatedButton(
-              onPressed: () {
-                //
-              },
-              child: const Text('가을')),
-          ElevatedButton(
-              onPressed: () {
-                //
-              },
-              child: const Text('겨울')),
-        ],
-      ),
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        
+        ElevatedButton(
+            onPressed: () {
+              //
+            },
+            child: const Text('봄')),
+        ElevatedButton(
+            onPressed: () {
+              //
+            },
+            child: const Text('여름')),
+        ElevatedButton(
+            onPressed: () {
+              //
+            },
+            child: const Text('가을')),
+        ElevatedButton(
+            onPressed: () {
+              //
+            },
+            child: const Text('겨울')),
+      ],
+
     );
   }
 } //AList
@@ -177,13 +185,18 @@ class _CListState extends State<CList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: dateController,
-          decoration: const InputDecoration(hintText: '21'),
-        )
-      ],
+
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          TextField(
+            controller: dateController,
+            decoration: const InputDecoration(hintText: '21'),
+          )
+        ],
+      ),
+
     );
   }
 }
@@ -199,7 +212,9 @@ class _DListState extends State<DList> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        
         ElevatedButton(
             onPressed: () {
               //
@@ -214,6 +229,7 @@ class _DListState extends State<DList> {
             onPressed: () {
               //
             },
+
             child: const Text('일본')),
       ],
     );
@@ -339,18 +355,32 @@ class _HListState extends State<HList> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          controller: aProductController,
-        ),
-        TextField(
-          controller: bProductController,
-        ),
-        TextField(
-          controller: cProductController,
-        ),
-      ],
+
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          TextField(
+            controller: aProductController,
+            decoration: InputDecoration(
+              hintText: '단어를 입력하세요.'
+            ),
+          ),
+          TextField(
+            controller: bProductController,
+            decoration: InputDecoration(
+              hintText: '단어를 입력하세요.'
+            ),
+          ),
+          TextField(
+            controller: cProductController,
+            decoration: InputDecoration(
+              hintText: '단어를 입력하세요.'
+            ),
+          ),
+        ],
+      ),
+
     );
   }
 }
@@ -374,12 +404,16 @@ class _IListState extends State<IList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: numController,
-        ),
-      ],
+    return SizedBox(
+      width: 200,
+      height: 50,
+      child: Row(
+        children: [
+          TextField(
+            controller: numController,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -403,12 +437,15 @@ class _JListState extends State<JList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: numController,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          TextField(
+            controller: numController,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -432,12 +469,15 @@ class _QListState extends State<QList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: numController,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          TextField(
+            controller: numController,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -510,8 +550,11 @@ class MList extends StatefulWidget {
 class _MListState extends State<MList> {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
+        Row(
+          children: [
+
         ElevatedButton(
             onPressed: () {
               //
@@ -527,6 +570,12 @@ class _MListState extends State<MList> {
               //
             },
             child: const Text('자동차')),
+          ],
+        ),
+
+        Row(
+          children: [
+
         ElevatedButton(
             onPressed: () {
               //
@@ -541,7 +590,11 @@ class _MListState extends State<MList> {
             onPressed: () {
               //
             },
+
             child: const Text('소나무')),
+          ],
+        )
+
       ],
     );
   }
@@ -630,12 +683,15 @@ class _PListState extends State<PList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: monthController,
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          TextField(
+            controller: monthController,
+          )
+        ],
+      ),
     );
   }
 }

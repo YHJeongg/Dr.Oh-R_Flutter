@@ -30,78 +30,67 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
       ),
       body: firestore(),
     );
-  }
 
-  //build
+  } //build
+
+  //---------------Widget---------------
+
+  //firestore
   Widget firestore() {
-    return Center(
-      child: PageView.builder(
-        controller: _pageController,
-        itemBuilder: (context, index) {
-          return StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection('Dementia')
-                .orderBy('seq', descending: false)
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              final documents = snapshot.data!.docs;
-              return ListView(
-                children: documents.map((e) => _buildItemWidget(e)).toList(),
-              );
-            },
-          );
-        },
-      ),
+    return StreamBuilder<QuerySnapshot>(
+      //firestore에서 데이터 가져오기
+      stream: FirebaseFirestore.instance
+          .collection('Dementia_small')
+          .orderBy('seq', descending: false)
+          .snapshots(),
+      //화면 구성
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        final documents = snapshot.data!.docs;
+
+        return SingleChildScrollView(
+          // width: 500,
+          // height: 600,
+          child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              children:
+                  documents.map((e) => _buildItemWidget(e)).toList()),
+        );
+      },
+
     );
   }
 
-  //firestore read data
-  Widget _buildItemWidget(DocumentSnapshot doc) {
+
+//read questions from firestore
+  Widget _buildItemWidget(
+    DocumentSnapshot doc) {
+    DementiaAnswer answerList = DementiaAnswer();
+
     final dementia = Dementia(seq: doc['seq'], question: doc['question']);
+print(dementia.seq);
 
-    return Container(
-      color: Colors.amberAccent,
-      child: GestureDetector(
-        onTap: () {
-          // DementiaMessage.seq = doc['seq'];
-          // DementiaMessage.question = doc['question']; // *** Key 값 아닌건 적어줘야한다.
-        },
-        child: Card(
-          child: ListTile(
-            title: Column(
-              children: [
-                Text(
-                  '${dementia.seq}번 : ${dementia.question}',
-                ),
-                DementiaAnswer().dementiaAnswer[1]
-              ],
-            ),
+    return SingleChildScrollView(
+      // height: 100,
+      // width: 100,
+      
+      child: Column(
+        children: [
+          SizedBox(
+            height: 30,
           ),
-        ),
+          Text('${dementia.seq}. ${dementia.question}'),
+          SizedBox(
+            height: 30,
+          ),
+          answerList.dementiaAnswerTest[dementia.seq - 1]
+        ],
       ),
     );
-  }
+  } //_buildItemWidget
 
-  // ListView.builder(
-  //   scrollDirection: Axis.vertical,
-  //   shrinkWrap: true,
-  //   physics: const AlwaysScrollableScrollPhysics(),
-  //   itemCount: docF.length,
-  //   itemBuilder: (context, index) {
-  //     return Column(
-  //       mainAxisSize: MainAxisSize.min,
-  //       children: [
-  //         Flexible(
-  //           child: ListTile(
-  //               title: Text('${dementia.seq}번 ${dementia.question}'),
-  //               subtitle: answerList.dementiaAnswer[dementia.seq - 1]),
-  //         ),
-  //       ],
-  //     );
-  //   },
-  // );
-  // }
+
 }//end
