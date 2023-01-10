@@ -23,7 +23,6 @@ class DementiaSurvey extends StatelessWidget {
         title: Text('치매 검사'),
         elevation: 0,
       ),
-
       body: _pages(),
     );
   } //build
@@ -40,7 +39,7 @@ class DementiaSurvey extends StatelessWidget {
         return PageView(controller: _nextController, children: <Widget>[
           //-----1st page(개인정보보호법)-------
 
-_privacyAct(),
+          _privacyAct(),
           //-------2nd page(설문 시작 전 질문 사항) 이건 당뇨, 뇌졸중이랑 다른 부분이라 따로 위젯을 안뺐음(필요하면 뺌) --------
           Column(
             children: [
@@ -366,7 +365,8 @@ _privacyAct(),
           child: Column(
             children: [
               ElevatedButton(
-                onPressed: () => Get.off(const DementiaSurveySecond()), child: Text('다음 설문'))
+                  onPressed: () => Get.off(DementiaSurveySecond()),
+                  child: Text('다음 설문'))
             ],
           ),
         ),
