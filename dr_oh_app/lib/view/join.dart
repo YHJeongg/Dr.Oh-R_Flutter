@@ -1,5 +1,9 @@
+import 'package:dr_oh_app/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
+
+import '../viewmodel/auth_controller.dart';
 
 // Date: 2023-01-09, jyh
 // Join View 완성
@@ -15,8 +19,11 @@ class _JoinState extends State<Join> {
   late TextEditingController idCont;
   late TextEditingController pwCont;
   late TextEditingController pwcheckCont;
+  late TextEditingController emailCont;
   late TextEditingController nameCont;
   late TextEditingController dateCont;
+  late TextEditingController pwContCheck;
+  late String gender;
 
   late bool _checkBoxValue1;
   late bool _checkBoxValue2;
@@ -29,11 +36,14 @@ class _JoinState extends State<Join> {
     pwcheckCont = TextEditingController();
     nameCont = TextEditingController();
     dateCont = TextEditingController();
+    emailCont = TextEditingController();
+    pwContCheck = TextEditingController();
+    gender = "";
     _checkBoxValue1 = true;
     _checkBoxValue2 = false;
   }
 
-  Widget _joinText(String txt) {
+  Widget _joinText(String txt, TextEditingController textEditingController) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -52,10 +62,7 @@ class _JoinState extends State<Join> {
               width: Get.width / 2.1,
               height: 70,
               child: TextField(
-                controller: idCont,
-                onChanged: (value) {
-                  //--
-                },
+                controller: textEditingController,
               ),
             ),
           ],
@@ -68,7 +75,24 @@ class _JoinState extends State<Join> {
     return SizedBox(
       width: Get.width,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          if (_checkBoxValue1) {
+            gender = '남자';
+          } else {
+            gender = '여자';
+          }
+          var signupUser = UserModel(
+            uid: const Uuid().v4(),
+            id: idCont.text,
+            password: pwCont.text,
+            name: nameCont.text,
+            email: emailCont.text,
+            birthdate: dateCont.text,
+            gender: gender,
+          );
+          AuthController.to.submitSignup(signupUser);
+          Navigator.of(context).pop();
+        },
         child: const Text('회원가입'),
       ),
     );
@@ -179,11 +203,11 @@ class _JoinState extends State<Join> {
                           fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 30),
-                    _joinText('아이디'),
-                    _joinText('이름'),
-                    _joinText('비밀번호'),
-                    _joinText('비밀번호 확인'),
-                    _joinText('이메일'),
+                    _joinText('아이디', idCont),
+                    _joinText('이름', nameCont),
+                    _joinText('비밀번호', pwCont),
+                    _joinText('비밀번호 확인', pwContCheck),
+                    _joinText('이메일', emailCont),
                     _dateText(),
                     const SizedBox(height: 10),
                     _genderCheckBox(),

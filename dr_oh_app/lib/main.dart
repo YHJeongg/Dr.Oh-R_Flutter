@@ -1,4 +1,3 @@
-import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/components/style.dart';
 import 'package:dr_oh_app/view/login.dart';
 import 'package:firebase_core/firebase_core.dart';
