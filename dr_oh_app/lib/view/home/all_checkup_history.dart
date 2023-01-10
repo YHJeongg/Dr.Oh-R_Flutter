@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -15,28 +17,7 @@ class AllCheckupHistory extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            // StreamBuilder(
-            // stream: ,
-            // initialData: [0, 1, 2],
-            // builder: ((context, snapshot) {
-            //   return ListView.separated(
-            //       itemBuilder: ((context, index) {
-            //         return Text('aa');
-            //       }),
-            //       separatorBuilder: ((context, index) => const Divider()),
-            //       itemCount: 3);
-            // }),
-            // ),
-
             CustomRadio(),
-            // ListView.separated(
-            //     itemBuilder: ((context, index) {
-            //       return ListTile(
-            //         title: Text('aa $index'),
-            //       );
-            //     }),
-            //     separatorBuilder: ((context, index) => const Divider()),
-            //     itemCount: 1)
           ],
         ),
       ),

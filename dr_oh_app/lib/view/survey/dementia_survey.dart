@@ -40,8 +40,10 @@ class DementiaSurvey extends StatelessWidget {
         return PageView(controller: _nextController, children: <Widget>[
           //-----1st page(개인정보보호법)-------
 
+
           DiaPrivacy(pageCont: _nextController),
           
+
           //-------2nd page(설문 시작 전 질문 사항) 이건 당뇨, 뇌졸중이랑 다른 부분이라 따로 위젯을 안뺐음(필요하면 뺌) --------
           Column(
             children: [
@@ -369,6 +371,7 @@ class DementiaSurvey extends StatelessWidget {
               ElevatedButton(
                   onPressed: () => Get.off(const DementiaSurveySecond()),
                   child: const Text('다음 설문'))
+
             ],
           ),
         ),

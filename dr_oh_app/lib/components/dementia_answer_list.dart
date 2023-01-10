@@ -57,6 +57,7 @@ class _ZListState extends State<ZList> {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -67,6 +68,7 @@ class _ZListState extends State<ZList> {
           )
         ],
       ),
+
     );
   }
 }
@@ -81,6 +83,7 @@ class AList extends StatefulWidget {
 class _AListState extends State<AList> {
   @override
   Widget build(BuildContext context) {
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -106,6 +109,7 @@ class _AListState extends State<AList> {
             },
             child: const Text('겨울')),
       ],
+
     );
   }
 } //AList
@@ -181,6 +185,7 @@ class _CListState extends State<CList> {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
@@ -191,6 +196,7 @@ class _CListState extends State<CList> {
           )
         ],
       ),
+
     );
   }
 }
@@ -223,6 +229,7 @@ class _DListState extends State<DList> {
             onPressed: () {
               //
             },
+
             child: const Text('일본')),
       ],
     );
@@ -348,6 +355,7 @@ class _HListState extends State<HList> {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -372,6 +380,7 @@ class _HListState extends State<HList> {
           ),
         ],
       ),
+
     );
   }
 }
@@ -581,9 +590,11 @@ class _MListState extends State<MList> {
             onPressed: () {
               //
             },
+
             child: const Text('소나무')),
           ],
         )
+
       ],
     );
   }

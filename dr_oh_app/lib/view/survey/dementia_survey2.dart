@@ -1,10 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/dementia_answer_list.dart';
+import 'package:dr_oh_app/model/dementia_message.dart';
 import 'package:dr_oh_app/model/firebase_dementia.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class DementiaSurveySecond extends StatelessWidget {
+class DementiaSurveySecond extends StatefulWidget {
   const DementiaSurveySecond({super.key});
+
+  @override
+  State<DementiaSurveySecond> createState() => _DementiaSurveySecondState();
+}
+
+class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +30,7 @@ class DementiaSurveySecond extends StatelessWidget {
       ),
       body: firestore(),
     );
+
   } //build
 
   //---------------Widget---------------
@@ -44,8 +60,10 @@ class DementiaSurveySecond extends StatelessWidget {
                   documents.map((e) => _buildItemWidget(e)).toList()),
         );
       },
+
     );
-  } //firestore read data
+  }
+
 
 //read questions from firestore
   Widget _buildItemWidget(
@@ -73,5 +91,6 @@ print(dementia.seq);
       ),
     );
   } //_buildItemWidget
+
 
 }//end

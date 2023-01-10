@@ -15,6 +15,7 @@ import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,16 +29,17 @@ class _HomeState extends State<Home> {
   List<NewsModel> news = [];
   bool isLoading = true;
   NewsAPI newsAPI = NewsAPI();
-  // News API */
-
-  CheckupHistoryViewModel _checkupHistoryViewModel = CheckupHistoryViewModel();
   Future initNews() async {
     news = await newsAPI.getNews();
   }
+  // News API */
 
+  CheckupHistoryViewModel _checkupHistoryViewModel = CheckupHistoryViewModel();
+  late String? id = '';
   @override
   void initState() {
     super.initState();
+    _initSharedPreferences();
     initNews().then((_) {
       setState(() {
         isLoading = false;
@@ -228,6 +230,22 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // Desc: welcome 위젯 이름
+  // Date: 2023-01-10
+  Widget _getName(DocumentSnapshot doc) {
+    final user = UserModel(name: doc['name']);
+    return Text('${user.name}님 건강한 하루 되세요');
+  }
+
+  // Desc: shared preferences 받기
+  // Date: 2023-01-10
+  _initSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getString('id');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -243,12 +261,25 @@ class _HomeState extends State<Home> {
               Container(
                 decoration: _borderBox(),
                 width: 350,
+                padding: const EdgeInsets.only(left: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      '님 건강한 하루 되세요',
-                      style: TextStyle(fontSize: 10),
+                    StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .where('id', isEqualTo: '$id')
+                          .snapshots(),
+                      builder: ((context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        final documents = snapshot.data!.docs;
+
+                        return documents.map((e) => _getName(e)).first;
+                      }),
                     ),
                     IconButton(
                       onPressed: () {
