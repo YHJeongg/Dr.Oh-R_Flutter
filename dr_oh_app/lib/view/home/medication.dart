@@ -15,6 +15,8 @@ class _MedicationState extends State<Medication> {
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
   TextEditingController hospitalController = TextEditingController();
+  TextEditingController diseaseController = TextEditingController();
+  TextEditingController pillController = TextEditingController();
 
   Widget _dateTextfield(dynamic controller, String hint) {
     return SizedBox(
@@ -38,34 +40,51 @@ class _MedicationState extends State<Medication> {
       appBar: AppBar(
         title: const Text('투약이력 입력'),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Wrap(
-                direction: Axis.horizontal,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _dateTextfield(startDateController, '시작일'),
-                      _dateTextfield(endDateController, '종료일'),
-                    ],
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: TextField(
-                  controller: hospitalController,
-                  decoration: const InputDecoration(
-                    hintText: '병원명',
-                  ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Wrap(
+              direction: Axis.horizontal,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _dateTextfield(startDateController, '시작일'),
+                    _dateTextfield(endDateController, '종료일'),
+                  ],
+                )
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                controller: hospitalController,
+                decoration: const InputDecoration(
+                  hintText: '병원명',
                 ),
               ),
-              ElevatedButton(onPressed: () {}, child: const Text('저장'))
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                controller: diseaseController,
+                decoration: const InputDecoration(
+                  hintText: '병명',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                controller: pillController,
+                decoration: const InputDecoration(
+                  hintText: '처방의약품명',
+                ),
+              ),
+            ),
+            ElevatedButton(onPressed: () {}, child: const Text('저장'))
+          ],
         ),
       ),
     );

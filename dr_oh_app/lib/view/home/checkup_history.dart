@@ -1,3 +1,5 @@
+import 'package:dr_oh_app/model/checkup_history_model.dart';
+import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:dr_oh_app/viewmodel/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -7,6 +9,8 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 class CheckupHistory extends StatelessWidget {
   CheckupHistory({super.key});
+
+  CheckupHistoryViewModel checkupHistoryViewModel = CheckupHistoryViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,17 @@ class CheckupHistory extends StatelessWidget {
               '검진날짜: ${selectedDate.toString().substring(0, 10)}',
               style: const TextStyle(fontSize: 20),
             ),
-            Text('검진항목: '),
+            StreamBuilder(
+                stream: checkupHistoryViewModel.stream,
+                builder: ((context, snapshot) {
+                  return Column(
+                    children: [
+                      Text('검진항목: ${checkupHistoryViewModel.name.toString()}'),
+                      Text(
+                          '검진결과: ${checkupHistoryViewModel.result.toString()}'),
+                    ],
+                  );
+                })),
           ],
         ),
       ),

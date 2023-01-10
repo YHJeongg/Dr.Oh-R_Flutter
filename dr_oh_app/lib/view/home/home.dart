@@ -4,7 +4,9 @@ import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
 import 'package:dr_oh_app/view/home/hospital_visit.dart';
 import 'package:dr_oh_app/view/home/medication.dart';
+import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/view/mypage/mypage.dart';
+import 'package:dr_oh_app/viewmodel/bottom_nav_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -252,7 +254,9 @@ class _HomeState extends State<Home> {
                   children: [
                     _welcome(),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(EditMemberInfo());
+                      },
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         size: 15,
