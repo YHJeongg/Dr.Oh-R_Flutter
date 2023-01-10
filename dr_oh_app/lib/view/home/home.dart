@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/news_api.dart';
 import 'package:dr_oh_app/model/checkup_history_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
+import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/view/home/all_checkup_history.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
@@ -29,7 +31,6 @@ class _HomeState extends State<Home> {
   // News API */
 
   CheckupHistoryViewModel _checkupHistoryViewModel = CheckupHistoryViewModel();
-
   Future initNews() async {
     news = await newsAPI.getNews();
   }
@@ -106,13 +107,6 @@ class _HomeState extends State<Home> {
   Widget _sizedBox() {
     return const SizedBox(
       height: 20,
-    );
-  }
-
-  Widget _welcome() {
-    return const Padding(
-      padding: EdgeInsets.all(15),
-      child: Text('님 건강한 하루 되세요'),
     );
   }
 
@@ -252,7 +246,10 @@ class _HomeState extends State<Home> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _welcome(),
+                    const Text(
+                      '님 건강한 하루 되세요',
+                      style: TextStyle(fontSize: 10),
+                    ),
                     IconButton(
                       onPressed: () {
                         Get.to(EditMemberInfo());

@@ -25,7 +25,7 @@ Widget _joinText(String txt, dynamic type) {
   );
 }
 
-// Desc: 회원정보 수정 TextField
+// Desc: 비밀번호 수정 TextField
 // Date: 2023-01-10
 Widget _editPW() {
   return SizedBox(
@@ -40,10 +40,27 @@ Widget _editPW() {
   );
 }
 
+// Desc: 이름, 아이디 수정 TextField
+// Date: 2023-01-10
+Widget _editInfo(bool readOnly, bool obscure) {
+  return SizedBox(
+    width: Get.width / 2.1,
+    height: 70,
+    child: TextField(
+      readOnly: true,
+      onChanged: (value) {
+        //--
+      },
+      obscureText: obscure,
+    ),
+  );
+}
+
 class _EditMemberInfoState extends State<EditMemberInfo> {
-  List<String> _dropdownList = ['naver.com', 'gmail.com', 'daum.net'];
+  List<String> _dropdownList = ['naver.com', 'gmail.com', 'daum.net', '직접 입력'];
   String _selectedDropdown = 'naver.com';
   TextEditingController dateController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +73,8 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            _joinText('이름', _editInfo(true, false)),
+            _joinText('아이디', _editInfo(true, false)),
             _joinText('새 비밀번호', _editPW()),
             _joinText('비밀번호 확인', _editPW()),
             _joinText('생년월일', _editBirthday()),
@@ -66,18 +85,31 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
                   '\t\t\t\t이메일',
                   style: TextStyle(fontSize: 17),
                 ),
-                SizedBox(
-                  width: 120,
-                  height: 70,
-                  child: TextField(
-                    onChanged: (value) {
-                      //--
-                    },
-                    decoration: const InputDecoration(
-                      hintText: '@',
-                      hintTextDirection: TextDirection.rtl,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 125,
+                      child: TextField(
+                        onChanged: (value) {
+                          //--
+                        },
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 10,
+                      child: TextField(
+                        onChanged: (value) {
+                          //--
+                        },
+                        readOnly: true,
+                        decoration: const InputDecoration(
+                          hintText: '@',
+                          hintTextDirection: TextDirection.rtl,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 DropdownButton(
                     elevation: 0,
