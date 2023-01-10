@@ -29,7 +29,7 @@ class DiabetesPredict {
     print(stroke);
     print(physhealth);
     var url = Uri.parse(
-        'http://192.168.10.213:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+        'http://localhost:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
     var response = await http.get(url);
     var dataConvertedJSON = await json.decode(utf8.decode(response.bodyBytes));
     String result = dataConvertedJSON['result'];

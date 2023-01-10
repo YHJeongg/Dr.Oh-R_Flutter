@@ -17,7 +17,7 @@ class StrokePredict {
   ) async {
     double bmi = weight / (height * height * 0.01 * 0.01);
     var url = Uri.parse(
-        'http://192.168.10.213:8080/stroke?age=$age&bmi=$bmi&highBp=$highBp&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
+        'http://localhost:8080/stroke?age=$age&bmi=$bmi&highBp=$highBp&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
     String result = dataConvertedJSON['result'];
