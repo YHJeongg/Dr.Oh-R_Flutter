@@ -8,6 +8,7 @@ class SurveyDiabetes extends StatelessWidget {
   final String surveyName;
   final bool _isChecked = false;
   final PageController _nextController = PageController();
+  final PageController surveyCont=PageController();
   List questionList = [];
   //final DatabaseHandler handler;
 
@@ -65,7 +66,7 @@ class SurveyDiabetes extends StatelessWidget {
         final documents = snapshot.data!.docs;
 
         return ListView(
-            shrinkWrap: true,
+          controller: surveyCont,
             scrollDirection: Axis.vertical,
             children:
                 documents.map((index) => _buildItemWidget(index)).toList());
@@ -78,11 +79,15 @@ class SurveyDiabetes extends StatelessWidget {
     final dementia = Dementia(seq: doc['seq'], question: doc['question']);
     DAnswer answer = DAnswer();
 
-    return Column(
-      children: [
-        Text('${dementia.seq} 번. ${dementia.question}.'),
-        answer.dAnserList[dementia.seq - 1],
-      ],
+    return SizedBox(
+      height: 100,
+      width: 100,
+      child: Column(
+        children: [
+          Text('${dementia.seq}. ${dementia.question}'),
+          answer.dAnserList[dementia.seq - 1],
+        ],
+      ),
     );
     // SizedBox(
     //   height: 100,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DAnswer {
-  List<Widget> dAnserList = const [FirstA(), SecondA(), FirstA(), ThirdA()];
+  List<Widget> dAnserList = const [FirstA(), SecondA(), FirstA(), ThirdA(),FifthA()];
 }
 
 class FirstA extends StatefulWidget {
@@ -152,6 +152,39 @@ class _ThirdAState extends State<ThirdA> {
               fourth=value!;
             });
           },
+        ),
+      ],
+    );
+  }
+}
+
+class FifthA extends StatefulWidget {
+  const FifthA({super.key});
+
+  @override
+  State<FifthA> createState() => _FifthAState();
+}
+
+class _FifthAState extends State<FifthA> {
+  late TextEditingController dayCont;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    dayCont=TextEditingController();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 100,
+          child: TextField(
+            controller: dayCont,
+            keyboardType: TextInputType.number,
+          ),
         ),
       ],
     );
