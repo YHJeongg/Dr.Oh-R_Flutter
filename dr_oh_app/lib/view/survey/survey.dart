@@ -24,7 +24,7 @@ class Survey extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            _btn(SurveyStroke(surveyName: '뇌졸중 검사'), '뇌졸중 검사 하러가기', context),
+            _btn(const SurveyStrokePage(), '뇌졸중 검사 하러가기', context),
             const SizedBox(
               height: 40,
             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../model/bmi_model.dart';
+import '../../model/bmi_message.dart';
 
 class InfoBmiResult extends StatefulWidget {
   const InfoBmiResult({super.key});
@@ -25,7 +25,7 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
               height: 50,
             ),
             Text(
-              Message.bmiResultStr.toString(),
+              BmiMessage.bmiResultStr.toString(),
               style: const TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
@@ -35,7 +35,7 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
               height: 24,
             ),
             Text(
-              Message.bmiResult.toString(),
+              BmiMessage.bmiResult.toString(),
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    Message.bmiResultImage,
+                    BmiMessage.bmiResultImage,
                     width: 300,
                     height: 400,
                   ),
@@ -62,7 +62,7 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
               height: 20,
             ),
             Text(
-              Message.bmiResultContent.toString(),
+              BmiMessage.bmiResultContent.toString(),
               textAlign: TextAlign.center,
               style: const TextStyle(
                   fontSize: 16, fontWeight: FontWeight.bold, height: 1.5),

@@ -1,4 +1,4 @@
-import 'package:dr_oh_app/model/bmi_model.dart';
+import 'package:dr_oh_app/model/bmi_message.dart';
 import 'package:dr_oh_app/view/information/info_bmi_result.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -292,7 +292,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
               ElevatedButton(
                 onPressed: () {
                   checkBmi();
-                  Message.bmiResult = bmiResult;
+                  BmiMessage.bmiResult = bmiResult;
                   Get.to(const InfoBmiResult());
                   // Navigator.pushNamed(context, '/BmiResult');
                   // Navigator.of(context).pushNamed('/BmiResult');
@@ -411,8 +411,8 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
         bmiResultImage = 'images/extremeobesity_female.png';
       }
     }
-    Message.bmiResultStr = bmiResultStr;
-    Message.bmiResultContent = bmiResultContent;
-    Message.bmiResultImage = bmiResultImage;
+    BmiMessage.bmiResultStr = bmiResultStr;
+    BmiMessage.bmiResultContent = bmiResultContent;
+    BmiMessage.bmiResultImage = bmiResultImage;
   }
 } // End

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dr_oh_app/model/stroke_survey_model.dart';
 
 // Date: 2023-01-09, SangwonKim
 // Desc: 뇌졸중검사 DB, 임시<<
