@@ -60,6 +60,26 @@ class MyPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    height: 35,
+                    child: TextButton(
+                      onPressed: () {
+                        Get.to(() => EditMemberInfo());
+                      },
+                      child: const Text(
+                        '수정',
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(thickness: 0.5, height: 1, color: Colors.grey),
               const SizedBox(height: 10),
               _profileContent('이름', '홍길동', 4),
               const SizedBox(height: 10),
@@ -116,28 +136,31 @@ class MyPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 _btnContentActions(
-                    "즐겨찾기한 병원",
-                    const Icon(
-                      Icons.local_hospital,
-                      color: Color(0xFF99CD89),
-                    ),
-                    SignOut()),
+                  "즐겨찾기한 병원",
+                  const Icon(
+                    Icons.local_hospital,
+                    color: Color(0xFF99CD89),
+                  ),
+                  SignOut(),
+                ),
                 const Divider(),
                 _btnContentActions(
-                    "내가 쓴 글",
-                    const Icon(
-                      Icons.payment,
-                      color: Color(0xFF99CD89),
-                    ),
-                    SignOut()),
+                  "내가 쓴 글",
+                  const Icon(
+                    Icons.payment,
+                    color: Color(0xFF99CD89),
+                  ),
+                  SignOut(),
+                ),
                 const Divider(),
                 _btnContentActions(
-                    "회원 탈퇴",
-                    const Icon(
-                      Icons.info_outline,
-                      color: Color(0xFF99CD89),
-                    ),
-                    SignOut()),
+                  "회원 탈퇴",
+                  const Icon(
+                    Icons.info_outline,
+                    color: Color(0xFF99CD89),
+                  ),
+                  SignOut(),
+                ),
               ],
             ),
           ),
@@ -156,36 +179,40 @@ class MyPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 _btnContentActions(
-                    "당뇨병 그래프",
-                    const Icon(
-                      Icons.bar_chart,
-                      color: Color(0xFF99CD89),
-                    ),
-                    SignOut()),
+                  "당뇨병 그래프",
+                  const Icon(
+                    Icons.bar_chart,
+                    color: Color(0xFF99CD89),
+                  ),
+                  SignOut(),
+                ),
                 const Divider(),
                 _btnContentActions(
-                    "뇌졸중 그래프",
-                    const Icon(
-                      Icons.show_chart,
-                      color: Color(0xFF99CD89),
-                    ),
-                    SignOut()),
+                  "뇌졸중 그래프",
+                  const Icon(
+                    Icons.show_chart,
+                    color: Color(0xFF99CD89),
+                  ),
+                  SignOut(),
+                ),
                 const Divider(),
                 _btnContentActions(
-                    "치매 그래프",
-                    const Icon(
-                      Icons.area_chart,
-                      color: Color(0xFF99CD89),
-                    ),
-                    SignOut()),
+                  "치매 그래프",
+                  const Icon(
+                    Icons.area_chart,
+                    color: Color(0xFF99CD89),
+                  ),
+                  SignOut(),
+                ),
                 const Divider(),
                 _btnContentActions(
-                    "BMI 그래프",
-                    const Icon(
-                      Icons.pie_chart,
-                      color: Color(0xFF99CD89),
-                    ),
-                    SignOut()),
+                  "BMI 그래프",
+                  const Icon(
+                    Icons.pie_chart,
+                    color: Color(0xFF99CD89),
+                  ),
+                  SignOut(),
+                ),
               ],
             ),
           ),
@@ -224,18 +251,6 @@ class MyPage extends StatelessWidget {
             _head('기본정보'),
             const SizedBox(height: 3),
             _profile(),
-            SizedBox(
-                height: 30,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          Get.to(() => EditMemberInfo());
-                        },
-                        child: const Text('수정')),
-                  ],
-                )),
             const SizedBox(height: 30),
             _head('추가정보'),
             _additionalInfo(),
