@@ -2,6 +2,7 @@ import 'package:dr_oh_app/components/survey_dementia_widget.dart';
 import 'package:dr_oh_app/components/survey_diabetes_widget.dart';
 import 'package:dr_oh_app/components/survey_stroke_widget.dart';
 import 'package:dr_oh_app/view/survey/dementia_survey.dart';
+import 'package:dr_oh_app/view/survey/survey_stroke_page.dart';
 import 'package:flutter/material.dart';
 
 class Survey extends StatelessWidget {
