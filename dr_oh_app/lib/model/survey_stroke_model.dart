@@ -9,17 +9,17 @@ class SurveyStrokeModel {
     required this.question,
   });
 
-  // factory StrokeSurveyModel.fromJson(Map<String, dynamic> json) {
-  //   return StrokeSurveyModel(
-  //     seq: json['seq'],
-  //     question: json['question'],
-  //   );
-  // }
+  factory SurveyStrokeModel.fromJson(Map<String, dynamic> json) {
+    return SurveyStrokeModel(
+      seq: json['seq'],
+      question: json['question'],
+    );
+  }
 
-  // Map<String, dynamic> toMap() {
-  //   return {
-  //     'seq': seq,
-  //     'question': question,
-  //   };
-  // }
+  Map<String, dynamic> toMap() {
+    return {
+      'seq': seq,
+      'question': question,
+    };
+  }
 }

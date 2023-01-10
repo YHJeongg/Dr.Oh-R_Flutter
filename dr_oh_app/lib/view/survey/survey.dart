@@ -1,6 +1,4 @@
-import 'package:dr_oh_app/components/survey_dementia_widget.dart';
 import 'package:dr_oh_app/components/survey_diabetes_widget.dart';
-import 'package:dr_oh_app/components/survey_stroke_widget.dart';
 import 'package:dr_oh_app/view/survey/dementia_survey.dart';
 import 'package:dr_oh_app/view/survey/survey_stroke_page.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +23,9 @@ class Survey extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            _btn(const SurveyStrokePage(), '뇌졸중 검사 하러가기', context),
+            // Date: 2023-01-10, SangwonKim
+            // Desc: 뇌졸중 페이지로 가기
+            _btn(SurveyStrokePage(surveyName: '뇌졸중 검사',), '뇌졸중 검사 하러가기', context),
             const SizedBox(
               height: 40,
             ),
@@ -34,9 +34,9 @@ class Survey extends StatelessWidget {
         ),
       ),
     );
-  } //build
+  } // build
 
-//---------Widget-----------
+  //---------Widget-----------
   // Date: 2023-01-08, anna
   // survey tab: 각 설문지로 보내는 버튼 생성
   Widget _btn(dynamic page, String title, BuildContext context) {

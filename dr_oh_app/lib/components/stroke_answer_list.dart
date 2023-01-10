@@ -1,33 +1,30 @@
+import 'package:dr_oh_app/model/survey_stroke_message.dart';
 import 'package:flutter/material.dart';
 
+// Date: 2023-01-10, SangwonKim
+// Desc: 뇌졸중 검사 설문답변 class
 class StrokeAnswerList {
-  List<Widget> dAnserList = const [
-    YesNoAnswer(),
-    YesNoAnswer(),
-    WorkTypeAnswer(),
-    ResidenceTypeAnswer(),
-    YesNoAnswer(),
+  List<Widget> strokeAnswerList = const [
+    FirstAnswer(), // 1번 답변
+    SecondAnswer(), // 2번 답변
+    ThirdAnswer(), // 3번 답변
+    ForthAnswer(), // 4번 답변
+    FifthAnswer(), // 5번 답변
   ];
 }
 
-// yes,no 문제
-class YesNoAnswer extends StatefulWidget {
-  const YesNoAnswer({super.key});
+// --- 답변 1~5번 ---
+
+// ------------------------------------------------------------------------
+// 1번 답변: 고혈압진단 여부
+class FirstAnswer extends StatefulWidget {
+  const FirstAnswer({super.key});
 
   @override
-  State<YesNoAnswer> createState() => _YesNoAnswerState();
+  State<FirstAnswer> createState() => _FirstAnswerState();
 }
 
-class _YesNoAnswerState extends State<YesNoAnswer> {
-  late bool ynvalue;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    ynvalue = false;
-  }
-
+class _FirstAnswerState extends State<FirstAnswer> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -35,21 +32,21 @@ class _YesNoAnswerState extends State<YesNoAnswer> {
       children: [
         const Text('예'),
         Radio(
-          value: "1",
-          groupValue: ynvalue,
-          onChanged: (ynvalue) {
+          value: "TRUE",
+          groupValue: SurveyStrokeMessage.highBp,
+          onChanged: (value) {
             setState(() {
-              ynvalue = ynvalue;
+              SurveyStrokeMessage.highBp = value!;
             });
           },
         ),
         const Text('아니오'),
         Radio(
-          value: "0",
-          groupValue: ynvalue,
-          onChanged: (ynvalue) {
+          value: "FALSE",
+          groupValue: SurveyStrokeMessage.highBp,
+          onChanged: (value) {
             setState(() {
-              ynvalue = ynvalue!;
+              SurveyStrokeMessage.highBp = value!;
             });
           },
         ),
@@ -58,24 +55,56 @@ class _YesNoAnswerState extends State<YesNoAnswer> {
   }
 }
 
-// 직업타입 답변
-class WorkTypeAnswer extends StatefulWidget {
-  const WorkTypeAnswer({super.key});
+// ------------------------------------------------------------------------
+// 2번 답변: 결혼 여부
+class SecondAnswer extends StatefulWidget {
+  const SecondAnswer({super.key});
 
   @override
-  State<WorkTypeAnswer> createState() => _WorkTypeAnswerState();
+  State<SecondAnswer> createState() => _SecondAnswerState();
 }
 
-class _WorkTypeAnswerState extends State<WorkTypeAnswer> {
-  late String value;
+class _SecondAnswerState extends State<SecondAnswer> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text('예'),
+        Radio(
+          value: "TRUE",
+          groupValue: SurveyStrokeMessage.everMarried,
+          onChanged: (value) {
+            setState(() {
+              SurveyStrokeMessage.everMarried = value!;
+            });
+          },
+        ),
+        const Text('아니오'),
+        Radio(
+          value: "FALSE",
+          groupValue: SurveyStrokeMessage.everMarried,
+          onChanged: (value) {
+            setState(() {
+              SurveyStrokeMessage.everMarried = value!;
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+
+// ------------------------------------------------------------------------
+// 3번 답변: 직업군 타입
+class ThirdAnswer extends StatefulWidget {
+  const ThirdAnswer({super.key});
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    value = '';
-  }
+  State<ThirdAnswer> createState() => _ThirdAnswerState();
+}
 
+class _ThirdAnswerState extends State<ThirdAnswer> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -86,20 +115,20 @@ class _WorkTypeAnswerState extends State<WorkTypeAnswer> {
             const Text('무직'),
             Radio(
               value: "0",
-              groupValue: value,
+              groupValue: SurveyStrokeMessage.workType,
               onChanged: (value) {
                 setState(() {
-                  value = value!;
+                  SurveyStrokeMessage.workType = value!;
                 });
               },
             ),
             const Text('청소년'),
             Radio(
               value: "1",
-              groupValue: value,
+              groupValue: SurveyStrokeMessage.workType,
               onChanged: (value) {
                 setState(() {
-                  value = value!;
+                  SurveyStrokeMessage.workType = value!;
                 });
               },
             ),
@@ -111,30 +140,30 @@ class _WorkTypeAnswerState extends State<WorkTypeAnswer> {
             const Text('공무원'),
             Radio(
               value: "2",
-              groupValue: value,
+              groupValue: SurveyStrokeMessage.workType,
               onChanged: (value) {
                 setState(() {
-                  value = value!;
+                  SurveyStrokeMessage.workType = value!;
                 });
               },
             ),
             const Text('자영업'),
             Radio(
               value: "3",
-              groupValue: value,
+              groupValue: SurveyStrokeMessage.workType,
               onChanged: (value) {
                 setState(() {
-                  value = value!;
+                  SurveyStrokeMessage.workType = value!;
                 });
               },
             ),
             const Text('사기업'),
             Radio(
               value: "4",
-              groupValue: value,
+              groupValue: SurveyStrokeMessage.workType,
               onChanged: (value) {
                 setState(() {
-                  value = value!;
+                  SurveyStrokeMessage.workType = value!;
                 });
               },
             ),
@@ -145,67 +174,38 @@ class _WorkTypeAnswerState extends State<WorkTypeAnswer> {
   }
 }
 
-// 거주지역타입 답변
-class ResidenceTypeAnswer extends StatefulWidget {
-  const ResidenceTypeAnswer({super.key});
+// ------------------------------------------------------------------------
+// 4번 답변: 거주지역 타입
+class ForthAnswer extends StatefulWidget {
+  const ForthAnswer({super.key});
 
   @override
-  State<ResidenceTypeAnswer> createState() => _ResidenceTypeAnswerState();
+  State<ForthAnswer> createState() => _ForthAnswerState();
 }
 
-class _ResidenceTypeAnswerState extends State<ResidenceTypeAnswer> {
-  late bool first;
-  late bool second;
-  late bool third;
-  late bool fourth;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    first = false;
-    second = false;
-    third = false;
-    fourth = false;
-  }
-
+class _ForthAnswerState extends State<ForthAnswer> {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Checkbox(
-          value: first,
+        const Text('도시'),
+        Radio(
+          value: "0",
+          groupValue: SurveyStrokeMessage.residenceType,
           onChanged: (value) {
             setState(() {
-              first = value!;
+              SurveyStrokeMessage.residenceType = value!;
             });
           },
         ),
-        Checkbox(
-          value: second,
+        const Text('시골'),
+        Radio(
+          value: "1",
+          groupValue: SurveyStrokeMessage.residenceType,
           onChanged: (value) {
             setState(() {
-              second = value!;
-            });
-          },
-        ),
-        Checkbox(
-          value: third,
-          onChanged: (value) {
-            setState(() {
-              third = value!;
-            });
-          },
-        ),
-        Checkbox(
-          value: fourth,
-          onChanged: (value) {
-            setState(() {
-              first = false;
-              second = false;
-              third = false;
-              fourth = value!;
+              SurveyStrokeMessage.residenceType = value!;
             });
           },
         ),
@@ -214,6 +214,50 @@ class _ResidenceTypeAnswerState extends State<ResidenceTypeAnswer> {
   }
 }
 
+// ------------------------------------------------------------------------
+// 5번 답변: 흡연 여부
+class FifthAnswer extends StatefulWidget {
+  const FifthAnswer({super.key});
+
+  @override
+  State<FifthAnswer> createState() => _FifthAnswerState();
+}
+
+class _FifthAnswerState extends State<FifthAnswer> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text('예'),
+        Radio(
+          value: "TRUE",
+          groupValue: SurveyStrokeMessage.smoke,
+          onChanged: (value) {
+            setState(() {
+              SurveyStrokeMessage.smoke = value!;
+            });
+          },
+        ),
+        const Text('아니오'),
+        Radio(
+          value: "FALSE",
+          groupValue: SurveyStrokeMessage.smoke,
+          onChanged: (value) {
+            setState(() {
+              SurveyStrokeMessage.smoke = value!;
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+
+// ------------------------------------------------------------------------
+// ------------- Etc ---------------
+
+// 슬라이더 답변 ex
 class SliderAnswer extends StatefulWidget {
   const SliderAnswer({super.key});
 
@@ -255,9 +299,9 @@ class _SliderAnswerState extends State<SliderAnswer> {
   }
 }
 
+// 체크박스 답변 ex
 class CheckboxAnswer extends StatefulWidget {
   const CheckboxAnswer({super.key});
-
   @override
   State<CheckboxAnswer> createState() => _CheckboxAnswerState();
 }
