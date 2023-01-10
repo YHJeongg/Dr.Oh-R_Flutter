@@ -94,7 +94,7 @@ class _MedicationState extends State<Medication> {
     final DateTimeRange? result = await showDateRangePicker(
       context: context,
       firstDate: DateTime(2000),
-      lastDate: DateTime.now().add(Duration(days: 30)),
+      lastDate: DateTime.now(),
       currentDate: DateTime.now(),
       saveText: 'Done',
     );

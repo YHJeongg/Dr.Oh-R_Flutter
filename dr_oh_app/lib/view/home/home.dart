@@ -1,6 +1,7 @@
 import 'package:dr_oh_app/components/news_api.dart';
 import 'package:dr_oh_app/model/checkup_history_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
+import 'package:dr_oh_app/view/home/all_checkup_history.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
 import 'package:dr_oh_app/view/home/hospital_visit.dart';
@@ -12,7 +13,6 @@ import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -282,7 +282,11 @@ class _HomeState extends State<Home> {
                         );
                       },
                     ),
-                    TextButton(onPressed: () {}, child: const Text('전체기록 보기')),
+                    TextButton(
+                        onPressed: () {
+                          Get.to(AllCheckupHistory());
+                        },
+                        child: const Text('전체기록 보기')),
                   ],
                 ),
               ),

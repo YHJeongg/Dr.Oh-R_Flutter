@@ -80,7 +80,8 @@ class SurveyStroke extends StatelessWidget {
 
 //read questions from firestore
   Widget _buildItemWidget(DocumentSnapshot doc) {
-    final strokeSurveyModel = StrokeSurveyModel(seq: doc['seq'], question: doc['question']);
+    final strokeSurveyModel =
+        StrokeSurveyModel(seq: doc['seq'], question: doc['question']);
     DAnswer answer = DAnswer();
 
     return Column(
