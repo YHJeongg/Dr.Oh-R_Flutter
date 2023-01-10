@@ -12,6 +12,7 @@ class StrokeUserInfo extends StatefulWidget {
 }
 
 class _StrokeUserInfoState extends State<StrokeUserInfo> {
+  late bool sexSwitchValue; // 유저 성별
   late TextEditingController ageController; // 유저 나이
   late TextEditingController heightController; // 유저 키
   late TextEditingController weightController; // 유저 몸무게
@@ -25,6 +26,7 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    sexSwitchValue = false;
     ageController = TextEditingController();
     heightController = TextEditingController();
     weightController = TextEditingController();
@@ -46,6 +48,37 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
               style: TextStyle(
                 fontSize: 30,
               ),
+            ),
+            const SizedBox(height: 40),
+            // 성별 입력받기
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '남자 ',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+                Switch(
+                  value: sexSwitchValue,
+                  onChanged: (value) {
+                    setState(() {
+                      sexSwitchValue = !sexSwitchValue;
+                    });
+                  },
+                ),
+                const Text(
+                  ' 여자',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.redAccent,
+                  ),
+                ),
+              ],
             ),
             // 출생년도 입력받기
             SizedBox(
@@ -128,6 +161,8 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
                   ? () {
                       //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
                       if (widget.pageController.hasClients) {
+                        SurveyStrokeMessage.sex =
+                            (sexSwitchValue ? 'female' : 'male').toString();
                         SurveyStrokeMessage.age =
                             currentYear - int.parse(ageController.text.trim());
                         SurveyStrokeMessage.height =

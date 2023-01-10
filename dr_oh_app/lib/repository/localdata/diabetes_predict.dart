@@ -29,6 +29,9 @@ class DiabetesPredict {
     print(stroke);
     print(physhealth);
     var url = Uri.parse(
+        // 상원 ip
+        // 'http://192.168.35.37:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+        // 유승 ip
         'http://192.168.10.213:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
     var response = await http.get(url);
     var dataConvertedJSON = await json.decode(utf8.decode(response.bodyBytes));
