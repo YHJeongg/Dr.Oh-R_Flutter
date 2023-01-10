@@ -1,13 +1,14 @@
-import 'package:dr_oh_app/components/news_provider.dart';
-import 'package:dr_oh_app/model/news.dart';
+import 'package:dr_oh_app/components/news_api.dart';
+import 'package:dr_oh_app/model/news_model.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
 import 'package:dr_oh_app/view/home/hospital_visit.dart';
 import 'package:dr_oh_app/view/home/medication.dart';
-import 'package:dr_oh_app/view/home/news_view.dart';
+import 'package:dr_oh_app/view/mypage/mypage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,12 +18,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<News> news = [];
+  List<NewsModel> news = [];
+
   bool isLoading = true;
-  NewsProvider newsProvider = NewsProvider();
+
+  NewsAPI newsAPI = NewsAPI();
 
   Future initNews() async {
-    news = await newsProvider.getNews();
+    news = await newsAPI.getNews();
   }
 
   @override
@@ -42,14 +45,25 @@ class _HomeState extends State<Home> {
     DateTime selectedDate = DateTime.now();
     return Column(
       children: [
-        CalendarDatePicker(
-          initialDate: selectedDate,
-          firstDate: DateTime(2000),
-          lastDate: DateTime.now(),
-          onDateChanged: ((value) {
-            selectedDate = value;
-            print(selectedDate);
-          }),
+        Column(
+          children: [
+            const Text(
+              '마지막 검진일은 @@일입니다',
+              style: TextStyle(fontSize: 14),
+            ),
+            SizedBox(
+              height: 300,
+              child: CalendarDatePicker(
+                initialDate: selectedDate,
+                firstDate: DateTime(2000),
+                lastDate: DateTime.now(),
+                onDateChanged: ((value) {
+                  selectedDate = value;
+                  print(selectedDate);
+                }),
+              ),
+            ),
+          ],
         ),
         ElevatedButton(
           onPressed: () {
@@ -60,6 +74,7 @@ class _HomeState extends State<Home> {
           },
           child: const Text(
             '검진기록 조회',
+            style: TextStyle(color: Colors.white),
           ),
         )
       ],
@@ -74,9 +89,7 @@ class _HomeState extends State<Home> {
         style: BorderStyle.solid,
         width: 1,
       ),
-      borderRadius: const BorderRadius.all(
-        Radius.circular(10),
-      ),
+      borderRadius: BorderRadius.circular(5),
       color: Colors.white,
       boxShadow: [
         BoxShadow(
@@ -108,7 +121,7 @@ class _HomeState extends State<Home> {
       padding: const EdgeInsets.symmetric(horizontal: 22),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7),
+          borderRadius: BorderRadius.circular(5),
           color: const Color(0xFF99CD89),
         ),
         width: Get.width,
@@ -142,6 +155,7 @@ class _HomeState extends State<Home> {
       },
       child: Text(
         title,
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }
@@ -173,19 +187,41 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.all(15),
                           child: Card(
                             elevation: 2,
-                            child: Column(
-                              children: [
-                                Text(
-                                  news[index].title,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                  maxLines: 2,
-                                ),
-                                Text(
-                                  news[index].description,
-                                  maxLines: 5,
-                                ),
-                              ],
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: ((context) {
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        AlertDialog(
+                                          scrollable: true,
+                                          title: Text(news[index].title),
+                                          content:
+                                              Text(news[index].description),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Text(
+                                    news[index].title,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                    maxLines: 2,
+                                  ),
+                                  Text(
+                                    news[index].description,
+                                    maxLines: 5,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
