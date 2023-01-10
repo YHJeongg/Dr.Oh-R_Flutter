@@ -11,6 +11,7 @@ Dementia.fromMap(Map<String, dynamic> res)
     : seq = res['seq'],
       question = res['question'];
 
+
 Map<String, Object?> toMap(){
   return {'seq' : seq, 'question': question};
 }

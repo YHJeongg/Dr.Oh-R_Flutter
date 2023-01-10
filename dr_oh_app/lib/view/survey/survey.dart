@@ -1,6 +1,7 @@
 import 'package:dr_oh_app/components/survey_dementia_widget.dart';
 import 'package:dr_oh_app/components/survey_diabetes_widget.dart';
 import 'package:dr_oh_app/components/survey_stroke_widget.dart';
+import 'package:dr_oh_app/view/survey/dementia_survey.dart';
 import 'package:flutter/material.dart';
 
 class Survey extends StatelessWidget {
@@ -27,7 +28,7 @@ class Survey extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            _btn(SurveyDementia(surveyName: '치매 검사'), '치매 검사 하러가기', context),
+            _btn(DementiaSurvey(), '치매 검사 하러가기', context),
             ],
         ),
       ),

@@ -109,6 +109,7 @@ class SurveyDementia extends StatelessWidget {
     );
   } //_buildItemWidget
 
+
 //개인정보보호법 페이지
   Widget _privacyAct() {
     return Column(
