@@ -14,12 +14,13 @@ class SignOut extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              width: 350,
-              child: Text(
-                '서비스 탈퇴 전에 확인하세요\n계정을 삭제하면 진단기록을 포함한 모든 Dr.Oh 설정이 초기화됩니다. 또한 즐겨찾기와 내가 쓴 글을 확인할 수 없습니다.\n삭제하시겠습니까?',
-                textAlign: TextAlign.center,
-              ),
+            const Text(
+              '서비스 탈퇴 전에 확인하세요\n계정을 삭제하면 진단기록을 포함한 모든 Dr.Oh 설정이 초기화됩니다.',
+              textAlign: TextAlign.center,
+            ),
+            const Text(
+              '또한 즐겨찾기와 내가 쓴 글을 확인할 수 없습니다.\n삭제하시겠습니까?',
+              textAlign: TextAlign.center,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
