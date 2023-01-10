@@ -1,6 +1,6 @@
 import 'package:dr_oh_app/components/survey_dementia_widget.dart';
 import 'package:dr_oh_app/components/survey_diabetes_widget.dart';
-import 'package:dr_oh_app/components/survey_stroke_widget.dart';
+import 'package:dr_oh_app/view/survey/survey_stroke_page.dart';
 import 'package:flutter/material.dart';
 
 class Survey extends StatelessWidget {
@@ -23,7 +23,7 @@ class Survey extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            _btn(SurveyStroke(surveyName: '뇌졸중 검사'), '뇌졸중 검사 하러가기', context),
+            _btn(const SurveyStrokePage(), '뇌졸중 검사 하러가기', context),
             const SizedBox(
               height: 40,
             ),
