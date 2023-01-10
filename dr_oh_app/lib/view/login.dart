@@ -2,6 +2,9 @@ import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/view/join.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../viewmodel/auth_controller.dart';
 
 // Date: 2023-01-09, jyh
 // 화면 디자인 구성완료, API(카카오, 구글) 연동 전
@@ -90,8 +93,12 @@ class _LoginState extends State<Login> {
     return SizedBox(
       width: Get.width,
       child: ElevatedButton(
-        onPressed: () {
-          Get.offAll(() => const App());
+        onPressed: () async {
+          AuthController.to.loginIdUser(idCont.text, pwCont.text);
+          final prefs = await SharedPreferences.getInstance();
+          if (prefs.getString('id') == idCont.text) {
+            Get.offAll(() => const App());
+          }
         },
         child: const Text('로그인'),
       ),
