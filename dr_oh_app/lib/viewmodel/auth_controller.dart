@@ -8,7 +8,7 @@ class AuthController extends GetxController {
 
   Rx<UserModel> user = UserModel().obs;
 
-  // 로그인 체크
+  // UID 로그인 체크
   Future<UserModel?> loginUser(String uid) async {
     // DB 조회
     var userData = await UserRepository.loginUserByUid(uid);
@@ -23,5 +23,15 @@ class AuthController extends GetxController {
     if (result) {
       loginUser(signupUser.uid!);
     }
+  }
+
+  // ID, PASSWRD 로그인 체크
+  Future<UserModel?> loginIdUser(String id, String pw) async {
+    // DB 조회
+    var userData = await UserRepository.loginUserById(id, pw);
+    if (userData != null) {
+      user(userData);
+    }
+    return userData;
   }
 }
