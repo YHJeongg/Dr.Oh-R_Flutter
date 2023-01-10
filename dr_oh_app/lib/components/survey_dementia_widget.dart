@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 List<Widget> gender = <Widget>[const Text('여자'), const Text('남자')];
 
-
-
 //Date: 2023-01-09 anna
 class SurveyDementia extends StatelessWidget {
   final String surveyName;
@@ -19,14 +17,10 @@ class SurveyDementia extends StatelessWidget {
   final List<bool> _selectedGender = <bool>[true, false];
   final String dropdownValue = list.first; //임시
 
-
-
   SurveyDementia({
     Key? key,
     required this.surveyName,
   }) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +32,6 @@ class SurveyDementia extends StatelessWidget {
       body: _pages(),
     );
   }
-
-
 
 //-------------page Widget----------
   Widget _pages() {
@@ -92,30 +84,30 @@ class SurveyDementia extends StatelessWidget {
     );
   } //firestore read data
 
-
 //read questions from firestore
-  Widget _buildItemWidget(DocumentSnapshot doc, List<QueryDocumentSnapshot<Object?>> docF) {
-
-   final dementia = Dementia(seq: doc['seq'], question: doc['question']);
+  Widget _buildItemWidget(
+      DocumentSnapshot doc, List<QueryDocumentSnapshot<Object?>> docF) {
+    final dementia = Dementia(seq: doc['seq'], question: doc['question']);
 
     return SizedBox(
       height: Get.height,
       width: Get.width,
-      child: PageView.builder(
+      child: ListView.builder(
         controller: PageController(initialPage: 0),
         itemCount: docF.length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
             child: ListTile(
-              title: Text(dementia.question),
+              // children: [
+              //   Text('${dementia.seq.toString()}번. ${dementia.question}'),
+                
+              // ],
             ),
           );
         },
       ),
     );
   } //_buildItemWidget
-
-
 
 //개인정보보호법 페이지
   Widget _privacyAct() {
@@ -286,86 +278,82 @@ class SurveyDementia extends StatelessWidget {
         child: const Text('다음'));
   } //btnNext
 
-
-
-  Widget personal(){
+  Widget personal() {
     return Column(
-            children: [
-              Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                  height: 200,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          //offset: Offset(0, 2)
-                        ),
-                      ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        '검사 시행 전 검사를 받는 분의\n교육 수준을 파악하기 위해\n아래와 같은 정보를 입력해 주시기\n바랍니다.',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  )),
-              Container(
-                //container design은 크기 보려고 임시로 해놨습니다.
-                alignment: Alignment.center,
-                margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                height: 350,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        //offset: Offset(0, 2)
-                      ),
-                    ]),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    SizedBox(width: 300, child: _dropDownBtn('교육 연수')),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(width: 300, child: _dropDownBtn('연봉(단위: 만원)')),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: 300,
-                      child: _dropDownBtn('생년월일'),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[_gender()],
-                    ),
-                  ],
+      children: [
+        Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+            height: 200,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    //offset: Offset(0, 2)
+                  ),
+                ]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text(
+                  '검사 시행 전 검사를 받는 분의\n교육 수준을 파악하기 위해\n아래와 같은 정보를 입력해 주시기\n바랍니다.',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
+              ],
+            )),
+        Container(
+          //container design은 크기 보려고 임시로 해놨습니다.
+          alignment: Alignment.center,
+          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          height: 350,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  //offset: Offset(0, 2)
+                ),
+              ]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 30,
               ),
-              Column(
-                children: [_btnNext(2)],
+              SizedBox(width: 300, child: _dropDownBtn('교육 연수')),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(width: 300, child: _dropDownBtn('연봉(단위: 만원)')),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 300,
+                child: _dropDownBtn('생년월일'),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[_gender()],
               ),
             ],
-          ); //2nd page End
-
+          ),
+        ),
+        Column(
+          children: [_btnNext(2)],
+        ),
+      ],
+    ); //2nd page End
   }
 
   //성별 토글 버튼
@@ -390,6 +378,7 @@ class SurveyDementia extends StatelessWidget {
       children: gender,
     );
   } //_gender
+
 //dropdown buttons(교육연수, 연봉, 생년월일)
   Widget _dropDownBtn(String hintText) {
     return DropdownButtonFormField(
@@ -408,5 +397,4 @@ class SurveyDementia extends StatelessWidget {
       },
     );
   }
-
 }
