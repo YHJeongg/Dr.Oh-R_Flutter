@@ -1,13 +1,13 @@
-package com.springlec.base;
+package com.droh.base;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HelloApplication {
+public class DrOhSpringApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HelloApplication.class, args);
+		SpringApplication.run(DrOhSpringApplication.class, args);
 	}
 
 }

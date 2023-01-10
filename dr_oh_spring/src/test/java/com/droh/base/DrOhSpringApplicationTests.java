@@ -1,10 +1,10 @@
-package com.springlec.base;
+package com.droh.base;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HelloApplicationTests {
+class DrOhSpringApplicationTests {
 
 	@Test
 	void contextLoads() {
