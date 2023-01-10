@@ -70,9 +70,9 @@ class _HospitalVisitState extends State<HospitalVisit> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 const Text('내원 목적'),
-                _customRadioButton('진료', 1),
-                _customRadioButton('처방', 2),
-                _customRadioButton('검진', 3)
+                _customRadioButton('진료', 0),
+                _customRadioButton('처방', 1),
+                _customRadioButton('검진', 2)
               ],
             ),
             ElevatedButton(onPressed: () {}, child: const Text('추가'))
@@ -87,7 +87,7 @@ class _HospitalVisitState extends State<HospitalVisit> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
-      lastDate: DateTime.now().add(Duration(days: 30)),
+      lastDate: DateTime.now(),
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.dark(),
