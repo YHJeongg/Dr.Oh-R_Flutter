@@ -18,7 +18,7 @@ class DiabetesPredict {
       int physhealth) async {
     double bmi = weight / (height * height * 0.01 * 0.01);
     var url = Uri.parse(
-        'http://192.168.10.213:8080/rserve?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+        'http://192.168.10.213:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
     String result = dataConvertedJSON['result'];
