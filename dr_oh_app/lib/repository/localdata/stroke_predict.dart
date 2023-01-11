@@ -12,7 +12,7 @@ class StrokePredict {
     int age,
     double height,
     double weight,
-    int highBp,
+    int hypertension,
     int heartDisease,
     int everMarried,
     int workType,
@@ -32,11 +32,11 @@ class StrokePredict {
 
     var url = Uri.parse(
         // 상원 ip
-        'http://192.168.10.176:8080/stroke?sex=$sex&age=$age&bmi=$bmi&highBp=$highBp&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
+        'http://192.168.35.33:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
         // 유승 ip
-        // 'http://192.168.35.37:8080/stroke?sex=$sex&age=$age&bmi=$bmi&highBp=$highBp&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
+        // 'http://192.168.35.37:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
         // 주현 ip
-        // 'http://192.168.10.92:8080/stroke?sex=$sex&age=$age&bmi=$bmi&highBp=$highBp&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
+        // 'http://192.168.10.92:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
 
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
@@ -47,7 +47,7 @@ class StrokePredict {
     return result;
   }
 
-      //Desc: 검사 결과 저장
+  //Desc: 검사 결과 저장
   //Date: 2023-01-11
   _saveResult(String result) async {
     final prefs = await SharedPreferences.getInstance();
