@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/news_api.dart';
-import 'package:dr_oh_app/model/body_info_model.dart';
 import 'package:dr_oh_app/model/checkup_history_model.dart';
 import 'package:dr_oh_app/model/name_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
@@ -243,6 +242,7 @@ class _HomeState extends State<Home> {
     ));
   }
 
+
   // Desc: 신체정보 받아오기
   // Date: 2023-01-11
   Widget _getBodyinfo(DocumentSnapshot doc) {
@@ -260,6 +260,7 @@ class _HomeState extends State<Home> {
       ],
     ));
   }
+
 
   // Desc: shared preferences 받기
   // Date: 2023-01-10
@@ -372,6 +373,7 @@ class _HomeState extends State<Home> {
               _sizedBox(),
               _head('신체정보'),
               const SizedBox(height: 3),
+
               SingleChildScrollView(
                 child: Container(
                   decoration: _borderBox(),
@@ -406,6 +408,7 @@ class _HomeState extends State<Home> {
                       _button(const BodyInfo(), '입력하러 가기')
                     ],
                   ),
+
                 ),
               ),
               _sizedBox(),
