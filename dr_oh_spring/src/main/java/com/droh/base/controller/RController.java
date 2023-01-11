@@ -21,5 +21,11 @@ public class RController {
 		service.PredictDiabetes(request, model);
 		return "result";
 	}
+	
+	@GetMapping("/stroke")
+	public String Stroke(HttpServletRequest request, Model model) throws Exception{
+		service.PredictStroke(request, model);
+		return "result";
+	}
 
 }

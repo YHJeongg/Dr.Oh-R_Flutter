@@ -7,9 +7,10 @@ class StrokeAnswerList {
   List<Widget> strokeAnswerList = const [
     FirstAnswer(), // 1번 답변
     SecondAnswer(), // 2번 답변
-    ThirdAnswer(), // 3번 답변
-    ForthAnswer(), // 4번 답변
-    FifthAnswer(), // 5번 답변
+    ThirdAnswer(), // 2번 답변
+    ForthAnswer(), // 3번 답변
+    FifthAnswer(), // 4번 답변
+    SixAnswer(), // 5번 답변
   ];
 }
 
@@ -32,7 +33,7 @@ class _FirstAnswerState extends State<FirstAnswer> {
       children: [
         const Text('예'),
         Radio(
-          value: "TRUE",
+          value: "1",
           groupValue: SurveyStrokeMessage.highBp,
           onChanged: (value) {
             setState(() {
@@ -42,7 +43,7 @@ class _FirstAnswerState extends State<FirstAnswer> {
         ),
         const Text('아니오'),
         Radio(
-          value: "FALSE",
+          value: "0",
           groupValue: SurveyStrokeMessage.highBp,
           onChanged: (value) {
             setState(() {
@@ -56,7 +57,7 @@ class _FirstAnswerState extends State<FirstAnswer> {
 }
 
 // ------------------------------------------------------------------------
-// 2번 답변: 결혼 여부
+// 2번 답변: 심장병 여부
 class SecondAnswer extends StatefulWidget {
   const SecondAnswer({super.key});
 
@@ -72,7 +73,47 @@ class _SecondAnswerState extends State<SecondAnswer> {
       children: [
         const Text('예'),
         Radio(
-          value: "TRUE",
+          value: "1",
+          groupValue: SurveyStrokeMessage.heartDisease,
+          onChanged: (value) {
+            setState(() {
+              SurveyStrokeMessage.heartDisease = value!;
+            });
+          },
+        ),
+        const Text('아니오'),
+        Radio(
+          value: "0",
+          groupValue: SurveyStrokeMessage.heartDisease,
+          onChanged: (value) {
+            setState(() {
+              SurveyStrokeMessage.heartDisease = value!;
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+
+// ------------------------------------------------------------------------
+// 3번 답변: 결혼 여부
+class ThirdAnswer extends StatefulWidget {
+  const ThirdAnswer({super.key});
+
+  @override
+  State<ThirdAnswer> createState() => _ThirdAnswerState();
+}
+
+class _ThirdAnswerState extends State<ThirdAnswer> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text('예'),
+        Radio(
+          value: "1",
           groupValue: SurveyStrokeMessage.everMarried,
           onChanged: (value) {
             setState(() {
@@ -82,7 +123,7 @@ class _SecondAnswerState extends State<SecondAnswer> {
         ),
         const Text('아니오'),
         Radio(
-          value: "FALSE",
+          value: "0",
           groupValue: SurveyStrokeMessage.everMarried,
           onChanged: (value) {
             setState(() {
@@ -96,15 +137,15 @@ class _SecondAnswerState extends State<SecondAnswer> {
 }
 
 // ------------------------------------------------------------------------
-// 3번 답변: 직업군 타입
-class ThirdAnswer extends StatefulWidget {
-  const ThirdAnswer({super.key});
+// 4번 답변: 직업군 타입
+class ForthAnswer extends StatefulWidget {
+  const ForthAnswer({super.key});
 
   @override
-  State<ThirdAnswer> createState() => _ThirdAnswerState();
+  State<ForthAnswer> createState() => _ForthAnswerState();
 }
 
-class _ThirdAnswerState extends State<ThirdAnswer> {
+class _ForthAnswerState extends State<ForthAnswer> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -175,47 +216,7 @@ class _ThirdAnswerState extends State<ThirdAnswer> {
 }
 
 // ------------------------------------------------------------------------
-// 4번 답변: 거주지역 타입
-class ForthAnswer extends StatefulWidget {
-  const ForthAnswer({super.key});
-
-  @override
-  State<ForthAnswer> createState() => _ForthAnswerState();
-}
-
-class _ForthAnswerState extends State<ForthAnswer> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text('도시'),
-        Radio(
-          value: "0",
-          groupValue: SurveyStrokeMessage.residenceType,
-          onChanged: (value) {
-            setState(() {
-              SurveyStrokeMessage.residenceType = value!;
-            });
-          },
-        ),
-        const Text('시골'),
-        Radio(
-          value: "1",
-          groupValue: SurveyStrokeMessage.residenceType,
-          onChanged: (value) {
-            setState(() {
-              SurveyStrokeMessage.residenceType = value!;
-            });
-          },
-        ),
-      ],
-    );
-  }
-}
-
-// ------------------------------------------------------------------------
-// 5번 답변: 흡연 여부
+// 5번 답변: 거주지역 타입
 class FifthAnswer extends StatefulWidget {
   const FifthAnswer({super.key});
 
@@ -229,9 +230,49 @@ class _FifthAnswerState extends State<FifthAnswer> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const Text('도시'),
+        Radio(
+          value: "1",
+          groupValue: SurveyStrokeMessage.residenceType,
+          onChanged: (value) {
+            setState(() {
+              SurveyStrokeMessage.residenceType = value!;
+            });
+          },
+        ),
+        const Text('시골'),
+        Radio(
+          value: "0",
+          groupValue: SurveyStrokeMessage.residenceType,
+          onChanged: (value) {
+            setState(() {
+              SurveyStrokeMessage.residenceType = value!;
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+
+// ------------------------------------------------------------------------
+// 6번 답변: 흡연 여부
+class SixAnswer extends StatefulWidget {
+  const SixAnswer({super.key});
+
+  @override
+  State<SixAnswer> createState() => _SixAnswerState();
+}
+
+class _SixAnswerState extends State<SixAnswer> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
         const Text('예'),
         Radio(
-          value: "TRUE",
+          value: "1",
           groupValue: SurveyStrokeMessage.smoke,
           onChanged: (value) {
             setState(() {
@@ -241,7 +282,7 @@ class _FifthAnswerState extends State<FifthAnswer> {
         ),
         const Text('아니오'),
         Radio(
-          value: "FALSE",
+          value: "0",
           groupValue: SurveyStrokeMessage.smoke,
           onChanged: (value) {
             setState(() {

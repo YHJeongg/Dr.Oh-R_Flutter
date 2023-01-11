@@ -110,14 +110,16 @@ class SurveyStrokePage extends StatelessWidget {
               onPressed: () async {
                 StrokePredict predict = StrokePredict();
                 String result = await predict.predict(
+                  SurveyStrokeMessage.sex,
                   SurveyStrokeMessage.age,
                   SurveyStrokeMessage.height,
                   SurveyStrokeMessage.weight,
-                  SurveyStrokeMessage.highBp,
-                  SurveyStrokeMessage.everMarried,
+                  int.parse(SurveyStrokeMessage.highBp),
+                  int.parse(SurveyStrokeMessage.heartDisease),
+                  int.parse(SurveyStrokeMessage.everMarried),
                   int.parse(SurveyStrokeMessage.workType),
-                  SurveyStrokeMessage.residenceType,
-                  SurveyStrokeMessage.smoke,
+                  int.parse(SurveyStrokeMessage.residenceType),
+                  int.parse(SurveyStrokeMessage.smoke),
                 );
                 Get.off(StrokeResultPage(result: result)); // 설문페이지로 안돌아오게 설정
               },
@@ -140,36 +142,24 @@ class SurveyStrokePage extends StatelessWidget {
 
     return Container(
       color: Colors.transparent.withOpacity(0.3),
-      child: GestureDetector(
-        onTap: () {
-          SurveyStrokeMessage.seq = doc['seq'];
-          SurveyStrokeMessage.question =
-              doc['question']; // *** Key 값 아닌건 적어줘야한다.
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) => const Update(),
-          //     ));
-        },
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListTile(
-              title: Column(
-                children: [
-                  const SizedBox(height: 8),
-                  Text(
-                    '${surveyStrokeModel.seq}. ${surveyStrokeModel.question}',
-                    style: TextStyle(
-                      color: Colors.blueGrey.shade800,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+            title: Column(
+              children: [
+                const SizedBox(height: 8),
+                Text(
+                  '${surveyStrokeModel.seq}. ${surveyStrokeModel.question}',
+                  style: TextStyle(
+                    color: Colors.blueGrey.shade800,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                   ),
-                  const SizedBox(height: 4),
-                  answer.strokeAnswerList[surveyStrokeModel.seq - 1]
-                ],
-              ),
+                ),
+                const SizedBox(height: 8),
+                answer.strokeAnswerList[surveyStrokeModel.seq - 1]
+              ],
             ),
           ),
         ),
