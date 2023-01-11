@@ -29,14 +29,17 @@ class DiabetesPredict {
     var dataConvertedJSON = await json.decode(utf8.decode(response.bodyBytes));
     String result = dataConvertedJSON['result'];
 
+    //답변 항목 초기화
     DiabetesMessage.age = 0;
     DiabetesMessage.height = 0;
     DiabetesMessage.weight = 0;
-    DiabetesMessage.physact = '';
-    DiabetesMessage.diffwalk = '';
+    DiabetesMessage.physact = 'FALSE';
+    DiabetesMessage.diffwalk = 'FALSE';
     DiabetesMessage.hdattack = false;
     DiabetesMessage.highbp = false;
     DiabetesMessage.hdattack = false;
+    DiabetesMessage.physhealth.text='';
+    DiabetesMessage.isComplete=false;
 
     return result;
   }
