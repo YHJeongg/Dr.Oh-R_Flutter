@@ -27,5 +27,11 @@ public class RController {
 		service.PredictStroke(request, model);
 		return "result";
 	}
+	
+	@GetMapping("/dementia")
+	public String Dementia(HttpServletRequest request, Model model) throws Exception{
+		service.PredictDementia(request, model);
+		return "result";
+	}
 
 }
