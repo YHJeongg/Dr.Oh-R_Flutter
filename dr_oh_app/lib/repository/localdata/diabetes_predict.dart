@@ -23,9 +23,9 @@ class DiabetesPredict {
     var url = Uri.parse(
 
         // 상원 ip
-        'http://192.168.10.176:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+        //'http://192.168.10.176:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
         // 유승 ip
-        // 'http://192.168.10.213:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+         'http://192.168.35.33:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
         // 주현 ip
         // 'http://192.168.10.92:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
 
@@ -63,6 +63,6 @@ class DiabetesPredict {
     FirebaseFirestore.instance
         .collection('users')
         .doc(doc2)
-        .set({'Diabetes': result});
+        .update({'Diabetes': result});
   }
 }
