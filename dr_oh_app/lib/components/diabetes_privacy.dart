@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class DiaPrivacy extends StatefulWidget {
   final PageController pageCont;
@@ -17,7 +14,6 @@ class _DiaPrivacyState extends State<DiaPrivacy> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     agreeterm = false;
     agreenotice = false;
@@ -27,9 +23,19 @@ class _DiaPrivacyState extends State<DiaPrivacy> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            '약관 및 주의사항',
+            style: TextStyle(
+              fontSize: 35,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           height: 200,
           // decoration: BoxDecoration(
           //     color: Colors.white,
@@ -98,7 +104,7 @@ class _DiaPrivacyState extends State<DiaPrivacy> {
         ),
         Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           height: 200,
           // decoration: BoxDecoration(
           //     color: Colors.white,

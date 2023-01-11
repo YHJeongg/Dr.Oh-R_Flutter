@@ -28,7 +28,7 @@ class SurveyDiabetes extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(surveyName),
-        elevation: 0,
+        elevation: 1,
       ),
       body: _pages(),
     );
@@ -69,6 +69,16 @@ class SurveyDiabetes extends StatelessWidget {
         },
         child: Column(
           children: [
+            const Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                '문진표',
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             StreamBuilder<QuerySnapshot>(
               //firestore에서 데이터 가져오기
               stream: FirebaseFirestore.instance
@@ -86,7 +96,7 @@ class SurveyDiabetes extends StatelessWidget {
           
                 return SizedBox(
                   width: 500,
-                  height: 600,
+                  height: 500,
                   child: ListView(
                       controller: surveyCont,
                       scrollDirection: Axis.vertical,
