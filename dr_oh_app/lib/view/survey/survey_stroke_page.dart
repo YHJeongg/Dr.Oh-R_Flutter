@@ -122,6 +122,14 @@ class SurveyStrokePage extends StatelessWidget {
                   int.parse(SurveyStrokeMessage.smoke),
                 );
                 Get.off(StrokeResultPage(result: result)); // 설문페이지로 안돌아오게 설정
+                // Date: 2023-01-11, SangwonKim
+                // Desc: 사용자의 설문 입력값 초기값으로 설정해주기
+                SurveyStrokeMessage.highBp = '';
+                SurveyStrokeMessage.heartDisease = '';
+                SurveyStrokeMessage.everMarried = '';
+                SurveyStrokeMessage.workType = '';
+                SurveyStrokeMessage.residenceType = '';
+                SurveyStrokeMessage.smoke = '';
               },
               child: const Text('진단'),
             ),
