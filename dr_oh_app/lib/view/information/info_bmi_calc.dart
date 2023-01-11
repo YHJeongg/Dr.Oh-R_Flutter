@@ -3,15 +3,15 @@ import 'package:dr_oh_app/view/information/info_bmi_result.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// --------------------------------------------------------------------
+// Date: 2023-01-08, SangwonKim
+// Desc: Information / BMI Calculator
 class InfoBmiCalc extends StatefulWidget {
   const InfoBmiCalc({super.key});
 
   @override
   State<InfoBmiCalc> createState() => _InfoBmiCalcState();
 }
-
-// Date: 2023-01-08, SangwonKim
-// Desc: BMI Calculator
 class _InfoBmiCalcState extends State<InfoBmiCalc> {
   late int numAge; // 나이
   late int numWeight; // 몸무게
@@ -25,10 +25,10 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
   @override
   void initState() {
     super.initState();
-    numAge = 30; // 사용자 정보 가져오기 <<
-    numWeight = 70; // 사용자 정보 가져오기 <<
-    numHeight = 170; // 사용자 정보 가져오기 <<
-    switchGender = false; // 사용자 정보 가져오기 <<
+    numAge = 30; // 나중에 사용자 정보 가져오기 <<
+    numWeight = 70; // 나중에 사용자 정보 가져오기 <<
+    numHeight = 170; // 나중에 사용자 정보 가져오기 <<
+    switchGender = false; // 나중에 사용자 정보 가져오기 <<
     bmiResult = 0;
     bmiResultStr = '';
     bmiResultContent = '';
@@ -38,10 +38,8 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('BMI 계산'),
-        // backgroundColor: const Color.fromARGB(0, 255, 255, 255),
         elevation: 1,
       ),
       body: Padding(
@@ -331,26 +329,34 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
   }
 
   // --- Functions ---
+  // --------------------------------------------------------------------
+  // Date: 2023-01-08, SangwonKim
+  // Desc: 계산하는 함수들
+  // 나이 +
   plusAge() {
     setState(() {
       numAge++;
     });
   }
+  // 나이 -
   minusAge() {
     setState(() {
       numAge--;
     });
   }
+  // 몸무게 +
   plusWeight() {
     setState(() {
       numWeight++;
     });
   }
+  // 몸무게 -
   minusWeight() {
     setState(() {
       numWeight--;
     });
   }
+  // 성별 확인
   onClickedGender() {
     setState(() {
       if (switchGender == true) {
@@ -361,6 +367,9 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
     });
   }
 
+  // --------------------------------------------------------------------
+  // Date: 2023-01-08, SangwonKim
+  // Desc: BMI지수 계산, 결과 별 카테고리 항목 저장하기
   checkBmi() {
     bmiResult = double.parse(
         (numWeight / (numHeight * numHeight) * 10000).toStringAsFixed(1));

@@ -4,9 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ---------------------------------------------------------------------------------
+// Date: 2023-01-10, SangwonKim
+// Desc: 뇌졸중 예측 class
 class StrokePredict {
-  //Date: 2023-01-10, SangwonKim
-  //Desc: 뇌졸중 예측
   Future<String> predict(
     String sex,
     int age,
@@ -20,15 +21,6 @@ class StrokePredict {
     int smoke,
   ) async {
     double bmi = weight / (height * height * 0.01 * 0.01);
-    print(sex);
-    print(age);
-    print(height);
-    print(weight);
-    print(heartDisease);
-    print(everMarried);
-    print(workType);
-    print(residenceType);
-    print(smoke);
 
     var url = Uri.parse(
         // 상원 ip
@@ -37,28 +29,33 @@ class StrokePredict {
         // 'http://192.168.35.37:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
         // 주현 ip
         // 'http://192.168.10.92:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
-
+    
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
     String result = dataConvertedJSON['result'];
+    _saveResult(result); // 검사 결과 저장
 
-    _saveResult(result);
-    
     return result;
   }
 
-  //Desc: 검사 결과 저장
-  //Date: 2023-01-11
+  // --- Functions ---
+  // --------------------------------------------------------------------------------
+  //Date: 2023-01-11, SangwonKim
+  //Desc: 뇌졸중 검사 결과 저장하기
   _saveResult(String result) async {
+    // SharedPreferences를 통해 로그인한 사용자 id 가져오기
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('id')!;
-
-    var doc1=await FirebaseFirestore.instance.collection('users').where('id',isEqualTo: id).get();
-    var doc2=doc1.docs.first.id;
-
+    // 로그인한 사용자 id에 해당하는 Firebase에서 user Collection의 자동설정된id값 가져오기
+    var doc1 = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
+    var doc2 = doc1.docs.first.id;
+    // Stroke 데이타 업데이트하기
     FirebaseFirestore.instance
         .collection('users')
         .doc(doc2)
-        .set({'Stroke': result});
+        .update({'Stroke': result});
   }
-}
+} // End

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// --------------------------------------------------------------------
+// Date: 2023-01-08, SangwonKim
+// Desc: Information / Stroke Page
 class InfoStroke extends StatelessWidget {
   const InfoStroke({super.key});
 
@@ -124,4 +127,4 @@ class InfoStroke extends StatelessWidget {
       ),
     );
   }
-}
+} // End

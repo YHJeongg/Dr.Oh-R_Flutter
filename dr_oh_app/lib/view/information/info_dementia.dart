@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// --------------------------------------------------------------------
+// Date: 2023-01-08, SangwonKim
+// Desc: Information / Dementia Page
 class InfoDementia extends StatelessWidget {
   const InfoDementia({super.key});
 

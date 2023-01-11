@@ -1,6 +1,7 @@
-import 'package:dr_oh_app/model/survey_stroke_message.dart';
+import 'package:dr_oh_app/model/stroke_message.dart';
 import 'package:flutter/material.dart';
 
+// ------------------------------------------------------------------------
 // Date: 2023-01-10, SangwonKim
 // Desc: 뇌졸중 검사 설문답변 class
 class StrokeAnswerList {
@@ -34,20 +35,20 @@ class _FirstAnswerState extends State<FirstAnswer> {
         const Text('예'),
         Radio(
           value: "1",
-          groupValue: SurveyStrokeMessage.hypertension,
+          groupValue: StrokeMessage.hypertension,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.hypertension = value!;
+              StrokeMessage.hypertension = value!;
             });
           },
         ),
         const Text('아니오'),
         Radio(
           value: "0",
-          groupValue: SurveyStrokeMessage.hypertension,
+          groupValue: StrokeMessage.hypertension,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.hypertension = value!;
+              StrokeMessage.hypertension = value!;
             });
           },
         ),
@@ -74,20 +75,20 @@ class _SecondAnswerState extends State<SecondAnswer> {
         const Text('예'),
         Radio(
           value: "1",
-          groupValue: SurveyStrokeMessage.heartDisease,
+          groupValue: StrokeMessage.heartDisease,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.heartDisease = value!;
+              StrokeMessage.heartDisease = value!;
             });
           },
         ),
         const Text('아니오'),
         Radio(
           value: "0",
-          groupValue: SurveyStrokeMessage.heartDisease,
+          groupValue: StrokeMessage.heartDisease,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.heartDisease = value!;
+              StrokeMessage.heartDisease = value!;
             });
           },
         ),
@@ -114,20 +115,20 @@ class _ThirdAnswerState extends State<ThirdAnswer> {
         const Text('예'),
         Radio(
           value: "1",
-          groupValue: SurveyStrokeMessage.everMarried,
+          groupValue: StrokeMessage.everMarried,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.everMarried = value!;
+              StrokeMessage.everMarried = value!;
             });
           },
         ),
         const Text('아니오'),
         Radio(
           value: "0",
-          groupValue: SurveyStrokeMessage.everMarried,
+          groupValue: StrokeMessage.everMarried,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.everMarried = value!;
+              StrokeMessage.everMarried = value!;
             });
           },
         ),
@@ -156,20 +157,20 @@ class _ForthAnswerState extends State<ForthAnswer> {
             const Text('무직'),
             Radio(
               value: "0",
-              groupValue: SurveyStrokeMessage.workType,
+              groupValue: StrokeMessage.workType,
               onChanged: (value) {
                 setState(() {
-                  SurveyStrokeMessage.workType = value!;
+                  StrokeMessage.workType = value!;
                 });
               },
             ),
             const Text('청소년'),
             Radio(
               value: "1",
-              groupValue: SurveyStrokeMessage.workType,
+              groupValue: StrokeMessage.workType,
               onChanged: (value) {
                 setState(() {
-                  SurveyStrokeMessage.workType = value!;
+                  StrokeMessage.workType = value!;
                 });
               },
             ),
@@ -181,30 +182,30 @@ class _ForthAnswerState extends State<ForthAnswer> {
             const Text('공무원'),
             Radio(
               value: "2",
-              groupValue: SurveyStrokeMessage.workType,
+              groupValue: StrokeMessage.workType,
               onChanged: (value) {
                 setState(() {
-                  SurveyStrokeMessage.workType = value!;
+                  StrokeMessage.workType = value!;
                 });
               },
             ),
             const Text('자영업'),
             Radio(
               value: "3",
-              groupValue: SurveyStrokeMessage.workType,
+              groupValue: StrokeMessage.workType,
               onChanged: (value) {
                 setState(() {
-                  SurveyStrokeMessage.workType = value!;
+                  StrokeMessage.workType = value!;
                 });
               },
             ),
             const Text('사기업'),
             Radio(
               value: "4",
-              groupValue: SurveyStrokeMessage.workType,
+              groupValue: StrokeMessage.workType,
               onChanged: (value) {
                 setState(() {
-                  SurveyStrokeMessage.workType = value!;
+                  StrokeMessage.workType = value!;
                 });
               },
             ),
@@ -233,20 +234,20 @@ class _FifthAnswerState extends State<FifthAnswer> {
         const Text('도시'),
         Radio(
           value: "1",
-          groupValue: SurveyStrokeMessage.residenceType,
+          groupValue: StrokeMessage.residenceType,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.residenceType = value!;
+              StrokeMessage.residenceType = value!;
             });
           },
         ),
         const Text('시골'),
         Radio(
           value: "0",
-          groupValue: SurveyStrokeMessage.residenceType,
+          groupValue: StrokeMessage.residenceType,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.residenceType = value!;
+              StrokeMessage.residenceType = value!;
             });
           },
         ),
@@ -273,20 +274,20 @@ class _SixAnswerState extends State<SixAnswer> {
         const Text('예'),
         Radio(
           value: "1",
-          groupValue: SurveyStrokeMessage.smoke,
+          groupValue: StrokeMessage.smoke,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.smoke = value!;
+              StrokeMessage.smoke = value!;
             });
           },
         ),
         const Text('아니오'),
         Radio(
           value: "0",
-          groupValue: SurveyStrokeMessage.smoke,
+          groupValue: StrokeMessage.smoke,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.smoke = value!;
+              StrokeMessage.smoke = value!;
             });
           },
         ),

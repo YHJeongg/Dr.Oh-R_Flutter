@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 
 import '../../model/bmi_message.dart';
 
+// --------------------------------------------------------------------
+// Date: 2023-01-08, SangwonKim
+// Desc: BMI Result Page
 class InfoBmiResult extends StatefulWidget {
   const InfoBmiResult({super.key});
 
@@ -46,7 +49,7 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
                 ),
               ),
               SizedBox(
-                width: Get.width/100*36,
+                width: Get.width / 100 * 36,
                 // height: Get.height/100*40,
                 // width: 300,
                 // height: 440,
@@ -76,7 +79,5 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
       ),
     );
   }
-
-  // --- Functions ---
 
 } // End

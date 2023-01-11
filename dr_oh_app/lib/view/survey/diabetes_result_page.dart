@@ -3,15 +3,15 @@ import 'package:dr_oh_app/components/diabetes_bar_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DResult extends StatefulWidget {
+class DiabetesResultPage extends StatefulWidget {
   final String result;
-  const DResult({super.key, required this.result});
+  const DiabetesResultPage({super.key, required this.result});
 
   @override
-  State<DResult> createState() => _DResultState();
+  State<DiabetesResultPage> createState() => _DiabetesResultPageState();
 }
 
-class _DResultState extends State<DResult> {
+class _DiabetesResultPageState extends State<DiabetesResultPage> {
   late double result;
 
   @override
@@ -37,6 +37,8 @@ class _DResultState extends State<DResult> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
+                  // Date: 2023-01-11, SangwonKim
+                  // Desc: 위험도 카테고리별 텍스트 분류
                   result >= 75
                       ? '위험'
                       : result >= 50
@@ -84,6 +86,8 @@ class _DResultState extends State<DResult> {
                             width: double.parse(widget.result) * 200,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
+                                // Date: 2023-01-11, SangwonKim
+                                // Desc: 위험도 카테고리별 색상분류
                                 color: result >= 75
                                     ? Colors.red
                                     : result >= 50

@@ -6,6 +6,9 @@ import 'package:dr_oh_app/view/information/info_stroke.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// --------------------------------------------------------------------
+// Date: 2023-01-08, SangwonKim
+// Desc: Information Page
 class Information extends StatelessWidget {
   const Information({super.key});
 
@@ -58,9 +61,9 @@ class Information extends StatelessWidget {
   }
 
   // --- Widgets ---
-
+  // --------------------------------------------------------------------
   // Date: 2023-01-08, SangwonKim
-  // 버튼 위젯
+  // Desc: 버튼 위젯
   _btn(dynamic page, String title, BuildContext context) {
     return ElevatedButton(
       onPressed: () {

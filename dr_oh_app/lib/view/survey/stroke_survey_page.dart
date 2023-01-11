@@ -1,23 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/stroke_answer_list.dart';
-import 'package:dr_oh_app/model/survey_stroke_model.dart';
+import 'package:dr_oh_app/model/stroke_model.dart';
 import 'package:dr_oh_app/view/survey/stroke_result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../components/stroke_privacy.dart';
 import '../../components/stroke_user_info.dart';
-import '../../model/survey_stroke_message.dart';
+import '../../model/stroke_message.dart';
 import '../../repository/localdata/stroke_predict.dart';
 
 // Date: 2023-01-10, SangwonKim
 // Desc: 뇌졸중 검사 페이지
-class SurveyStrokePage extends StatelessWidget {
+class StrokeSurveyPage extends StatelessWidget {
   final String surveyName;
   final PageController _pageController = PageController();
   final PageController _surveyController = PageController();
 
-  SurveyStrokePage({
+  StrokeSurveyPage({
     Key? key,
     required this.surveyName,
   }) : super(key: key);
@@ -37,7 +37,6 @@ class SurveyStrokePage extends StatelessWidget {
   }
 
 // --- Widgets ---
-
 // ------------------------------------------------------------------------
 // Date: 2023-01-10, SangwonKim
 // Desc: 페이지 위젯
@@ -110,12 +109,12 @@ class SurveyStrokePage extends StatelessWidget {
           // 진단 버튼 누르기 -> Rserve로 보내서 머신러닝 실행
           ElevatedButton(
             onPressed: () async {
-              if (SurveyStrokeMessage.hypertension == '' ||
-                  SurveyStrokeMessage.heartDisease == '' ||
-                  SurveyStrokeMessage.everMarried == '' ||
-                  SurveyStrokeMessage.workType == '' ||
-                  SurveyStrokeMessage.residenceType == '' ||
-                  SurveyStrokeMessage.smoke == '') {
+              if (StrokeMessage.hypertension == '' ||
+                  StrokeMessage.heartDisease == '' ||
+                  StrokeMessage.everMarried == '' ||
+                  StrokeMessage.workType == '' ||
+                  StrokeMessage.residenceType == '' ||
+                  StrokeMessage.smoke == '') {
                 Get.snackbar(
                   '안내',
                   '문진답변을 확인해주세요',
@@ -126,26 +125,26 @@ class SurveyStrokePage extends StatelessWidget {
               } else {
                 StrokePredict predict = StrokePredict();
                 String result = await predict.predict(
-                  SurveyStrokeMessage.sex,
-                  SurveyStrokeMessage.age,
-                  SurveyStrokeMessage.height,
-                  SurveyStrokeMessage.weight,
-                  int.parse(SurveyStrokeMessage.hypertension),
-                  int.parse(SurveyStrokeMessage.heartDisease),
-                  int.parse(SurveyStrokeMessage.everMarried),
-                  int.parse(SurveyStrokeMessage.workType),
-                  int.parse(SurveyStrokeMessage.residenceType),
-                  int.parse(SurveyStrokeMessage.smoke),
+                  StrokeMessage.sex,
+                  StrokeMessage.age,
+                  StrokeMessage.height,
+                  StrokeMessage.weight,
+                  int.parse(StrokeMessage.hypertension),
+                  int.parse(StrokeMessage.heartDisease),
+                  int.parse(StrokeMessage.everMarried),
+                  int.parse(StrokeMessage.workType),
+                  int.parse(StrokeMessage.residenceType),
+                  int.parse(StrokeMessage.smoke),
                 );
                 Get.off(StrokeResultPage(result: result)); // 설문페이지로 안돌아오게 설정
                 // Date: 2023-01-11, SangwonKim
                 // Desc: 사용자의 설문 입력값 초기값으로 설정해주기
-                SurveyStrokeMessage.hypertension = '';
-                SurveyStrokeMessage.heartDisease = '';
-                SurveyStrokeMessage.everMarried = '';
-                SurveyStrokeMessage.workType = '';
-                SurveyStrokeMessage.residenceType = '';
-                SurveyStrokeMessage.smoke = '';
+                StrokeMessage.hypertension = '';
+                StrokeMessage.heartDisease = '';
+                StrokeMessage.everMarried = '';
+                StrokeMessage.workType = '';
+                StrokeMessage.residenceType = '';
+                StrokeMessage.smoke = '';
               }
             },
             child: Row(
@@ -162,10 +161,9 @@ class SurveyStrokePage extends StatelessWidget {
 
   // ------------------------------------------------------------------------
   // Date: 2023-01-10, SangwonKim
-  // Desc: SurveyStrokeModel에서 질문목록 가져오기 위젯
+  // Desc: StrokeModel에서 질문목록 가져오기 위젯
   Widget _buildItemWidget(DocumentSnapshot doc) {
-    final surveyStrokeModel =
-        SurveyStrokeModel(seq: doc['seq'], question: doc['question']);
+    final strokeModel = StrokeModel(seq: doc['seq'], question: doc['question']);
     // 답변목록 가져오기
     StrokeAnswerList answer = StrokeAnswerList();
     return Container(
@@ -178,7 +176,7 @@ class SurveyStrokePage extends StatelessWidget {
               children: [
                 const SizedBox(height: 8),
                 Text(
-                  '${surveyStrokeModel.seq}. ${surveyStrokeModel.question}',
+                  '${strokeModel.seq}. ${strokeModel.question}',
                   style: TextStyle(
                     color: Colors.blueGrey.shade800,
                     fontSize: 18,
@@ -186,7 +184,7 @@ class SurveyStrokePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                answer.strokeAnswerList[surveyStrokeModel.seq - 1]
+                answer.strokeAnswerList[strokeModel.seq - 1]
               ],
             ),
           ),
