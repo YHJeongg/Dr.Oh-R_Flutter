@@ -2,7 +2,7 @@ import 'package:dr_oh_app/app.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../components/stroke_bar_chart_widget copy.dart';
+import '../../components/stroke_bar_chart_widget.dart';
 
 // Date: 2023-01-10, SangwonKim
 // Desc: 설문결과 페이지
