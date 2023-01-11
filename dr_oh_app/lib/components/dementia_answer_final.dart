@@ -25,10 +25,10 @@ class DementiaAnswerFinal{
 
   static String wage = '';
 
-static int wage1 = wage == '사무직 및 영업직' ? 1 : 
-             wage =='소규모 자영업자' ? 2 :
+  static int wage1 = wage == '사무직 및 영업직' ? 5 : 
+             wage =='소규모 자영업자' ? 4 :
              wage =='현장(숙련)작업자' ? 3 :
-             wage == '미숙련 작업자' ? 4 : 5;
+             wage == '미숙련 작업자' ? 2 : 1;
 
 
 

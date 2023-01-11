@@ -15,7 +15,7 @@ class DementiaSurvey extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('치매 검사'),
+        title: const Text('치매 검사'),
         elevation: 0,
       ),
       body: _pages(),
@@ -33,15 +33,8 @@ class DementiaSurvey extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return PageView(controller: _nextController, children: <Widget>[
           //-----1st page(개인정보보호법)-------
-
-
           DiaPrivacy(pageCont: _nextController),
-          
-
-          
-
           //--------- 3rd page(검사 시작 전 확인 페이지)----------
-
           surveyStart()
           //3rd page End
         ]);
@@ -54,7 +47,7 @@ class DementiaSurvey extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           height: 200,
           decoration: BoxDecoration(
               color: Colors.white,
@@ -68,14 +61,16 @@ class DementiaSurvey extends StatelessWidget {
                 ),
               ]),
           child: Column(
-            children: [
-              Text('치매 검사를 시작하시겠습니까?'),
+            children: const [
+               Text('치매 검사를 \n시작하시겠습니까?',
+               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color:  Color(0xFF5B9D46),),
+               ),
             ],
           ),
         ),
         Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           height: 200,
           decoration: BoxDecoration(
               color: Colors.white,
@@ -92,7 +87,13 @@ class DementiaSurvey extends StatelessWidget {
             children: [
               ElevatedButton(
                   onPressed: () => Get.off(const DementiaPersonal()),
-                  child: const Text('다음 설문'))
+                  child: const Text('다음 설문'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF5B9D46),
+                    minimumSize: Size(150, 80)
+                  ),
+                  
+                  ),
 
             ],
           ),
@@ -108,12 +109,12 @@ class DementiaSurvey extends StatelessWidget {
           if (_nextController.hasClients) {
             _nextController.animateToPage(
               pageNum,
-              duration: Duration(milliseconds: 400),
+              duration: const Duration(milliseconds: 400),
               curve: Curves.easeInOut,
             );
           }
         },
-        child: Text('다음'));
+        child: const Text('다음'));
   } //
 
   // void _scrollToSelectedContent({GlobalKey? expansionTileKey}) {
