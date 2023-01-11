@@ -1,4 +1,5 @@
 import 'package:dr_oh_app/app.dart';
+import 'package:dr_oh_app/components/dementia_bar_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -48,6 +49,8 @@ class _DementiaResultState extends State<DementiaResult> {
                 height: 30,
               ),
               Text('예측 결과는 ${widget.result == '0.0' ? normal : widget.result == '0.5' ? lightNormal : abNormal}입니다.'),
+
+              DementiaBarChartWidget(),
              
               ElevatedButton(
                 onPressed: () {

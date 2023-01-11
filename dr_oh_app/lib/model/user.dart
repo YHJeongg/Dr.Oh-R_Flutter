@@ -18,6 +18,7 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     return UserModel(
       uid: json["uid"] == null ? '' : json["uid"] as String,
       id: json["id"] == null ? '' : json["id"] as String,

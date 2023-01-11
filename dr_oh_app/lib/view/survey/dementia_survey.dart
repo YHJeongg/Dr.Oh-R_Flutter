@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/diabetes_privacy.dart';
+import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/view/survey/dementia_survey_personal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,6 +45,7 @@ class DementiaSurvey extends StatelessWidget {
   } //_pages
 
   Widget surveyStart() {
+    
     return Column(
       children: [
         Container(
@@ -60,11 +63,19 @@ class DementiaSurvey extends StatelessWidget {
                   //offset: Offset(0, 2)
                 ),
               ]),
+            // UserModel user = UserModel(),
           child: Column(
             children: const [
+              
+              
+              Text('병원 방문 없이 간편하게 치매를 점검하세요.'),
+              SizedBox(
+                height: 30,
+              ),
                Text('치매 검사를 \n시작하시겠습니까?',
                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color:  Color(0xFF5B9D46),),
                ),
+               Text('본 질문은 치매의 진단을')
             ],
           ),
         ),
@@ -87,7 +98,7 @@ class DementiaSurvey extends StatelessWidget {
             children: [
               ElevatedButton(
                   onPressed: () => Get.off(const DementiaPersonal()),
-                  child: const Text('다음 설문'),
+                  child: const Text('설문하러 가기'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF5B9D46),
                     minimumSize: Size(150, 80)

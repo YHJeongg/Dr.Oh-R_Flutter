@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/news_api.dart';
-import 'package:dr_oh_app/model/body_info_model.dart';
 import 'package:dr_oh_app/model/checkup_history_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
 import 'package:dr_oh_app/model/user.dart';
@@ -238,26 +237,6 @@ class _HomeState extends State<Home> {
     return SizedBox(width: 300, child: Text('${user.name}님 건강한 하루 되세요'));
   }
 
-  // Desc: 신체정보 받아오기
-  // Date: 2023-01-11
-  Widget _getBodyinfo(DocumentSnapshot doc) {
-    final bodyinfo = BodyInfoModel(
-        id: doc['id'],
-        height: doc['height'],
-        weight: doc['weight'],
-        bp: doc['bp']);
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('키 : ${bodyinfo.height}'),
-          Text('몸무게 : ${bodyinfo.weight}'),
-          Text('혈압 : ${bodyinfo.bp}'),
-        ],
-      ),
-    );
-  }
-
   // Desc: shared preferences 받기
   // Date: 2023-01-10
   _initSharedPreferences() async {
@@ -358,34 +337,10 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 3),
               Container(
                 decoration: _borderBox(),
-                height: 200,
                 width: 350,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 100,
-                      width: 300,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('bodyinfo')
-                            .where('id', isEqualTo: '$id')
-                            .snapshots(),
-                        builder: ((context, snapshot) {
-                          final documents = snapshot.data!.docs;
-                          List list =
-                              documents.map((e) => _getBodyinfo(e)).toList();
-                          var newList = list.firstWhere(
-                            (element) => list.first,
-                            orElse: () => const Text(
-                              '신체 정보가 없습니다',
-                              textAlign: TextAlign.center,
-                            ),
-                          );
-                          return newList;
-                        }),
-                      ),
-                    ),
+                    const Text('신체정보가 없습니다'),
                     _button(const BodyInfo(), '입력하러 가기')
                   ],
                 ),
