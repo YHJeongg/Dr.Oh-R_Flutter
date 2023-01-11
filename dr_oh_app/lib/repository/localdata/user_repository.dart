@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 class UserRepository {
   static Future<UserModel?> loginUserByUid(String uid) async {
@@ -18,7 +19,10 @@ class UserRepository {
 
   static Future<bool> signup(UserModel user) async {
     try {
-      await FirebaseFirestore.instance.collection('users').add(user.toMap());
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .set(user.toMap());
       return true;
     } catch (e) {
       return false;

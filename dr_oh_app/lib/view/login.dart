@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/view/join.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,11 +22,17 @@ class Login extends StatefulWidget {
 Future<UserCredential> signInWithGoogle() async {
   // Trigger the authentication flow
   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  final userReference = FirebaseFirestore.instance.collection('users');
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   // Obtain the auth details from the request
   final GoogleSignInAuthentication? googleAuth =
       await googleUser?.authentication;
-
+  print(googleAuth);
+  DocumentSnapshot documentSnapshot =
+      await userReference.doc(googleUser!.id).get();
+  print(documentSnapshot.id);
+  print(auth);
   // Create a new credential
   final credential = GoogleAuthProvider.credential(
     accessToken: googleAuth?.accessToken,
@@ -174,9 +181,11 @@ class _LoginState extends State<Login> {
                   const Text('또는'),
                   const SizedBox(height: 30),
                   // API연동전 임시 Text
-                  const TextButton(
-                    onPressed: signInWithGoogle,
-                    child: Text(
+                  TextButton(
+                    onPressed: () {
+                      signInWithGoogle();
+                    },
+                    child: const Text(
                       '구글로 계속하기',
                       style: TextStyle(
                         color: Colors.blue,
