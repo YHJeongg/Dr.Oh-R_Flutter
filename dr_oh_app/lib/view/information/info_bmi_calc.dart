@@ -52,10 +52,13 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 14),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: 194,
-                      height: 240,
+                      width: Get.width/100*44,
+                      height: Get.height/100*28,
+                      // width: 194,
+                      // height: 240,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         color: Colors.transparent.withOpacity(0.1),
@@ -121,8 +124,10 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                       width: 14,
                     ),
                     Container(
-                      width: 194,
-                      height: 240,
+                      width: Get.width/100*44,
+                      height: Get.height/100*28,
+                      // width: 194,
+                      // height: 240,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         color: Colors.transparent.withOpacity(0.1),
@@ -190,8 +195,10 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                 ),
               ),
               Container(
-                width: 404,
-                height: 240,
+                width: Get.width/100*92,
+                height: Get.height/100*24,
+                // width: 404,
+                // height: 240,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.transparent.withOpacity(0.1),
@@ -199,7 +206,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 20,
+                      height: 16,
                     ),
                     const Text(
                       'Height',
@@ -207,14 +214,11 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
-                      height: 12,
+                      height: 4,
                     ),
                     Text(
                       numHeight.toString(),
                       style: const TextStyle(fontSize: 80),
-                    ),
-                    const SizedBox(
-                      height: 12,
                     ),
                     Slider(
                       value: numHeight.toDouble(),
@@ -236,8 +240,10 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                 height: 12,
               ),
               Container(
-                width: 404,
-                height: 140,
+                width: Get.width/100*92,
+                height: Get.height/100*14,
+                // width: 404,
+                // height: 140,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.transparent.withOpacity(0.1),
@@ -294,18 +300,15 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                   checkBmi();
                   BmiMessage.bmiResult = bmiResult;
                   Get.to(const InfoBmiResult());
-                  // Navigator.pushNamed(context, '/BmiResult');
-                  // Navigator.of(context).pushNamed('/BmiResult');
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16)),
-                  // elevation: 0,
-                  // backgroundColor: const Color.fromARGB(255, 96, 139, 109),
-                  // foregroundColor: Colors.black,
                 ),
                 child: SizedBox(
-                  height: 100,
+                  width: Get.width/100*92,
+                  height: Get.height/100*10,
+                  // height: 100,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -320,9 +323,6 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                   ),
                 ),
               ),
-              // Text(
-              //   bmiResult.toString(),
-              // ),
             ],
           ),
         ),
@@ -336,25 +336,21 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
       numAge++;
     });
   }
-
   minusAge() {
     setState(() {
       numAge--;
     });
   }
-
   plusWeight() {
     setState(() {
       numWeight++;
     });
   }
-
   minusWeight() {
     setState(() {
       numWeight--;
     });
   }
-
   onClickedGender() {
     setState(() {
       if (switchGender == true) {
