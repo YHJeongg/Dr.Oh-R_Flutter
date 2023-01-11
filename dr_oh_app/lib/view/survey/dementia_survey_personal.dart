@@ -179,6 +179,9 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
               children: [
                 ElevatedButton(
                     onPressed: () {
+                      print(DementiaAnswerFinal.age);
+                      print(DementiaAnswerFinal.edu);
+                      print(DementiaAnswerFinal.wage);
                       print(DementiaAnswerFinal.gender);
                       Get.off(const DementiaSurveySecond());
                     },

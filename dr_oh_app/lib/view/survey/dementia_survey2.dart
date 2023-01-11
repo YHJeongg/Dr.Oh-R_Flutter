@@ -84,6 +84,7 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
                   DementiaAnswerFinal.wage1,
                   DementiaAnswerFinal.gender1,
                    );
+                  print(DementiaAnswerFinal.total);
 
                 Get.off(DementiaResult(result:result));
               },
