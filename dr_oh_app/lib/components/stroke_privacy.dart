@@ -27,7 +27,7 @@ class _StrokePrivacyState extends State<StrokePrivacy> {
       children: [
         Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           height: 200,
           // decoration: BoxDecoration(
           //     color: Colors.white,
@@ -96,7 +96,7 @@ class _StrokePrivacyState extends State<StrokePrivacy> {
         ),
         Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           height: 200,
           // decoration: BoxDecoration(
           //     color: Colors.white,

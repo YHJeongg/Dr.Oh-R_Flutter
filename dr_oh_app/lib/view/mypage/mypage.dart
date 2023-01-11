@@ -277,8 +277,8 @@ class _MyPageState extends State<MyPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('마이 페이지'),
-        elevation: 0,
+        title: const Text('MY PAGE'),
+        elevation: 1,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -286,21 +286,27 @@ class _MyPageState extends State<MyPage> {
             const SizedBox(height: 30),
             _head('기본정보'),
             const SizedBox(height: 3),
-            StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('users')
-                  .where('id', isEqualTo: id)
-                  .snapshots(),
-              builder: ((context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                final documents = snapshot.data!.docs;
+            Container(
+              height: 200,
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .where('id', isEqualTo: id)
+                    .snapshots(),
+                builder: ((context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  final documents = snapshot.data!.docs;
 
-                return documents.map((e) => _getMemberInfo(e)).first;
-              }),
+                  return ListView(
+                    physics: NeverScrollableScrollPhysics(),
+                    children: documents.map((e) => _getMemberInfo(e)).toList(),
+                  );
+                }),
+              ),
             ),
             const SizedBox(height: 30),
             _head('추가정보'),

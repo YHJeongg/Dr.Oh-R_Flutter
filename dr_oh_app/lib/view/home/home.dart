@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/news_api.dart';
 import 'package:dr_oh_app/model/checkup_history_model.dart';
+import 'package:dr_oh_app/model/name_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
 import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/view/home/all_checkup_history.dart';
@@ -35,10 +36,11 @@ class _HomeState extends State<Home> {
   // News API */
 
   CheckupHistoryViewModel _checkupHistoryViewModel = CheckupHistoryViewModel();
-  late String? id = '';
+  late String id = '';
   @override
   void initState() {
     super.initState();
+
     _initSharedPreferences();
     initNews().then((_) {
       setState(() {
@@ -233,16 +235,39 @@ class _HomeState extends State<Home> {
   // Desc: welcome 위젯 이름
   // Date: 2023-01-10
   Widget _getName(DocumentSnapshot doc) {
-    final user = UserModel(name: doc['name']);
-    return SizedBox(width: 300, child: Text('${user.name}님 건강한 하루 되세요'));
+    final user = NameModel(name: doc['name']);
+    return ListTile(
+        title: Text(
+      '${user.name}님 건강한 하루 되세요',
+    ));
   }
+
+
+  // Desc: 신체정보 받아오기
+  // Date: 2023-01-11
+  Widget _getBodyinfo(DocumentSnapshot doc) {
+    final bodyinfo = BodyInfoModel(
+        id: doc['id'],
+        height: doc['height'],
+        weight: doc['weight'],
+        bp: doc['bp']);
+    return ListTile(
+        title: Column(
+      children: [
+        Text('키 : ${bodyinfo.height}'),
+        Text('몸무게 : ${bodyinfo.weight}'),
+        Text('혈압 : ${bodyinfo.bp}'),
+      ],
+    ));
+  }
+
 
   // Desc: shared preferences 받기
   // Date: 2023-01-10
   _initSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      id = prefs.getString('id');
+      id = prefs.getString('id').toString();
     });
   }
 
@@ -251,12 +276,13 @@ class _HomeState extends State<Home> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Home'),
-        elevation: 0,
+        title: const Text('HOME'),
+        elevation: 1,
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 decoration: _borderBox(),
@@ -266,10 +292,12 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
+                      height: 60,
+                      width: 300,
                       child: StreamBuilder<QuerySnapshot>(
                         stream: FirebaseFirestore.instance
                             .collection('users')
-                            .where('id', isEqualTo: '$id')
+                            .where('id', isEqualTo: id)
                             .snapshots(),
                         builder: ((context, snapshot) {
                           if (!snapshot.hasData) {
@@ -279,14 +307,24 @@ class _HomeState extends State<Home> {
                           }
                           final documents = snapshot.data!.docs;
 
-                          return documents.map((e) => _getName(e)).first;
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ListView(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                children:
+                                    documents.map((e) => _getName(e)).toList(),
+                              ),
+                            ],
+                          );
                         }),
                       ),
                     ),
                     Expanded(
                       child: SizedBox(
-                        height: 50,
-                        width: 10,
+                        height: 30,
+                        width: 20,
                         child: IconButton(
                           onPressed: () {
                             Get.to(EditMemberInfo());
@@ -335,14 +373,42 @@ class _HomeState extends State<Home> {
               _sizedBox(),
               _head('신체정보'),
               const SizedBox(height: 3),
-              Container(
-                decoration: _borderBox(),
-                width: 350,
-                child: Column(
-                  children: [
-                    const Text('신체정보가 없습니다'),
-                    _button(const BodyInfo(), '입력하러 가기')
-                  ],
+
+              SingleChildScrollView(
+                child: Container(
+                  decoration: _borderBox(),
+                  height: 200,
+                  width: 350,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 100,
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('bodyinfo')
+                              .where('id', isEqualTo: id)
+                              .snapshots(),
+                          builder: ((context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            final documents = snapshot.data!.docs;
+
+                            return ListView(
+                              children: documents
+                                  .map((e) => _getBodyinfo(e))
+                                  .toList(),
+                            );
+                          }),
+                        ),
+                      ),
+                      _button(const BodyInfo(), '입력하러 가기')
+                    ],
+                  ),
+
                 ),
               ),
               _sizedBox(),

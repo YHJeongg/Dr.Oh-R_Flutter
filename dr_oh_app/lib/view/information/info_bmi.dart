@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// --------------------------------------------------------------------
+// Date: 2023-01-08, SangwonKim
+// Desc: Information / BMI Page
 class InfoBmi extends StatelessWidget {
   const InfoBmi({super.key});
 

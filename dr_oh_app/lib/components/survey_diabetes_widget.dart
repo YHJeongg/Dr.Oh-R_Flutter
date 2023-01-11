@@ -5,7 +5,7 @@ import 'package:dr_oh_app/components/diabets_answer_list.dart';
 import 'package:dr_oh_app/model/diabetes_message.dart';
 import 'package:dr_oh_app/model/firebase_dementia.dart';
 import 'package:dr_oh_app/repository/localdata/diabetes_predict.dart';
-import 'package:dr_oh_app/view/survey/diabetes_result.dart';
+import 'package:dr_oh_app/view/survey/diabetes_result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,7 +30,12 @@ class SurveyDiabetes extends StatelessWidget {
         title: Text(surveyName),
         elevation: 1,
       ),
-      body: _pages(),
+      // Date: 2023-01-11, SangwonKim
+      // Desc: Padding 추가함
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: _pages(),
+      ),
     );
   }
 
@@ -123,7 +128,7 @@ class SurveyDiabetes extends StatelessWidget {
                           DiabetesMessage.highbp,
                           DiabetesMessage.stroke,
                           int.parse(DiabetesMessage.physhealth.text));
-                      Get.off(DResult(result: result));
+                      Get.off(DiabetesResultPage(result: result));
                     },
               child: const Text(
                 '진단',

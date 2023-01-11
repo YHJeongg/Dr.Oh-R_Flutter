@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../model/survey_stroke_message.dart';
+import '../model/stroke_message.dart';
 
+// ------------------------------------------------------------------------
 // Date: 2023-01-10, SangwonKim
 // Desc: 뇌졸중 설문조사 유저 기본정보 가져오는 class
 class StrokeUserInfo extends StatefulWidget {
@@ -37,148 +38,156 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          const Text(
-            '신체 정보 입력',
-            style: TextStyle(
-              fontSize: 30,
-            ),
-          ),
-          const SizedBox(height: 120),
-          // 성별 입력받기
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
             children: [
               const Text(
-                '남자 ',
+                '신체 정보 입력',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
-                  // color: Colors.blueAccent,
                 ),
               ),
-              Switch(
-                value: sexSwitchValue,
-                onChanged: (value) {
-                  setState(() {
-                    sexSwitchValue = !sexSwitchValue;
-                  });
-                },
+              const SizedBox(height: 120),
+              // 성별 입력받기
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    '남자 ',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      // color: Colors.blueAccent,
+                    ),
+                  ),
+                  Switch(
+                    value: sexSwitchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        sexSwitchValue = !sexSwitchValue;
+                      });
+                    },
+                  ),
+                  const Text(
+                    ' 여자',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      // color: Colors.redAccent,
+                    ),
+                  ),
+                ],
               ),
-              const Text(
-                ' 여자',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  // color: Colors.redAccent,
+              // 출생년도 입력받기
+              SizedBox(
+                width: 100,
+                child: TextField(
+                  controller: ageController,
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    if (ageReg.hasMatch(value) &&
+                        int.parse(value) <= currentYear) {
+                      setState(() {
+                        correctYear = true;
+                      });
+                    } else {
+                      setState(() {
+                        correctYear = false;
+                      });
+                    }
+                  },
+                  decoration: InputDecoration(
+                    labelText: ageController.text.trim().isEmpty
+                        ? '출생년도 4자리'
+                        : correctYear
+                            ? ''
+                            : '출생년도를 정확히 입력하세요.',
+                  ),
                 ),
+              ),
+              // 키 입력받기
+              SizedBox(
+                width: 100,
+                child: TextField(
+                  controller: heightController,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  decoration: const InputDecoration(
+                    labelText: '키(cm)',
+                  ),
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      setState(() {
+                        correctHeight = false;
+                      });
+                    } else {
+                      setState(() {
+                        correctHeight = true;
+                      });
+                    }
+                  },
+                ),
+              ),
+              // 몸무게 입력받기
+              SizedBox(
+                width: 100,
+                child: TextField(
+                  controller: weightController,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  decoration: const InputDecoration(
+                    labelText: '몸무게(kg)',
+                  ),
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      setState(() {
+                        correctWeight = false;
+                      });
+                    } else {
+                      setState(() {
+                        correctWeight = true;
+                      });
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              // 다음 버튼 -> 본 설문페이지로 넘어가기
+              ElevatedButton(
+                onPressed: correctYear && correctHeight && correctWeight
+                    ? () {
+                        //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
+                        if (widget.pageController.hasClients) {
+                          StrokeMessage.sex =
+                              (sexSwitchValue ? 'female' : 'male').toString();
+                          StrokeMessage.age = currentYear -
+                              int.parse(ageController.text.trim());
+                          StrokeMessage.height =
+                              double.parse(heightController.text.trim());
+                          StrokeMessage.weight =
+                              double.parse(weightController.text.trim());
+                          widget.pageController.animateToPage(
+                            2,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      }
+                    : null,
+                child: const Text('다음'),
               ),
             ],
           ),
-          // 출생년도 입력받기
-          SizedBox(
-            width: 100,
-            child: TextField(
-              controller: ageController,
-              keyboardType: TextInputType.number,
-              onChanged: (value) {
-                if (ageReg.hasMatch(value) &&
-                    int.parse(value) <= currentYear) {
-                  setState(() {
-                    correctYear = true;
-                  });
-                } else {
-                  setState(() {
-                    correctYear = false;
-                  });
-                }
-              },
-              decoration: InputDecoration(
-                labelText: ageController.text.trim().isEmpty
-                    ? '출생년도 4자리'
-                    : correctYear
-                        ? ''
-                        : '출생년도를 정확히 입력하세요.',
-              ),
-            ),
-          ),
-          // 키 입력받기
-          SizedBox(
-            width: 100,
-            child: TextField(
-              controller: heightController,
-              keyboardType: const TextInputType.numberWithOptions(
-                decimal: true,
-              ),
-              decoration: const InputDecoration(
-                labelText: '키(cm)',
-              ),
-              onChanged: (value) {
-                if (value.isEmpty) {
-                  setState(() {
-                    correctHeight = false;
-                  });
-                } else {
-                  setState(() {
-                    correctHeight = true;
-                  });
-                }
-              },
-            ),
-          ),
-          // 몸무게 입력받기
-          SizedBox(
-            width: 100,
-            child: TextField(
-              controller: weightController,
-              keyboardType: const TextInputType.numberWithOptions(
-                decimal: true,
-              ),
-              decoration: const InputDecoration(
-                labelText: '몸무게(kg)',
-              ),
-              onChanged: (value) {
-                if (value.isEmpty) {
-                  setState(() {
-                    correctWeight = false;
-                  });
-                } else {
-                  setState(() {
-                    correctWeight = true;
-                  });
-                }
-              },
-            ),
-          ),
-          SizedBox(height: 16,),
-          // 다음 버튼 -> 본 설문페이지로 넘어가기
-          ElevatedButton(
-            onPressed: correctYear && correctHeight && correctWeight
-                ? () {
-                    //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
-                    if (widget.pageController.hasClients) {
-                      SurveyStrokeMessage.sex =
-                          (sexSwitchValue ? 'female' : 'male').toString();
-                      SurveyStrokeMessage.age =
-                          currentYear - int.parse(ageController.text.trim());
-                      SurveyStrokeMessage.height =
-                          double.parse(heightController.text.trim());
-                      SurveyStrokeMessage.weight =
-                          double.parse(weightController.text.trim());
-                      widget.pageController.animateToPage(
-                        2,
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                      );
-                    }
-                  }
-                : null,
-            child: const Text('다음'),
-          ),
-        ],
+        ),
       ),
     );
   }
