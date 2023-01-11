@@ -119,6 +119,7 @@ class _AListState extends State<AList> {
                     }else{
                       DementiaAnswerFinal.seasoncount = 0;
                     }
+                    
                     print(_selectedSeason);
             });
           },
@@ -244,7 +245,7 @@ class _DListState extends State<DList> {
                     for (int i = 0; i < _selectedcountry.length; i++) {
                       _selectedcountry[i] = i == index;
                     }
-                    if(_selectedcountry == [false, false, false, true]){
+                    if(_selectedcountry == [false, true, false]){
                       DementiaAnswerFinal.countrycount = 5;
                     }else{
                       DementiaAnswerFinal.countrycount = 0;
@@ -254,7 +255,8 @@ class _DListState extends State<DList> {
             });
           },
           isSelected: _selectedcountry,
-          children: country)
+          children: country),
+          
       ],
 
     
@@ -397,6 +399,7 @@ class _HListState extends State<HList> {
               }else{
                 DementiaAnswerFinal.wordsCount = 0;
               }
+                print(DementiaAnswerFinal.wordsCount);
             },
           ),
           TextField(
@@ -410,6 +413,7 @@ class _HListState extends State<HList> {
               }else{
                 DementiaAnswerFinal.wordsCount = 0;
               }
+              print(DementiaAnswerFinal.wordsCount);
             },
           ),
           TextField(
@@ -423,6 +427,7 @@ class _HListState extends State<HList> {
               }else{
                 DementiaAnswerFinal.wordsCount = 0;
               }
+              print(DementiaAnswerFinal.wordsCount);
             },
           ),
         ],

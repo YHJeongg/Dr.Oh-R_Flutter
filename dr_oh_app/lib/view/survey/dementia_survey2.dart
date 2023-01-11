@@ -75,7 +75,7 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
             ),
             ElevatedButton(
               onPressed: () async {
-                
+                print(DementiaAnswerFinal.wordsCount);
                 DementiaPredict predict = DementiaPredict();
                 String result = await predict.predict(
                   DementiaAnswerFinal.age,
@@ -83,6 +83,7 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
                   DementiaAnswerFinal.edu1,
                   DementiaAnswerFinal.wage1,
                   DementiaAnswerFinal.gender1,
+                  
                    );
                   print(DementiaAnswerFinal.total);
 

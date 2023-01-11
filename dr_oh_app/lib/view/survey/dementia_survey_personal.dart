@@ -46,7 +46,7 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('치매 진단'),
+        title: const Text('치매 진단'),
         elevation: 0,
       ),
       body: Center(
@@ -55,7 +55,7 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
           children: [
             Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                 height: 200,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -81,7 +81,7 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
             Container(
               //container design은 크기 보려고 임시로 해놨습니다.
               alignment: Alignment.center,
-              margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+              margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
               height: 400,
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -101,7 +101,7 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
                     padding: const EdgeInsets.all(30.0),
                     child: TextField(
                       controller: ageController,
-                      decoration: InputDecoration(hintText: '나이'),
+                      decoration: const InputDecoration(hintText: '나이'),
                       onChanged: (value) {
                         setState(() {
                           DementiaAnswerFinal.age = int.parse(ageController.text);
@@ -109,13 +109,13 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   SizedBox(
                       width: 300,
                       child: DropdownButtonFormField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             hintText: '교육연수',
                             border: OutlineInputBorder(
                                 borderRadius:
@@ -133,13 +133,13 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
                           });
                         },
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   SizedBox(
                       width: 300,
                       child: DropdownButtonFormField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             hintText: '연봉(단위: 만원)',
                             border: OutlineInputBorder(
                                 borderRadius:
@@ -158,14 +158,14 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
                           });
                         },
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // SizedBox(
                   //   width: 300,
                   //   child: _dropDownBtn('생년월일'),
                   // ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -199,7 +199,7 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
     return DropdownButtonFormField(
       decoration: InputDecoration(
           hintText: hintText,
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0)))),
       items: category.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
@@ -222,10 +222,8 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
       onPressed: (int index) {
         setState(() {
         for (int i = 0; i < _selectedGender.length; i++) {
-          _selectedGender[i] = i == index;
-          
+          _selectedGender[i] = i == index; 
         }
-          
         });
         if (_selectedGender[0] == true) {
           DementiaAnswerFinal.gender = '여자';
@@ -234,12 +232,12 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
         }
         //print(DementiaAnswerFinal.gender);
       },
-      borderRadius: BorderRadius.all(Radius.circular(8)),
+      borderRadius: const BorderRadius.all(Radius.circular(8)),
       //selectedBorderColor: Colors.red[700],
       //selectedColor: Colors.white,
       //fillColor: Colors.red[200],
       //color: Colors.red[400],
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minHeight: 40.0,
         minWidth: 150.0,
       ),
@@ -255,11 +253,11 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
           if (_nextController.hasClients) {
             _nextController.animateToPage(
               pageNum,
-              duration: Duration(milliseconds: 400),
+              duration: const Duration(milliseconds: 400),
               curve: Curves.easeInOut,
             );
           }
         },
-        child: Text('다음'));
+        child: const Text('다음'));
   } //
 }
