@@ -28,7 +28,8 @@ class _DementiaResultState extends State<DementiaResult> {
     abNormal = '치매';
 
     normalComment = '님 정상입니다. 가벼운 산책이나 요가 등 운동을 꾸준히 하시면 치매 예방에 도움이 됩니다.';
-    lightComment = '님 경도 치매가 의심됩니다. 가까운 보건소를 알려드릴게요.';
+    lightComment = '님 경도 치매가 의심됩니다. 가까운 병원을 알려드릴게요.';
+    abNormalComment = '님 치매가 의심됩니다. 가까운 병원을 알려드릴게요';
   }
 
   @override
