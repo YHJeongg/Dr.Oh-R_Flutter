@@ -1,6 +1,34 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+// ------------------------------------------------------------------------------------------
+// Date: 2023-01-11, SangwonKim
+// Desc: 당뇨병 바 차트 class
+class DiabetesBarChartWidget extends StatefulWidget {
+  const DiabetesBarChartWidget({super.key});
+
+  @override
+  State<StatefulWidget> createState() => DiabetesBarChartWidgetState();
+}
+
+class DiabetesBarChartWidgetState extends State<DiabetesBarChartWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 1.2,
+      child: Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        color: Theme.of(context).primaryColor.withOpacity(0.5),
+        child: const _BarChart(),
+      ),
+    );
+  }
+}
+
+// ------------------------------------------------------------------------------------------
+// Date: 2023-01-11, SangwonKim
+// Desc: 당뇨병 바 차트 class
 class _BarChart extends StatelessWidget {
   const _BarChart();
 
@@ -196,26 +224,4 @@ class _BarChart extends StatelessWidget {
           showingTooltipIndicators: [0],
         ),
       ];
-}
-
-class DiabetesBarChartWidget extends StatefulWidget {
-  const DiabetesBarChartWidget({super.key});
-
-  @override
-  State<StatefulWidget> createState() => DiabetesBarChartWidgetState();
-}
-
-class DiabetesBarChartWidgetState extends State<DiabetesBarChartWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.2,
-      child: Card(
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-        color: Theme.of(context).primaryColor.withOpacity(0.5),
-        child: const _BarChart(),
-      ),
-    );
-  }
 }

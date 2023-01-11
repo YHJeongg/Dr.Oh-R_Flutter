@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// --------------------------------------------------------------------
+// Date: 2023-01-08, SangwonKim
+// Desc: Information / Diabetes Page
 class InfoDiabetes extends StatelessWidget {
   const InfoDiabetes({super.key});
 

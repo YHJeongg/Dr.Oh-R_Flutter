@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../model/survey_stroke_message.dart';
+import '../model/stroke_message.dart';
 
+// ------------------------------------------------------------------------
 // Date: 2023-01-10, SangwonKim
 // Desc: 뇌졸중 설문조사 유저 기본정보 가져오는 class
 class StrokeUserInfo extends StatefulWidget {
@@ -48,6 +49,7 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
                 '신체 정보 입력',
                 style: TextStyle(
                   fontSize: 30,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 120),
@@ -165,13 +167,13 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
                     ? () {
                         //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
                         if (widget.pageController.hasClients) {
-                          SurveyStrokeMessage.sex =
+                          StrokeMessage.sex =
                               (sexSwitchValue ? 'female' : 'male').toString();
-                          SurveyStrokeMessage.age = currentYear -
+                          StrokeMessage.age = currentYear -
                               int.parse(ageController.text.trim());
-                          SurveyStrokeMessage.height =
+                          StrokeMessage.height =
                               double.parse(heightController.text.trim());
-                          SurveyStrokeMessage.weight =
+                          StrokeMessage.weight =
                               double.parse(weightController.text.trim());
                           widget.pageController.animateToPage(
                             2,

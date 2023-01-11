@@ -1,4 +1,6 @@
-class SurveyStrokeMessage{
+// Date: 2023-01-11, SangwonKim
+// Desc: 뇌졸중검사 Message
+class StrokeMessage {
   static String sex = '';
   static int age = 0;
   static double height = 0;
