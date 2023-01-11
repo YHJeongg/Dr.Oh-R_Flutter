@@ -29,7 +29,6 @@ class DiabetesPredict {
         // 주현 ip
         // 'http://192.168.10.92:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
 
-
     var response = await http.get(url);
     var dataConvertedJSON = await json.decode(utf8.decode(response.bodyBytes));
     String result = dataConvertedJSON['result'];
@@ -43,8 +42,8 @@ class DiabetesPredict {
     DiabetesMessage.hdattack = false;
     DiabetesMessage.highbp = false;
     DiabetesMessage.hdattack = false;
-    DiabetesMessage.physhealth.text='';
-    DiabetesMessage.isComplete=false;
+    DiabetesMessage.physhealth.text = '';
+    DiabetesMessage.isComplete = false;
 
     _saveResult(result);
 

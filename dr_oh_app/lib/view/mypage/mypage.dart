@@ -194,7 +194,7 @@ class _MyPageState extends State<MyPage> {
                     Icons.bar_chart,
                     color: Color(0xFF99CD89),
                   ),
-                  const ChartDiabetes(),
+                  ChartDiabetes(),
                 ),
                 const Divider(),
                 _btnContentActions(

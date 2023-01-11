@@ -24,6 +24,7 @@ class LineChart extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     List<Offset> offsets = getCoordinates(points, size);
+
     drawText(canvas, offsets);
     drawLines(canvas, size, offsets);
     drawPoints(canvas, size, offsets); // 좌표에 따라 점을 그립니다.
