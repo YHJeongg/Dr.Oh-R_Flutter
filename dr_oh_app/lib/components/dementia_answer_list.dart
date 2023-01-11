@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/components/dementia_answer_final.dart';
 import 'package:flutter/material.dart';
 
 class DementiaAnswer {
@@ -65,6 +66,18 @@ class _ZListState extends State<ZList> {
           TextField(
             controller: yearController,
             decoration: const InputDecoration(hintText: '1990'),
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              
+              if(yearController.text=='2023'){
+                DementiaAnswerFinal.yearCount = 10;
+              }else{
+                DementiaAnswerFinal.yearCount = 0;
+              }
+              print(DementiaAnswerFinal.yearCount);
+            },
+          
+            
           )
         ],
       ),
@@ -81,6 +94,11 @@ class AList extends StatefulWidget {
 }
 
 class _AListState extends State<AList> {
+  List<Widget> season = [Text('봄'),Text('여름'),Text('가을'),Text('겨울')];
+
+  final List<bool> _selectedSeason = <bool>[false, false, false, false];
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -88,26 +106,24 @@ class _AListState extends State<AList> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         
-        ElevatedButton(
-            onPressed: () {
-              //
-            },
-            child: const Text('봄')),
-        ElevatedButton(
-            onPressed: () {
-              //
-            },
-            child: const Text('여름')),
-        ElevatedButton(
-            onPressed: () {
-              //
-            },
-            child: const Text('가을')),
-        ElevatedButton(
-            onPressed: () {
-              //
-            },
-            child: const Text('겨울')),
+        ToggleButtons(
+          onPressed: (index) {
+            setState(() {
+              // The button that is tapped is set to true, and the others to false.
+                    for (int i = 0; i < _selectedSeason.length; i++) {
+                      _selectedSeason[i] = i == index;
+                    }
+
+                    if(_selectedSeason == [false, false, false, true]){
+                      DementiaAnswerFinal.seasoncount = 5;
+                    }else{
+                      DementiaAnswerFinal.seasoncount = 0;
+                    }
+                    print(_selectedSeason);
+            });
+          },
+          isSelected: _selectedSeason,
+          children: season)
       ],
 
     );
@@ -209,29 +225,39 @@ class DList extends StatefulWidget {
 }
 
 class _DListState extends State<DList> {
+
+  List<Widget> country = [Text('대한민국'),Text('미국'),Text('일본')];
+
+  final List<bool> _selectedcountry = <bool>[false, false, false];
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return 
+        
+        Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         
-        ElevatedButton(
-            onPressed: () {
-              //
-            },
-            child: const Text('대한민국')),
-        ElevatedButton(
-            onPressed: () {
-              //
-            },
-            child: const Text('미국')),
-        ElevatedButton(
-            onPressed: () {
-              //
-            },
-
-            child: const Text('일본')),
+        ToggleButtons(
+          onPressed: (index) {
+            setState(() {
+              // The button that is tapped is set to true, and the others to false.
+                    for (int i = 0; i < _selectedcountry.length; i++) {
+                      _selectedcountry[i] = i == index;
+                    }
+                    if(_selectedcountry == [false, false, false, true]){
+                      DementiaAnswerFinal.countrycount = 5;
+                    }else{
+                      DementiaAnswerFinal.countrycount = 0;
+                    }
+                   
+                    print(_selectedcountry);
+            });
+          },
+          isSelected: _selectedcountry,
+          children: country)
       ],
+
+    
     );
   }
 }
@@ -365,18 +391,39 @@ class _HListState extends State<HList> {
             decoration: InputDecoration(
               hintText: '단어를 입력하세요.'
             ),
+            onChanged: (value) {
+              if(aProductController.text == '연필'){
+                DementiaAnswerFinal.wordsCount = 10;
+              }else{
+                DementiaAnswerFinal.wordsCount = 0;
+              }
+            },
           ),
           TextField(
             controller: bProductController,
             decoration: InputDecoration(
               hintText: '단어를 입력하세요.'
             ),
+            onChanged: (value) {
+              if(bProductController.text == '모자'){
+                DementiaAnswerFinal.wordsCount = 10;
+              }else{
+                DementiaAnswerFinal.wordsCount = 0;
+              }
+            },
           ),
           TextField(
             controller: cProductController,
             decoration: InputDecoration(
               hintText: '단어를 입력하세요.'
             ),
+            onChanged: (value) {
+              if(cProductController.text == '나무'){
+                DementiaAnswerFinal.wordsCount = 10;
+              }else{
+                DementiaAnswerFinal.wordsCount = 0;
+              }
+            },
           ),
         ],
       ),
