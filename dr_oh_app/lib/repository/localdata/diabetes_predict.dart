@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/model/diabetes_message.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DiabetesPredict {
   //Desc: 당뇨병 예측
@@ -21,11 +23,11 @@ class DiabetesPredict {
     var url = Uri.parse(
 
         // 상원 ip
-        'http://192.168.10.176:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+        //'http://192.168.10.176:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
         // 유승 ip
-        //'http://192.168.10.213:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+        'http://192.168.10.213:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
         //주현 ip
-        'http://192.168.10.92:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+        //'http://192.168.10.92:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
 
 
     var response = await http.get(url);
@@ -44,6 +46,22 @@ class DiabetesPredict {
     DiabetesMessage.physhealth.text='';
     DiabetesMessage.isComplete=false;
 
+    _saveResult(result);
     return result;
+  }
+
+    //Desc: 검사 결과 저장
+  //Date: 2023-01-11
+  _saveResult(String result) async {
+    final prefs = await SharedPreferences.getInstance();
+    String id = prefs.getString('id')!;
+
+    var doc1=await FirebaseFirestore.instance.collection('users').where('id',isEqualTo: id).get();
+    var doc2=doc1.docs.first.id;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(doc2)
+        .set({'Diabetes': result});
   }
 }
