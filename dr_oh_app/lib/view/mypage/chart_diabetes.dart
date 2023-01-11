@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/components/line_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -15,9 +16,20 @@ class ChartDiabetes extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
+            Text('당뇨 그래프'),
             Container(
+              decoration: BoxDecoration(border: Border()),
               child: CustomPaint(
-                size: Size(200, 200),
+                size: Size(250, 200),
+                painter: LineChart(
+                    lineColor: Colors.black,
+                    lineWidth: 5,
+                    pointColor: Colors.black,
+                    pointSize: 8,
+                    points: [1, 2, 3, 4, 5, 5, 4, 4, 2, 1]),
+                child: GestureDetector(
+                  onTap: () {},
+                ),
               ),
             )
           ],

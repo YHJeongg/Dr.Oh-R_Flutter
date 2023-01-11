@@ -97,10 +97,7 @@ class _SignOutState extends State<SignOut> {
               padding: const EdgeInsets.all(50.0),
               child: ElevatedButton(
                   onPressed: () {
-                    if (isChecked == false) {
-                    } else {
-                      _deleteDialog(context);
-                    }
+                    isChecked ? _deleteDialog(context) : null;
                   },
                   child: const Text('확인')),
             )
