@@ -234,7 +234,7 @@ class _HomeState extends State<Home> {
   // Date: 2023-01-10
   Widget _getName(DocumentSnapshot doc) {
     final user = UserModel(name: doc['name']);
-    return Text('${user.name}님 건강한 하루 되세요');
+    return SizedBox(width: 300, child: Text('${user.name}님 건강한 하루 되세요'));
   }
 
   // Desc: shared preferences 받기
@@ -263,31 +263,39 @@ class _HomeState extends State<Home> {
                 width: 350,
                 padding: const EdgeInsets.only(left: 10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection('users')
-                          .where('id', isEqualTo: '$id')
-                          .snapshots(),
-                      builder: ((context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        final documents = snapshot.data!.docs;
+                    Container(
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .where('id', isEqualTo: '$id')
+                            .snapshots(),
+                        builder: ((context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          final documents = snapshot.data!.docs;
 
-                        return documents.map((e) => _getName(e)).first;
-                      }),
+                          return documents.map((e) => _getName(e)).first;
+                        }),
+                      ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Get.to(EditMemberInfo());
-                      },
-                      icon: const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 15,
+                    Expanded(
+                      child: SizedBox(
+                        height: 50,
+                        width: 10,
+                        child: IconButton(
+                          onPressed: () {
+                            Get.to(EditMemberInfo());
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 15,
+                          ),
+                        ),
                       ),
                     ),
                   ],

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/model/user.dart';
+import 'package:dr_oh_app/view/mypage/chart_diabetes.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/view/mypage/sign_out.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ class MyPage extends StatelessWidget {
                     height: 35,
                     child: TextButton(
                       onPressed: () {
-                        Get.to(() => EditMemberInfo());
+                        Get.to(() => const EditMemberInfo());
                       },
                       child: const Text(
                         '수정',
@@ -144,7 +145,7 @@ class MyPage extends StatelessWidget {
                     Icons.local_hospital,
                     color: Color(0xFF99CD89),
                   ),
-                  SignOut(),
+                  const SignOut(),
                 ),
                 const Divider(),
                 _btnContentActions(
@@ -153,7 +154,7 @@ class MyPage extends StatelessWidget {
                     Icons.payment,
                     color: Color(0xFF99CD89),
                   ),
-                  SignOut(),
+                  const SignOut(),
                 ),
                 const Divider(),
                 _btnContentActions(
@@ -162,7 +163,7 @@ class MyPage extends StatelessWidget {
                     Icons.info_outline,
                     color: Color(0xFF99CD89),
                   ),
-                  SignOut(),
+                  const SignOut(),
                 ),
               ],
             ),
@@ -187,7 +188,7 @@ class MyPage extends StatelessWidget {
                     Icons.bar_chart,
                     color: Color(0xFF99CD89),
                   ),
-                  SignOut(),
+                  const ChartDiabetes(),
                 ),
                 const Divider(),
                 _btnContentActions(
@@ -196,7 +197,7 @@ class MyPage extends StatelessWidget {
                     Icons.show_chart,
                     color: Color(0xFF99CD89),
                   ),
-                  SignOut(),
+                  const SignOut(),
                 ),
                 const Divider(),
                 _btnContentActions(
@@ -205,7 +206,7 @@ class MyPage extends StatelessWidget {
                     Icons.area_chart,
                     color: Color(0xFF99CD89),
                   ),
-                  SignOut(),
+                  const SignOut(),
                 ),
                 const Divider(),
                 _btnContentActions(
@@ -214,7 +215,7 @@ class MyPage extends StatelessWidget {
                     Icons.pie_chart,
                     color: Color(0xFF99CD89),
                   ),
-                  SignOut(),
+                  const SignOut(),
                 ),
               ],
             ),

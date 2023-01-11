@@ -23,17 +23,18 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
   TextEditingController dateController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
-  // Desc: 기존 정보 (Text Field 상의)
-  // Date: 2023-01-10
+// Desc: 기존 정보 (Text Field 상의)
+// Date: 2023-01-10
   late String name;
   late String id;
   late String password;
   late String birthdate;
   late String email;
+  late String atSign = '@';
 
-  // Desc: 회원정보 수정 항목
+// Desc: 회원정보 수정 항목 + 텍스트필드 조인
 // Date: 2023-01-09
-  Widget _joinText(String txt, dynamic type) {
+  Widget _joinText(String txt, dynamic tf) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -41,32 +42,34 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
           txt,
           style: const TextStyle(fontSize: 18),
         ),
-        type,
+        tf,
       ],
     );
   }
 
-// Desc: 이름, 아이디 수정 TextField
+// Desc: 이름 수정 TextField
 // Date: 2023-01-10
-  Widget _editName(bool readOnly) {
+  Widget _editName(String hint) {
     return SizedBox(
-      width: Get.width / 1.45,
-      height: 70,
-      child: TextField(
-        controller: nameController,
-        readOnly: true,
-        onChanged: (value) {
-          //--
-        },
-        textAlign: TextAlign.center,
-      ),
-    );
+        height: 70,
+        width: 270,
+        child: TextField(
+          controller: nameController,
+          readOnly: true,
+          onChanged: (value) {
+            //--
+          },
+          textAlign: TextAlign.center,
+          decoration: InputDecoration(hintText: hint),
+        ));
   }
 
-  Widget _editID(bool readOnly) {
+// Desc: 아이디 수정 TextField
+// Date: 2023-01-10
+  Widget _editID(String hint) {
     return SizedBox(
-      width: Get.width / 1.6,
       height: 70,
+      width: 250,
       child: TextField(
         controller: idController,
         readOnly: true,
@@ -74,6 +77,7 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
           //--
         },
         textAlign: TextAlign.center,
+        decoration: InputDecoration(hintText: hint),
       ),
     );
   }
@@ -82,7 +86,7 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
 // Date: 2023-01-10
   Widget _editPW() {
     return SizedBox(
-      width: Get.width / 1.8,
+      width: 220,
       height: 70,
       child: TextField(
         controller: passwordController1,
@@ -95,9 +99,11 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
     );
   }
 
+// Desc: 비밀번호 확인 TextField
+// Date: 2023-01-10
   Widget _confirmPW() {
     return SizedBox(
-      width: Get.width / 1.95,
+      width: 200,
       height: 70,
       child: TextField(
         controller: passwordController2,
@@ -110,126 +116,91 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
     );
   }
 
-  // Desc: 생년월일 수정 TextField
-  // Date: 2023-01-10
-  Widget _editBirthday() {
+// Desc: 생년월일 수정 TextField
+// Date: 2023-01-10
+  Widget _editBirthday(String hint) {
     return SizedBox(
-      width: Get.width / 1.65,
       height: 70,
+      width: 240,
       child: TextField(
         controller: dateController,
         onTap: () {
           _showDatePickerPop();
         },
         textAlign: TextAlign.center,
+        decoration: InputDecoration(hintText: hint),
       ),
     );
   }
 
-  Widget _editEmail() {
+// Desc: 이메일 수정 TextField
+// Date: 2023-01-10
+  Widget _editEmail(String hint) {
     return Flexible(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(
-            width: Get.width / 2.9,
+            width: 130,
             height: 70,
             child: TextField(
               onChanged: (value) {
                 //--
               },
               textAlign: TextAlign.center,
-            ),
-          ),
-          SizedBox(
-            height: 70,
-            width: 10,
-            child: TextField(
-              controller: emailController,
-              onChanged: (value) {
-                //--
-              },
-              readOnly: true,
-              decoration: const InputDecoration(
-                hintText: '@',
-                hintTextDirection: TextDirection.rtl,
-              ),
+              decoration: InputDecoration(
+                  suffixText: atSign, suffixStyle: TextStyle(), hintText: hint),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, top: 10, bottom: 10),
             child: DropdownButton(
-                elevation: 0,
-                value: _selectedDropdown,
-                items: _dropdownList.map((String item) {
-                  return DropdownMenuItem<String>(
-                    value: item,
-                    child: Text(
-                      item,
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  );
-                }).toList(),
-                onChanged: ((dynamic value) {
-                  setState(() {
-                    _selectedDropdown = value;
-                    if (_selectedDropdown == '직접 입력') {
-                      emailController.text = ' ';
-                    } else {
-                      emailController.text = '';
-                    }
-                  });
-                })),
-          )
+              elevation: 0,
+              value: _selectedDropdown,
+              items: _dropdownList.map((String item) {
+                return DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                );
+              }).toList(),
+              onChanged: ((dynamic value) {
+                setState(() {
+                  _selectedDropdown = value;
+                  if (_selectedDropdown == '직접 입력') {
+                    atSign = '';
+                  } else {
+                    atSign = '@';
+                  }
+                });
+              }),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  // void _getMemberInfo(DocumentSnapshot doc) {
-  //   final user = UserModel(
-  //     name: doc['name'],
-  //     id: doc['id'],
-  //     birthdate: doc['birthdate'],
-  //     email: doc['email'],
-  //   );
-
-  //   name = user.name.toString();
-  //   id = user.id.toString();
-  //   birthdate = user.birthdate.toString();
-  //   email = user.email.toString();
-  // }
-
-  // DocumentSnapshot? _streamBuilder() {
-  //   StreamBuilder<QuerySnapshot>(
-  //     stream: FirebaseFirestore.instance
-  //         .collection('users')
-  //         .where('id', isEqualTo: 'qwer')
-  //         .snapshots(),
-  //     builder: ((BuildContext? context, dynamic snapshot) {
-  //       try {
-  //         if (!snapshot.hasData) {
-  //           return const Center(
-  //             child: CircularProgressIndicator(),
-  //           );
-  //         }
-  //         final documents = snapshot.data!.docs;
-  //         return documents.map((e) => _getMemberInfo(e));
-  //       } catch (e) {
-  //         return snapshot;
-  //       }
-  //     }),
-  //   );
-  // }
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   dynamic doc = _streamBuilder();
-  //   _getMemberInfo(doc);
-  //   nameController.text = name;
-  // }
+  // Desc: 생년월일 DatePickerDialog
+  // Date: 2023-01-10
+  void _showDatePickerPop() {
+    Future<DateTime?> selectedDate = showDatePicker(
+      context: context,
+      initialDate: DateTime.now(), //초기값
+      firstDate: DateTime(2000), //시작일
+      lastDate: DateTime.now().add(const Duration(days: 30)), //마지막일
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.dark(), //다크 테마
+          child: child!,
+        );
+      },
+    );
+    selectedDate.then(
+        (value) => dateController.text = value.toString().substring(0, 10));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -263,38 +234,50 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
               ),
               child: Column(
                 children: [
-                  _joinText('이름', _editName(true)),
-                  _joinText('아이디', _editID(true)),
-                  _joinText('새 비밀번호', _editPW()),
-                  _joinText('비밀번호 확인', _confirmPW()),
-                  _joinText('생년월일', _editBirthday()),
-                  _joinText('이메일', _editEmail()),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .where('id', isEqualTo: 'qwer')
+                        .snapshots(),
+                    builder: ((context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      final documents = snapshot.data!.docs;
+
+                      return documents.map(((e) {
+                        final user = UserModel(
+                          name: e['name'],
+                          id: e['id'],
+                          birthdate: e['birthdate'],
+                          email: e['email'],
+                        );
+                        return Column(
+                          children: [
+                            _joinText('이름', _editName(user.name.toString())),
+                            _joinText('아이디', _editID(user.id.toString())),
+                            _joinText('새 비밀번호', _editPW()),
+                            _joinText('비밀번호 확인', _confirmPW()),
+                            _joinText('생년월일',
+                                _editBirthday(user.birthdate.toString())),
+                            _joinText('이메일', _editEmail(user.email.toString())),
+                          ],
+                        );
+                      })).first;
+                    }),
+                  ),
                 ],
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('수정'))
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: ElevatedButton(onPressed: () {}, child: const Text('수정')),
+            )
           ],
         ),
       ),
     );
-  }
-
-  // Desc: 생년월일 DatePickerDialog
-  // Date: 2023-01-10
-  void _showDatePickerPop() {
-    Future<DateTime?> selectedDate = showDatePicker(
-      context: context,
-      initialDate: DateTime.now(), //초기값
-      firstDate: DateTime(2000), //시작일
-      lastDate: DateTime.now().add(const Duration(days: 30)), //마지막일
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.dark(), //다크 테마
-          child: child!,
-        );
-      },
-    );
-    selectedDate.then(
-        (value) => dateController.text = value.toString().substring(0, 10));
   }
 }
