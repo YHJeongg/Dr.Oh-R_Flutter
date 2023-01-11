@@ -21,13 +21,13 @@ public class RServiceImpl implements RService {
 		
 		int age=Integer.parseInt(request.getParameter("age"));
 		double bmi=Double.parseDouble(request.getParameter("bmi"));
-		int physact=request.getParameter("physact").equals("true")?1:0;
+		int physact=request.getParameter("physact").equals("TRUE")?1:0;
 		double genHealth=5-Double.parseDouble(request.getParameter("genhealth"));
 		int heartattack=request.getParameter("hdattack").equals("true")?1:0;
 		int highbp=request.getParameter("highbp").equals("true")?1:0;
 		int stroke=request.getParameter("stroke").equals("true")?1:0;
 		int physhealth=Integer.parseInt(request.getParameter("physhealth"));
-		int diffwalk=request.getParameter("diffwalk").equals("true")?1:0;
+		int diffwalk=request.getParameter("diffwalk").equals("TRUE")?1:0;
 		
 		RConnection conn = new RConnection();
 		

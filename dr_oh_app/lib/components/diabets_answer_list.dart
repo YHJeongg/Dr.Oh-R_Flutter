@@ -285,6 +285,17 @@ class _FifthAState extends State<FifthA> {
           child: TextField(
             controller: DiabetesMessage.physhealth,
             keyboardType: TextInputType.number,
+            onChanged: (value) {
+              if(value.isEmpty){
+                setState(() {
+                  DiabetesMessage.isComplete=false;
+                });
+              } else{
+                setState(() {
+                  DiabetesMessage.isComplete=true;
+                });
+              }
+            },
           ),
         ),
       ],

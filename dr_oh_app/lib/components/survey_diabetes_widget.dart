@@ -82,7 +82,7 @@ class SurveyDiabetes extends StatelessWidget {
             StreamBuilder<QuerySnapshot>(
               //firestore에서 데이터 가져오기
               stream: FirebaseFirestore.instance
-          
+
                   //parameter로 설문지 DB table 이름만 변경하면 됩니다.
                   .collection('Diabetes')
                   .orderBy('seq', descending: false)
@@ -93,7 +93,7 @@ class SurveyDiabetes extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 }
                 final documents = snapshot.data!.docs;
-          
+
                 return SizedBox(
                   width: 500,
                   height: 500,
@@ -107,21 +107,23 @@ class SurveyDiabetes extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              onPressed: () async {
-                DiabetesPredict predict = DiabetesPredict();
-                String result = await predict.predict(
-                    DiabetesMessage.age,
-                    DiabetesMessage.height,
-                    DiabetesMessage.weight,
-                    DiabetesMessage.physact,
-                    DiabetesMessage.diffwalk,
-                    DiabetesMessage.genhealth,
-                    DiabetesMessage.hdattack,
-                    DiabetesMessage.highbp,
-                    DiabetesMessage.stroke,
-                    int.parse(DiabetesMessage.physhealth.text));
-                Get.off(DResult(result: result));
-              },
+              onPressed: DiabetesMessage.isComplete
+                  ? null
+                  : () async {
+                      DiabetesPredict predict = DiabetesPredict();
+                      String result = await predict.predict(
+                          DiabetesMessage.age,
+                          DiabetesMessage.height,
+                          DiabetesMessage.weight,
+                          DiabetesMessage.physact,
+                          DiabetesMessage.diffwalk,
+                          DiabetesMessage.genhealth,
+                          DiabetesMessage.hdattack,
+                          DiabetesMessage.highbp,
+                          DiabetesMessage.stroke,
+                          int.parse(DiabetesMessage.physhealth.text));
+                      Get.off(DResult(result: result));
+                    },
               child: const Text(
                 '진단',
               ),
