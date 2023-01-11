@@ -92,8 +92,9 @@ class SurveyDiabetes extends StatelessWidget {
                 if (!snapshot.hasData) {
                   return const Center(child: CircularProgressIndicator());
                 }
+                
                 final documents = snapshot.data!.docs;
-          
+
                 return SizedBox(
                   width: 500,
                   height: 500,

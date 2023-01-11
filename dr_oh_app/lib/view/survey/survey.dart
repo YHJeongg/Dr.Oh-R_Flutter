@@ -52,10 +52,7 @@ class Survey extends StatelessWidget {
         minimumSize: const Size(300, 150),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        side: const BorderSide(
-          color: Colors.grey,
-          width: 3.0,
-        ),
+        
       ),
       child: Text(
         title,
