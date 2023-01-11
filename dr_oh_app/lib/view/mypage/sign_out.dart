@@ -1,7 +1,38 @@
 import 'package:flutter/material.dart';
 
-class SignOut extends StatelessWidget {
+class SignOut extends StatefulWidget {
   const SignOut({super.key});
+
+  @override
+  State<SignOut> createState() => _SignOutState();
+}
+
+class _SignOutState extends State<SignOut> {
+  bool isChecked = false;
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return Colors.blue;
+    }
+    return Colors.red;
+  }
+
+  Widget checkBox() {
+    return Checkbox(
+      checkColor: Colors.white,
+      fillColor: MaterialStateProperty.resolveWith(getColor),
+      value: isChecked,
+      onChanged: (bool? value) {
+        setState(() {
+          isChecked = value!;
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +45,19 @@ class SignOut extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Padding(
+              padding: EdgeInsets.all(50.0),
+              child: Text(
+                "Dr. Oh",
+                style: TextStyle(
+                    color: Color(0xFF99CD89),
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
             Container(
               width: 300,
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border.all(
                   style: BorderStyle.solid,
@@ -44,55 +85,61 @@ class SignOut extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CustomCheckbox(),
+                    children: [
+                      checkBox(),
                       Text('계정을 삭제합니다'),
                     ],
                   ),
                 ],
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('확인'))
+            Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    if (isChecked == false) {
+                    } else {
+                      _deleteDialog(context);
+                    }
+                  },
+                  child: const Text('확인')),
+            )
           ],
         ),
       ),
     );
   }
-}
 
-class CustomCheckbox extends StatefulWidget {
-  const CustomCheckbox({super.key});
-
-  @override
-  State<CustomCheckbox> createState() => _CustomCheckboxState();
-}
-
-class _CustomCheckboxState extends State<CustomCheckbox> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.blue;
-      }
-      return Colors.red;
-    }
-
-    return Checkbox(
-      checkColor: Colors.white,
-      fillColor: MaterialStateProperty.resolveWith(getColor),
-      value: isChecked,
-      onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
-      },
-    );
+  _deleteDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: ((context) {
+          return AlertDialog(
+            title: const Text('회원 탈퇴'),
+            content: SizedBox(
+              height: 200,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('탈퇴를 위해 비밀번호를 입력해주세요'),
+                  TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        hintText: '비밀번호 입력',
+                      )),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      '삭제',
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        }));
   }
 }

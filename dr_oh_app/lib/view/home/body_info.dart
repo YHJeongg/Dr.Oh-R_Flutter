@@ -12,6 +12,7 @@ class BodyInfo extends StatefulWidget {
 class _BodyInfoState extends State<BodyInfo> {
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
+  TextEditingController bpController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,29 +24,35 @@ class _BodyInfoState extends State<BodyInfo> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: TextField(
-                controller: heightController,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                decoration: const InputDecoration(
-                  hintText: '키',
+            Column(
+              children: [
+                TextField(
+                  controller: heightController,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                    hintText: '키',
+                  ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: TextField(
-                controller: weightController,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                decoration: const InputDecoration(
-                  hintText: '몸무게',
+                TextField(
+                  controller: weightController,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                    hintText: '몸무게',
+                  ),
                 ),
-              ),
+                TextField(
+                  controller: bpController,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                    hintText: '혈압',
+                  ),
+                ),
+                ElevatedButton(onPressed: () {}, child: const Text('저장'))
+              ],
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('저장'))
           ],
         ),
       ),
