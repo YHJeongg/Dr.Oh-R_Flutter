@@ -9,9 +9,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Date: 2023-01-08, jyh
 // 화면구성중
-class MyPage extends StatelessWidget {
+class MyPage extends StatefulWidget {
   const MyPage({super.key});
 
+  @override
+  State<MyPage> createState() => _MyPageState();
+}
+
+class _MyPageState extends State<MyPage> {
+  String id = '';
   Widget _head(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -241,7 +247,6 @@ class MyPage extends StatelessWidget {
   }
 
   // Desc: 회원정보 가져오기
-  // Date: 2023-01-10
   Widget _getMemberInfo(DocumentSnapshot doc) {
     final user = UserModel(
       name: doc['name'],
@@ -253,13 +258,18 @@ class MyPage extends StatelessWidget {
         user.birthdate.toString(), user.email.toString());
   }
 
-  // Desc: shared preferences 받기
-  // Date: 2023-01-10
   _initSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    // setState(() {
-    //   id = prefs.getString('id');
-    // });
+    setState(() {
+      id = (prefs.getString('id') ?? "");
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _initSharedPreferences();
   }
 
   @override
@@ -279,7 +289,7 @@ class MyPage extends StatelessWidget {
             StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('users')
-                  .where('id', isEqualTo: 'qwer')
+                  .where('id', isEqualTo: id)
                   .snapshots(),
               builder: ((context, snapshot) {
                 if (!snapshot.hasData) {

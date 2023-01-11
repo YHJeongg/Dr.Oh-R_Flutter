@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditMemberInfo extends StatefulWidget {
   const EditMemberInfo({super.key});
@@ -25,11 +26,9 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
 
 // Desc: 기존 정보 (Text Field 상의)
 // Date: 2023-01-10
-  late String name;
+
   late String id;
-  late String password;
-  late String birthdate;
-  late String email;
+
   late String atSign = '@';
 
 // Desc: 회원정보 수정 항목 + 텍스트필드 조인
@@ -202,6 +201,20 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
         (value) => dateController.text = value.toString().substring(0, 10));
   }
 
+  _initSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = (prefs.getString('id') ?? "");
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _initSharedPreferences();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -237,7 +250,7 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
                   StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('users')
-                        .where('id', isEqualTo: 'qwer')
+                        .where('id', isEqualTo: id)
                         .snapshots(),
                     builder: ((context, snapshot) {
                       if (!snapshot.hasData) {
