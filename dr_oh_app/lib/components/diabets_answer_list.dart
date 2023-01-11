@@ -99,7 +99,7 @@ class _SecondAState extends State<SecondA> {
             setState(() {
               score = value;
             });
-            DiabetesMessage.genhealth=value;
+            DiabetesMessage.genhealth = value;
           },
         ),
         const Text(
@@ -181,7 +181,7 @@ class _FourthAState extends State<FourthA> {
     first = false;
     second = false;
     third = false;
-    fourth = false;
+    fourth = true;
   }
 
   @override
@@ -197,7 +197,11 @@ class _FourthAState extends State<FourthA> {
           onChanged: (value) {
             setState(() {
               DiabetesMessage.highbp = value!;
-              fourth = false;
+              if (value) {
+                fourth = false;
+              } else if (!DiabetesMessage.stroke && !DiabetesMessage.hdattack) {
+                fourth = true;
+              }
             });
           },
         ),
@@ -209,7 +213,11 @@ class _FourthAState extends State<FourthA> {
           onChanged: (value) {
             setState(() {
               DiabetesMessage.stroke = value!;
-              fourth = false;
+              if (value) {
+                fourth = false;
+              } else if (!DiabetesMessage.highbp && !DiabetesMessage.hdattack) {
+                fourth = true;
+              }
             });
           },
         ),
@@ -221,7 +229,11 @@ class _FourthAState extends State<FourthA> {
           onChanged: (value) {
             setState(() {
               DiabetesMessage.hdattack = value!;
-              fourth = false;
+              if (value) {
+                fourth = false;
+              } else if (!DiabetesMessage.highbp && !DiabetesMessage.stroke) {
+                fourth = true;
+              }
             });
           },
         ),
@@ -232,10 +244,12 @@ class _FourthAState extends State<FourthA> {
           value: fourth,
           onChanged: (value) {
             setState(() {
-              DiabetesMessage.highbp = false;
-              DiabetesMessage.stroke = false;
-              DiabetesMessage.hdattack = false;
-              fourth = value!;
+              if (!fourth) {
+                DiabetesMessage.highbp = false;
+                DiabetesMessage.stroke = false;
+                DiabetesMessage.hdattack = false;
+                fourth = value!;
+              }
             });
           },
         ),
