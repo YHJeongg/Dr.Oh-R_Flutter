@@ -107,7 +107,7 @@ class SurveyDiabetes extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              onPressed: DiabetesMessage.isComplete
+              onPressed: !DiabetesMessage.isComplete
                   ? null
                   : () async {
                       DiabetesPredict predict = DiabetesPredict();
