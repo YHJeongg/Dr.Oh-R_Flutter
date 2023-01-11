@@ -52,7 +52,7 @@ public class RServiceImpl implements RService {
 		int sex=request.getParameter("sex").equals("male")? 1 : 0;
 		int age=Integer.parseInt(request.getParameter("age"));
 		double bmi=Double.parseDouble(request.getParameter("bmi"));
-		int highBp=Integer.parseInt(request.getParameter("highBp"));
+		int hypertension=Integer.parseInt(request.getParameter("hypertension"));
 		int heartDisease=Integer.parseInt(request.getParameter("heartDisease"));
 		int everMarried=Integer.parseInt(request.getParameter("everMarried"));
 		
@@ -94,7 +94,7 @@ public class RServiceImpl implements RService {
 		conn.voidEval("library(randomForest)");
 		conn.voidEval("setwd('" + path + "')");
 		conn.voidEval("machine <- readRDS('randomForest_stroke.rds','rb')");
-		conn.voidEval("result=as.character(predict(machine,list(sex=" + sex + ",age=" + age + ",bmi=" + bmi + ",hypertension=" + highBp + ",heart_disease=" + heartDisease + ",ever_married=" + everMarried + ",work_type_0=" + workType0 + ",work_type_1=" + workType1 + ",work_type_2=" + workType2 + ",work_type_3=" + workType3 + ",work_type_4=" + workType4 + ",Residence_type=" + residenceType + ",smoking_status=" + smoke + ")))");
+		conn.voidEval("result=as.character(predict(machine,list(sex=" + sex + ",age=" + age + ",bmi=" + bmi + ",hypertension=" + hypertension + ",heart_disease=" + heartDisease + ",ever_married=" + everMarried + ",work_type_0=" + workType0 + ",work_type_1=" + workType1 + ",work_type_2=" + workType2 + ",work_type_3=" + workType3 + ",work_type_4=" + workType4 + ",Residence_type=" + residenceType + ",smoking_status=" + smoke + ")))");
 
 		String result = conn.eval("result").asString();
 		

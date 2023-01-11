@@ -46,7 +46,7 @@ dependencies:
   google_sign_in: ^5.4.2
   firebase_storage: ^11.0.10
   firebase_auth: ^4.2.5
-  google_maps_flutter: ^2.2.3
+  fl_chart: ^0.55.2 # 차트
 
 dev_dependencies:
   flutter_test:
