@@ -39,100 +39,122 @@ class _DUserInfoState extends State<DUserInfo> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              '신체 정보 입력',
-              style: TextStyle(
-                fontSize: 30,
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                '신체 정보 입력',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            SizedBox(
-              width: 100,
-              child: TextField(
-                controller: ageCont,
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  if (ageReg.hasMatch(value) && int.parse(value) <= curyear) {
-                    setState(() {
-                      correctYear = true;
-                    });
-                  } else {
-                    setState(() {
-                      correctYear = false;
-                    });
+            const SizedBox(
+              height: 100,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 100,
+                child: TextField(
+                  controller: ageCont,
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    if (ageReg.hasMatch(value) && int.parse(value) <= curyear) {
+                      setState(() {
+                        correctYear = true;
+                      });
+                    } else {
+                      setState(() {
+                        correctYear = false;
+                      });
+                    }
+                  },
+                  decoration: InputDecoration(
+                    labelText: ageCont.text.trim().isEmpty
+                        ? '출생년도 4자리'
+                        : correctYear
+                            ? ''
+                            : '출생년도를 정확히 입력하세요.',
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 100,
+                child: TextField(
+                  controller: heightCont,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  decoration: const InputDecoration(
+                    labelText: '키(cm)',
+                  ),
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      setState(() {
+                        correctHeight=false;
+                      });
+                    }else {
+                      setState(() {
+                        correctHeight=true;
+                      });
+                    }
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 100,
+                child: TextField(
+                  controller: weightCont,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  decoration: const InputDecoration(
+                    labelText: '몸무게(kg)',
+                  ),
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      setState(() {
+                        correctWeight=false;
+                      });
+                    }else {
+                      setState(() {
+                        correctWeight=true;
+                      });
+                    }
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 100,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: ElevatedButton(
+                onPressed: correctYear&&correctHeight&&correctWeight?
+                () {
+                  //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
+                  if (widget.pageCont.hasClients) {
+                    DiabetesMessage.age=curyear-int.parse(ageCont.text.trim());
+                    DiabetesMessage.height=double.parse(heightCont.text.trim());
+                    DiabetesMessage.weight=double.parse(weightCont.text.trim());
+                    widget.pageCont.animateToPage(
+                      2,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut,
+                    );
                   }
-                },
-                decoration: InputDecoration(
-                  labelText: ageCont.text.trim().isEmpty
-                      ? '출생년도 4자리'
-                      : correctYear
-                          ? ''
-                          : '출생년도를 정확히 입력하세요.',
+                }:null,
+                child: const Text(
+                  '다음',
                 ),
-              ),
-            ),
-            SizedBox(
-              width: 100,
-              child: TextField(
-                controller: heightCont,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                decoration: const InputDecoration(
-                  labelText: '키(cm)',
-                ),
-                onChanged: (value) {
-                  if (value.isEmpty) {
-                    setState(() {
-                      correctHeight=false;
-                    });
-                  }else {
-                    setState(() {
-                      correctHeight=true;
-                    });
-                  }
-                },
-              ),
-            ),
-            SizedBox(
-              width: 100,
-              child: TextField(
-                controller: weightCont,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                decoration: const InputDecoration(
-                  labelText: '몸무게(kg)',
-                ),
-                onChanged: (value) {
-                  if (value.isEmpty) {
-                    setState(() {
-                      correctWeight=false;
-                    });
-                  }else {
-                    setState(() {
-                      correctWeight=true;
-                    });
-                  }
-                },
-              ),
-            ),
-            ElevatedButton(
-              onPressed: correctYear&&correctHeight&&correctWeight?
-              () {
-                //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
-                if (widget.pageCont.hasClients) {
-                  DiabetesMessage.age=curyear-int.parse(ageCont.text.trim());
-                  DiabetesMessage.height=double.parse(heightCont.text.trim());
-                  DiabetesMessage.weight=double.parse(weightCont.text.trim());
-                  widget.pageCont.animateToPage(
-                    2,
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeInOut,
-                  );
-                }
-              }:null,
-              child: const Text(
-                '다음',
               ),
             ),
           ],

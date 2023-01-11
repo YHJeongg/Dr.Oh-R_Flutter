@@ -2,7 +2,13 @@ import 'package:dr_oh_app/model/diabetes_message.dart';
 import 'package:flutter/material.dart';
 
 class DAnswer {
-  List<Widget> dAnserList = const [FirstA(), SecondA(), ThirdA(), FourthA(),FifthA()];
+  List<Widget> dAnserList = const [
+    FirstA(),
+    SecondA(),
+    ThirdA(),
+    FourthA(),
+    FifthA()
+  ];
 }
 
 class FirstA extends StatefulWidget {
@@ -13,7 +19,6 @@ class FirstA extends StatefulWidget {
 }
 
 class _FirstAState extends State<FirstA> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -81,6 +86,9 @@ class _SecondAState extends State<SecondA> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const Text(
+          '안 좋음',
+        ),
         Slider(
           value: score,
           divisions: 4,
@@ -91,9 +99,12 @@ class _SecondAState extends State<SecondA> {
             setState(() {
               score = value;
             });
-            DiabetesMessage.genhealth=value;
+            DiabetesMessage.genhealth = value;
           },
-        )
+        ),
+        const Text(
+          '좋음',
+        ),
       ],
     );
   }
@@ -107,7 +118,6 @@ class ThirdA extends StatefulWidget {
 }
 
 class _ThirdAState extends State<ThirdA> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -171,7 +181,7 @@ class _FourthAState extends State<FourthA> {
     first = false;
     second = false;
     third = false;
-    fourth = false;
+    fourth = true;
   }
 
   @override
@@ -187,7 +197,11 @@ class _FourthAState extends State<FourthA> {
           onChanged: (value) {
             setState(() {
               DiabetesMessage.highbp = value!;
-              fourth=false;
+              if (value) {
+                fourth = false;
+              } else if (!DiabetesMessage.stroke && !DiabetesMessage.hdattack) {
+                fourth = true;
+              }
             });
           },
         ),
@@ -199,7 +213,11 @@ class _FourthAState extends State<FourthA> {
           onChanged: (value) {
             setState(() {
               DiabetesMessage.stroke = value!;
-              fourth=false;
+              if (value) {
+                fourth = false;
+              } else if (!DiabetesMessage.highbp && !DiabetesMessage.hdattack) {
+                fourth = true;
+              }
             });
           },
         ),
@@ -211,7 +229,11 @@ class _FourthAState extends State<FourthA> {
           onChanged: (value) {
             setState(() {
               DiabetesMessage.hdattack = value!;
-              fourth=false;
+              if (value) {
+                fourth = false;
+              } else if (!DiabetesMessage.highbp && !DiabetesMessage.stroke) {
+                fourth = true;
+              }
             });
           },
         ),
@@ -222,10 +244,12 @@ class _FourthAState extends State<FourthA> {
           value: fourth,
           onChanged: (value) {
             setState(() {
-              DiabetesMessage.highbp=false;
-              DiabetesMessage.stroke=false;
-              DiabetesMessage.hdattack=false;
-              fourth=value!;
+              if (!fourth) {
+                DiabetesMessage.highbp = false;
+                DiabetesMessage.stroke = false;
+                DiabetesMessage.hdattack = false;
+                fourth = value!;
+              }
             });
           },
         ),
@@ -248,8 +272,9 @@ class _FifthAState extends State<FifthA> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    dayCont=TextEditingController();
+    dayCont = TextEditingController();
   }
+
   @override
   Widget build(BuildContext context) {
     return Row(

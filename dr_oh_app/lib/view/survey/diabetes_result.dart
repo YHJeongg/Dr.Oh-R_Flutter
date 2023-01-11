@@ -20,21 +20,83 @@ class _DResultState extends State<DResult> {
           title: const Text(
             '예측 결과',
           ),
+          elevation: 1,
         ),
         body: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '예측 결과는 ${widget.result}입니다.',
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  '위험 수준',
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Get.off(
-                    const App(),
-                  );
-                },
-                child: const Text(
-                  '처음으로',
+              Text(
+                '${(double.parse(widget.result) * 100).round()}',
+                style: const TextStyle(
+                  fontSize: 50,
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    '0',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Container(
+                      width: 200,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0xCCCCE6C4),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: double.parse(widget.result) * 200,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color(0xFF5B9D46),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    '100',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 60,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.off(
+                      const App(),
+                    );
+                  },
+                  child: const Text(
+                    '처음으로',
+                  ),
                 ),
               ),
             ],
