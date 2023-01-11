@@ -275,8 +275,8 @@ class _HomeState extends State<Home> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Home'),
-        elevation: 0,
+        title: const Text('HOME'),
+        elevation: 1,
       ),
       body: SingleChildScrollView(
         child: Center(

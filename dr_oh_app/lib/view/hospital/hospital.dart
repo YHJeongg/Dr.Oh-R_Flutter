@@ -18,8 +18,8 @@ class _HospitalState extends State<Hospital> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('hospital'),
-        elevation: 0,
+        title: const Text('HOSPITAL'),
+        elevation: 1,
       ),
       body: Stack(
         children: const <Widget>[

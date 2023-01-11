@@ -277,8 +277,8 @@ class _MyPageState extends State<MyPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('마이 페이지'),
-        elevation: 0,
+        title: const Text('MY PAGE'),
+        elevation: 1,
       ),
       body: SingleChildScrollView(
         child: Column(

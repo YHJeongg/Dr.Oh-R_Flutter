@@ -16,7 +16,7 @@ class Information extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Information'),
+        title: const Text('INFORMATION'),
         elevation: 1,
       ),
       body: SingleChildScrollView(
