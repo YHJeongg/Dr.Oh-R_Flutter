@@ -34,20 +34,20 @@ class _FirstAnswerState extends State<FirstAnswer> {
         const Text('예'),
         Radio(
           value: "1",
-          groupValue: SurveyStrokeMessage.highBp,
+          groupValue: SurveyStrokeMessage.hypertension,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.highBp = value!;
+              SurveyStrokeMessage.hypertension = value!;
             });
           },
         ),
         const Text('아니오'),
         Radio(
           value: "0",
-          groupValue: SurveyStrokeMessage.highBp,
+          groupValue: SurveyStrokeMessage.hypertension,
           onChanged: (value) {
             setState(() {
-              SurveyStrokeMessage.highBp = value!;
+              SurveyStrokeMessage.hypertension = value!;
             });
           },
         ),

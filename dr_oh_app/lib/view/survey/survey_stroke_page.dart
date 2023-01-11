@@ -114,7 +114,7 @@ class SurveyStrokePage extends StatelessWidget {
             // 진단 버튼 누르기 -> Rserve로 보내서 머신러닝 실행
             ElevatedButton(
               onPressed: () async {
-                if (SurveyStrokeMessage.highBp == '' ||
+                if (SurveyStrokeMessage.hypertension == '' ||
                     SurveyStrokeMessage.heartDisease == '' ||
                     SurveyStrokeMessage.everMarried == '' ||
                     SurveyStrokeMessage.workType == '' ||
@@ -134,7 +134,7 @@ class SurveyStrokePage extends StatelessWidget {
                     SurveyStrokeMessage.age,
                     SurveyStrokeMessage.height,
                     SurveyStrokeMessage.weight,
-                    int.parse(SurveyStrokeMessage.highBp),
+                    int.parse(SurveyStrokeMessage.hypertension),
                     int.parse(SurveyStrokeMessage.heartDisease),
                     int.parse(SurveyStrokeMessage.everMarried),
                     int.parse(SurveyStrokeMessage.workType),
@@ -144,7 +144,7 @@ class SurveyStrokePage extends StatelessWidget {
                   Get.off(StrokeResultPage(result: result)); // 설문페이지로 안돌아오게 설정
                   // Date: 2023-01-11, SangwonKim
                   // Desc: 사용자의 설문 입력값 초기값으로 설정해주기
-                  SurveyStrokeMessage.highBp = '';
+                  SurveyStrokeMessage.hypertension = '';
                   SurveyStrokeMessage.heartDisease = '';
                   SurveyStrokeMessage.everMarried = '';
                   SurveyStrokeMessage.workType = '';
