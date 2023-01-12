@@ -54,7 +54,7 @@ class StrokePredict {
 
     // Stroke 데이타 업데이트하기
     FirebaseFirestore.instance
-        .collection('Stroke_result')
-        .add({'result': result, 'userid': id, 'date': date});
+        .collection('result')
+        .add({'result': result, 'userid': id, 'date': date,'category':'뇌졸중'});
   }
 } // End

@@ -1,7 +1,8 @@
-import 'package:dr_oh_app/components/logout_btn.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckupHistory extends StatelessWidget {
   CheckupHistory({super.key});
@@ -12,32 +13,77 @@ class CheckupHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     // Desc: 조회한 날짜 표시
     var selectedDate = Get.arguments;
+
+    return ListBody(selectedDate: selectedDate,);
+  }
+}
+
+class ListBody extends StatefulWidget {
+  final selectedDate;
+  const ListBody({super.key,required this.selectedDate});
+
+  @override
+  State<ListBody> createState() => _ListBodyState();
+}
+
+class _ListBodyState extends State<ListBody> {
+  late String id = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _initSharedPreferences();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('검진기록 조회'),
         elevation: 1,
         actions: const [LogoutBtn()],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '검진날짜: ${selectedDate.toString().substring(0, 10)}',
-              style: const TextStyle(fontSize: 20),
-            ),
-            StreamBuilder(
-                stream: checkupHistoryViewModel.stream,
-                builder: ((context, snapshot) {
-                  return Column(
-                    children: [
-                      Text('검진항목: ${checkupHistoryViewModel.name.toString()}'),
-                      Text(
-                          '검진결과: ${checkupHistoryViewModel.result.toString()}'),
-                    ],
-                  );
-                })),
-          ],
+      body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('result')
+              .where('userid', isEqualTo: id)
+              .where('date',isEqualTo: widget.selectedDate.toString().substring(0,10))
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final documents = snapshot.data!.docs;
+            return ListView(
+              children: documents.map((e) => _buildItemWidget(e)).toList(),
+            );
+          }),
+    );
+  }
+
+  _initSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getString('id').toString();
+    });
+  }
+
+  Widget _buildItemWidget(DocumentSnapshot doc) {
+    return Dismissible(
+      direction: DismissDirection.endToStart,
+      background: Container(
+        color: Colors.red,
+        alignment: Alignment.centerRight,
+        child: const Icon(Icons.delete_forever),
+      ),
+      key: ValueKey(doc),
+      onDismissed: (direction) {
+        FirebaseFirestore.instance.collection('result').doc(doc.id).delete();
+      },
+      child: Card(
+        child: ListTile(
+          title: Text(
+              '날짜 : ${doc['date']}\n검사항목 : ${doc['category']}\n검사결과 : ${(double.parse(doc['result'])*100).round()}'),
         ),
       ),
     );
