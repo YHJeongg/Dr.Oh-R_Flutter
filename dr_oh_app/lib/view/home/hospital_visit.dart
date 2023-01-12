@@ -1,5 +1,5 @@
 import 'package:dr_oh_app/components/logout_btn.dart';
-import 'package:dr_oh_app/model/hospital_visit.dart';
+import 'package:dr_oh_app/model/hospital_visit_model.dart';
 import 'package:dr_oh_app/viewmodel/my_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

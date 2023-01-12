@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dr_oh_app/model/hospital_visit.dart';
+import 'package:dr_oh_app/model/hospital_visit_model.dart';
 import 'package:dr_oh_app/model/medication_model.dart';
 
 class MyHistoryRepository {
