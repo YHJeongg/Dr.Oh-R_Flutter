@@ -46,7 +46,7 @@ class _DementiaResultState extends State<DementiaResult> {
     lightComment = ' 경도 치매가 의심됩니다. 가까운 병원을 알아보세요!.';
     abNormalComment = ' 치매가 의심됩니다. 가까운 병원을 알아보세요!';
 
-    resultReg1 = double.parse(widget.resultReg)*100;
+    resultReg1 = double.parse((double.parse(widget.resultReg)*100).toStringAsFixed(2));
   }
 
   @override
