@@ -33,6 +33,9 @@ class UserRepository {
         .where('password', isEqualTo: pw)
         .get();
 
+    // Document id 가져오기
+    // print(data.docs.first.id);
+
     if (data.size == 0) {
       return null;
     } else {
