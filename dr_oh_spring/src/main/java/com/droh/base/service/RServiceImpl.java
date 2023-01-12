@@ -169,7 +169,7 @@ public class RServiceImpl implements RService {
 		
 		conn.voidEval("library(randomForest)");
 		conn.voidEval("setwd('" + path + "')");
-		conn.voidEval("machine <- readRDS('randomRegres3_dementia.rds','rb')");
+		conn.voidEval("machine <- readRDS('randomRegres4_dementia.rds','rb')");
 		conn.voidEval("result=as.character(predict(machine,list(Age=" + Age + ", EDUC=" + EDUC + ", SES=" + SES + ", MMSE=" + MMSE + ", SexCode=" + SexCode + ")))");
 
 		String result = conn.eval("result").asString();

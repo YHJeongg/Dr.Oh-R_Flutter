@@ -55,6 +55,7 @@ class UserRepository {
     } else {
       return UserModel.fromJson(data.docs.first.data());
     }
+  }
 
   //Desc: 사용자 정보 가져오기
   //Date: 2023-01-12

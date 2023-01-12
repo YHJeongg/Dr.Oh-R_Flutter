@@ -141,23 +141,31 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
       // height: 100,
       // width: 100,
       
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 30,
-          ),
-          Text('${dementia.seq}. ${dementia.question}'),
-          const SizedBox(
-            height: 30,
-          ),
-          answerList.dementiaAnswerTest[dementia.seq - 1],
-          const SizedBox(
-            height: 20,
-          ),
+      // child: Column(
+      //   children: [
+      //     const SizedBox(
+      //       height: 30,
+      //     ),
+      //     Text('${dementia.seq}. ${dementia.question}'),
+      //     const SizedBox(
+      //       height: 30,
+      //     ),
+      //     answerList.dementiaAnswerTest[dementia.seq - 1],
+      //     const SizedBox(
+      //       height: 20,
+      //     ),
           
-        ],
-      ),
+      //   ],
+      // ),
       
+      child: Card(
+        child: ListTile(
+          title: Text('${dementia.seq}. ${dementia.question}'),
+          subtitle: answerList.dementiaAnswerTest[dementia.seq - 1],
+        ),
+
+      )
+
     );
   } //_buildItemWidget
 
