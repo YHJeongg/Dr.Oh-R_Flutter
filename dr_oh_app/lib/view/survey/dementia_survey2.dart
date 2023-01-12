@@ -3,6 +3,7 @@ import 'package:dr_oh_app/components/dementia_answer_final.dart';
 import 'package:dr_oh_app/components/dementia_answer_list.dart';
 import 'package:dr_oh_app/model/firebase_dementia.dart';
 import 'package:dr_oh_app/repository/localdata/dementia_predict.dart';
+import 'package:dr_oh_app/repository/localdata/dementia_reg_predict.dart';
 import 'package:dr_oh_app/view/survey/dementia_result.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -77,6 +78,8 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
               onPressed: () async {
                 print(DementiaAnswerFinal.wordsCount);
                 DementiaPredict predict = DementiaPredict();
+                DementiaPredictReg predictReg = DementiaPredictReg();
+                
                 String result = await predict.predict(
                   DementiaAnswerFinal.age,
                   DementiaAnswerFinal.total,
@@ -85,9 +88,19 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
                   DementiaAnswerFinal.gender1,
                   
                    );
-                  print(DementiaAnswerFinal.total);
 
-                Get.off(DementiaResult(result:result));
+                   String resultReg = await predictReg.predict(
+                  DementiaAnswerFinal.age,
+                  DementiaAnswerFinal.total,
+                  DementiaAnswerFinal.edu1,
+                  DementiaAnswerFinal.wage1,
+                  DementiaAnswerFinal.gender1,
+                  
+                   );
+                  print(DementiaAnswerFinal.total);
+            
+
+                Get.off(DementiaResult(result:result, resultReg:resultReg));
               },
               child: const Text(
                 '진단',

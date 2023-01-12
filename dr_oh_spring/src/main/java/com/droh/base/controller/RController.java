@@ -35,5 +35,11 @@ public class RController {
 		service.PredictDementia(request, model);
 		return "result";
 	}
+	
+	@GetMapping("/dementiareg")
+	public String DementiaReg(HttpServletRequest request, Model model) throws Exception{
+		service.PredictDementiaReg(request, model);
+		return "result";
+	}
 
 }

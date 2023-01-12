@@ -53,36 +53,26 @@ class _DBarChart extends StatelessWidget {
     );
     String text;
     switch (value.toInt()) {
-      case 0:
-        text = '~9';
-        break;
+      
       case 1:
-        text = '10대';
+        text = '~40대';
         break;
       case 2:
-        text = '20대';
-        break;
-      case 3:
-        text = '30대';
-        break;
-      case 4:
-        text = '40대';
-        break;
-      case 5:
         text = '50대';
         break;
-      case 6:
+      case 3:
         text = '60대';
         break;
-      case 7:
+      case 4:
         text = '70대';
         break;
-      case 8:
+      case 5:
         text = '80대';
         break;
       default:
-        text = '90~';
+        text = '90대~';
         break;
+      
     }
     return SideTitleWidget(
       axisSide: meta.axisSide,
@@ -106,7 +96,7 @@ class _DBarChart extends StatelessWidget {
         topTitles: AxisTitles(
           // 차트 제목
           axisNameWidget: const Text(
-            '연령대별 뇌졸중 위험도 평균',
+            '연령대별 치매 위험도',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -138,7 +128,7 @@ class _DBarChart extends StatelessWidget {
           x: 0,
           barRods: [
             BarChartRodData(
-              toY: 69,
+              toY: 0,
               gradient: _barsGradient,
             )
           ],
@@ -148,7 +138,7 @@ class _DBarChart extends StatelessWidget {
           x: 1,
           barRods: [
             BarChartRodData(
-              toY: 52,
+              toY: 0,
               gradient: _barsGradient,
             )
           ],
@@ -158,7 +148,7 @@ class _DBarChart extends StatelessWidget {
           x: 2,
           barRods: [
             BarChartRodData(
-              toY: 48,
+              toY: 35,
               gradient: _barsGradient,
             )
           ],
@@ -168,7 +158,7 @@ class _DBarChart extends StatelessWidget {
           x: 3,
           barRods: [
             BarChartRodData(
-              toY: 47,
+              toY: 46,
               gradient: _barsGradient,
             )
           ],
@@ -178,7 +168,7 @@ class _DBarChart extends StatelessWidget {
           x: 4,
           barRods: [
             BarChartRodData(
-              toY: 46,
+              toY: 44,
               gradient: _barsGradient,
             )
           ],
@@ -188,63 +178,23 @@ class _DBarChart extends StatelessWidget {
           x: 5,
           barRods: [
             BarChartRodData(
-              toY: 46,
+              toY: 35,
               gradient: _barsGradient,
             )
           ],
           showingTooltipIndicators: [0],
         ),
-        BarChartGroupData(
-          x: 6,
-          barRods: [
-            BarChartRodData(
-              toY: 49,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 7,
-          barRods: [
-            BarChartRodData(
-              toY: 52,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 8,
-          barRods: [
-            BarChartRodData(
-              toY: 60,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 9,
-          barRods: [
-            BarChartRodData(
-              toY: 84,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
+        
       ];
 }
-
-class DementiaBarChartWidget extends StatefulWidget {
-  const DementiaBarChartWidget({super.key});
+class DementiaBarChart extends StatefulWidget {
+  const DementiaBarChart({super.key});
 
   @override
-  State<StatefulWidget> createState() => StrokeBarChartWidgetState();
+  State<DementiaBarChart> createState() => _DementiaBarChartState();
 }
 
-class StrokeBarChartWidgetState extends State<DementiaBarChartWidget> {
+class _DementiaBarChartState extends State<DementiaBarChart> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
