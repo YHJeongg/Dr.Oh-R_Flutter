@@ -82,7 +82,7 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
                       decoration: const InputDecoration(hintText: '나이'),
                       onChanged: (value) {
                         setState(() {
-                          DementiaAnswerFinal.age = int.parse(ageController.text);
+                          DementiaAnswerFinal.age = ageController.text;
                         });
                       },
                     ),
