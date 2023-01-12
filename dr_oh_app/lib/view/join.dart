@@ -16,8 +16,9 @@ class Join extends StatefulWidget {
 
 class _JoinState extends State<Join> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  RegExp idpwReg =
+  RegExp pwReg =
       RegExp(r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$");
+  RegExp nameReg = RegExp(r"^[ㄱ-ㅎ가-힣]*$");
   late TextEditingController idCont;
   late TextEditingController pwCont;
   late TextEditingController pwcheckCont;
@@ -103,12 +104,44 @@ class _JoinState extends State<Join> {
                   validator: (String? value) {
                     if (value!.isEmpty) {
                       return '$txt 입력하세요.';
-                    } else if (idCont.text == snapshot.data) {
+                    } else if (snapshot.data == idCont.text) {
                       return '이미 등록된 아이디 입니다.';
                     }
                     return null;
                   },
                 ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _joinName(String txt, TextEditingController textEditingController) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _text(txt),
+        const SizedBox(width: 20),
+        Column(
+          children: [
+            SizedBox(
+              width: Get.width / 2.2,
+              height: 70,
+              child: TextFormField(
+                controller: textEditingController,
+                maxLength: 16,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return '$txt 입력하세요.';
+                  } else if (!nameReg.hasMatch(value)) {
+                    return '이름은 한글로 입력해주세요.';
+                  } else if (pwCont.text != pwContCheck.text) {
+                    return '비밀번호를 확인해주세요.';
+                  }
+                  return null;
+                },
               ),
             ),
           ],
@@ -137,8 +170,40 @@ class _JoinState extends State<Join> {
                 validator: (String? value) {
                   if (value!.isEmpty) {
                     return '$txt 입력하세요.';
-                  } else if (!idpwReg.hasMatch(value)) {
+                  } else if (!pwReg.hasMatch(value)) {
                     return '8자리 이상, 하나이상의 대소문자, 숫자, 특수문자';
+                  } else if (pwCont.text != pwContCheck.text) {
+                    return '비밀번호를 확인해주세요.';
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _joinEmail(String txt, TextEditingController textEditingController) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _text(txt),
+        const SizedBox(width: 20),
+        Column(
+          children: [
+            SizedBox(
+              width: Get.width / 2.2,
+              height: 70,
+              child: TextFormField(
+                controller: textEditingController,
+                maxLength: 16,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return '$txt 입력하세요.';
+                  } else if (!emailCont.text.isEmail) {
+                    return '이메일 형식을 확인해주세요.';
                   } else if (pwCont.text != pwContCheck.text) {
                     return '비밀번호를 확인해주세요.';
                   }
@@ -297,10 +362,10 @@ class _JoinState extends State<Join> {
                       ),
                       const SizedBox(height: 30),
                       _joinId('아이디', idCont),
-                      _joinText('이름', nameCont),
+                      _joinName('이름', nameCont),
                       _joinPassword('비밀번호', pwCont),
                       _joinPassword('비밀번호 확인', pwContCheck),
-                      _joinText('이메일', emailCont),
+                      _joinEmail('이메일', emailCont),
                       _dateText(),
                       const SizedBox(height: 10),
                       _genderCheckBox(),
