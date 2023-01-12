@@ -57,7 +57,17 @@ class _BodyInfoState extends State<BodyInfo> {
                       hintText: '키(cm)',
                       labelText: correctheight ? '' : '키를 입력하세요',
                     ),
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        setState(() {
+                          correctheight = true;
+                        });
+                      } else {
+                        setState(() {
+                          correctheight = false;
+                        });
+                      }
+                    },
                   ),
                 ),
                 Padding(
@@ -70,7 +80,17 @@ class _BodyInfoState extends State<BodyInfo> {
                       hintText: '몸무게(kg)',
                       labelText: correctweight ? '' : '몸무게를 입력하세요',
                     ),
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        setState(() {
+                          correctweight = true;
+                        });
+                      } else {
+                        setState(() {
+                          correctweight = false;
+                        });
+                      }
+                    },
                   ),
                 ),
                 ElevatedButton(
