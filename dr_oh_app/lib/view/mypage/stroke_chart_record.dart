@@ -1,9 +1,28 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class StrokeChartRecord extends StatelessWidget {
+class StrokeChartRecord extends StatefulWidget {
   const StrokeChartRecord({super.key});
+
+  @override
+  State<StrokeChartRecord> createState() => _StrokeChartRecordState();
+}
+
+class _StrokeChartRecordState extends State<StrokeChartRecord> {
+  late String id;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    id = '';
+    _initSharedPreferences();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +33,102 @@ class StrokeChartRecord extends StatelessWidget {
         actions: const [LogoutBtn()],
       ),
       body: Center(
-        child: LineChartSample2(),
+        // child: LineChartSample2(doc: null,),
+
+        child: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('result')
+                .where('userid', isEqualTo: id)
+                .where('category', isEqualTo: '뇌졸중')
+                // .orderBy('date', descending: false)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              final documents = snapshot.data!.docs;
+              return ListView(
+                children:
+                    documents.map((e) => LineChartSample2(doc: e)).toList(),
+              );
+            }),
+      ),
+    );
+  }
+
+  // --- Functions ---
+  // -----------------------------------------------------------------------
+  // Date: 2023--01-12, SangwonKim
+  // Desc: SharedPreferences -> id 가져오기
+  _initSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getString('id').toString();
+    });
+  }
+
+  // -----------------------------------------------------------------------
+  // Date: 2023--01-12, SangwonKim
+  // Desc: _buildItemWidget
+  Widget _buildItemWidget(DocumentSnapshot doc) {
+    // final student = Student(
+    //     code: doc['code'],
+    //     name: doc['name'],
+    //     dept: doc['dept'],
+    //     phone: doc['phone']);
+    return Dismissible(
+      direction: DismissDirection.endToStart,
+      background: Container(
+        color: Colors.red,
+        alignment: Alignment.centerRight,
+        child: const Icon(Icons.delete_forever),
+      ),
+      key: ValueKey(doc),
+      onDismissed: (direction) {
+        FirebaseFirestore.instance.collection('students').doc(doc.id).delete();
+      },
+      child: Container(
+        color: Colors.amberAccent,
+        child: GestureDetector(
+            // onTap: () {
+            //   Message.id = doc.id;
+            //   Message.code = doc['code']; // *** Key 값 아닌건 적어줘야한다.
+            //   Message.name = doc['name']; // *** Key 값 아닌건 적어줘야한다.
+            //   Message.dept = doc['dept']; // *** Key 값 아닌건 적어줘야한다.
+            //   Message.phone = doc['phone']; // *** Key 값 아닌건 적어줘야한다.
+            //   Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const Update(),
+            //       ));
+            // },
+            // child: Card(
+            //   child: ListTile(
+            //     title: Text(
+            //         '학번 : ${student.code}\n이름 : ${student.name}\n학과 : ${student.dept}\n전화번호 : ${student.phone}'),
+            //   ),
+            // ),
+            ),
       ),
     );
   }
 }
 
-
+// -------------------------------------------------------------------------
+// Date: 2023-01-12, SangwonKim
+// Desc: 차트그리기
 class LineChartSample2 extends StatefulWidget {
-  const LineChartSample2({super.key});
+  final DocumentSnapshot doc; // DocumentSnapshot doc
+  const LineChartSample2({super.key, required this.doc});
 
   @override
   State<LineChartSample2> createState() => _LineChartSample2State();
 }
 
 class _LineChartSample2State extends State<LineChartSample2> {
+  late int num1;
+  late List? numList;
+
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
@@ -37,11 +137,23 @@ class _LineChartSample2State extends State<LineChartSample2> {
   bool showAvg = false;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    num1 = (double.parse(widget.doc['result'][0]) * 100).round();
+    numList = [];
+    // 가져온 결과 갯수만큼 리스트에 저장하기
+    for (int i = 0; i < widget.doc['result'].toString().length; i++) {
+      numList!.add((double.parse(widget.doc['result'].toString()) * 100).round());
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 1.70,
+          aspectRatio: 1.20,
           child: DecoratedBox(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
@@ -57,7 +169,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 bottom: 12,
               ),
               child: LineChart(
-                showAvg ? avgData() : mainData(),
+                showAvg ? avgData() : mainData(numList!),
               ),
             ),
           ),
@@ -136,7 +248,8 @@ class _LineChartSample2State extends State<LineChartSample2> {
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData() {
+  LineChartData mainData(List list) {
+    
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -186,19 +299,29 @@ class _LineChartSample2State extends State<LineChartSample2> {
         border: Border.all(color: const Color(0xff37434d)),
       ),
       minX: 0,
-      maxX: 11,
+      // X축 갯수 - 기록의 갯수로?
+      maxX: 10,
       minY: 0,
-      maxY: 6,
+      // Y축 갯수
+      maxY: 100,
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
+          // ******* (x,y)의 좌표 설정하기 *******
+          spots: [
+            for(int i=0; i<numList!.length; i++)...[
+            FlSpot(i.toDouble(), double.parse(numList![i].toString())),
+            
+            ]
+            // FlSpot(1, numList![1]),
+            // FlSpot(2, numList![2]),
+            // FlSpot(3, numList![3]),
+            // FlSpot(4, numList![4]),
+            // FlSpot(5, numList![5]),
+            // FlSpot(6, numList![6]),
+            // FlSpot(7, numList![7]),
+            // FlSpot(8, numList![8]),
+            // FlSpot(9, numList![9]),
+            // FlSpot(10, numList![10]),
           ],
           isCurved: true,
           gradient: LinearGradient(
