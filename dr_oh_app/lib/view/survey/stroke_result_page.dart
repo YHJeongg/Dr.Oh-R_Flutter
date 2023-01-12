@@ -1,4 +1,5 @@
 import 'package:dr_oh_app/app.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,6 +34,7 @@ class _StrokeResultPageState extends State<StrokeResultPage> {
           '예측 결과',
         ),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),

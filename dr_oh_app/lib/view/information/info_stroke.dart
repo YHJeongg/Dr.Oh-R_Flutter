@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 
 // --------------------------------------------------------------------
@@ -12,6 +13,7 @@ class InfoStroke extends StatelessWidget {
       appBar: AppBar(
         title: const Text('뇌졸중 정보'),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: SingleChildScrollView(
         child: Padding(

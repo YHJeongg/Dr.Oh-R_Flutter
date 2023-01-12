@@ -1,4 +1,5 @@
 import 'package:dr_oh_app/components/diabetes_privacy.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/view/survey/dementia_survey_personal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,8 @@ class DementiaSurvey extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('치매 검사'),
-        elevation: 0,
+        elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

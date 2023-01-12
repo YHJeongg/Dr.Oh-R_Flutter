@@ -40,6 +40,8 @@ class _BodyInfoState extends State<BodyInfo> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('신체정보 입력'),
+        elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Center(
         child: Column(

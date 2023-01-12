@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/components/stroke_answer_list.dart';
 import 'package:dr_oh_app/model/stroke_model.dart';
 import 'package:dr_oh_app/view/survey/stroke_result_page.dart';
@@ -28,6 +29,7 @@ class StrokeSurveyPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(surveyName),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

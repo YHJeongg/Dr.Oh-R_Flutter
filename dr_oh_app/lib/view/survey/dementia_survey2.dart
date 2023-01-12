@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/dementia_answer_final.dart';
 import 'package:dr_oh_app/components/dementia_answer_list.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/firebase_dementia.dart';
 import 'package:dr_oh_app/repository/localdata/dementia_predict.dart';
 import 'package:dr_oh_app/repository/localdata/dementia_reg_predict.dart';
@@ -29,7 +30,8 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),),
-        elevation: 0,
+        elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: SingleChildScrollView(
         child: Padding(

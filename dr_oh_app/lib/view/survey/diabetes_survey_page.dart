@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/diabetes_privacy.dart';
 import 'package:dr_oh_app/components/diabetes_user_info.dart';
 import 'package:dr_oh_app/components/diabets_answer_list.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/diabetes_message.dart';
 import 'package:dr_oh_app/model/firebase_dementia.dart';
 import 'package:dr_oh_app/repository/localdata/diabetes_predict.dart';
@@ -29,6 +30,7 @@ class DiabetesSurveyPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(surveyName),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       // Date: 2023-01-11, SangwonKim
       // Desc: Padding 추가함

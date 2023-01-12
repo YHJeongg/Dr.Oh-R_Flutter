@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/app.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/components/message_popup.dart';
 import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
@@ -283,7 +284,8 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text('회원정보 수정'),
-          elevation: 0,
+          elevation: 1,
+          actions: const [LogoutBtn()],
         ),
         body: SingleChildScrollView(
           child: Center(

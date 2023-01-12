@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/view/information/info_bmi.dart';
 import 'package:dr_oh_app/view/information/info_bmi_calc.dart';
 import 'package:dr_oh_app/view/information/info_dementia.dart';
@@ -18,6 +19,7 @@ class Information extends StatelessWidget {
       appBar: AppBar(
         title: const Text('INFORMATION'),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: SingleChildScrollView(
         child: Padding(

@@ -1,11 +1,9 @@
 import 'package:dr_oh_app/components/line_chart.dart';
-import 'package:dr_oh_app/main.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ChartDiabetes extends StatefulWidget {
-  ChartDiabetes({super.key});
+  const ChartDiabetes({super.key});
 
   @override
   State<ChartDiabetes> createState() => _ChartDiabetesState();
@@ -35,12 +33,13 @@ class _ChartDiabetesState extends State<ChartDiabetes> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('당뇨병 그래프'),
-        elevation: 0,
+        elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Center(
         child: Column(
           children: [
-            Text('당뇨 그래프'),
+            const Text('당뇨 그래프'),
             Container(
               height: 200,
               width: 300,
