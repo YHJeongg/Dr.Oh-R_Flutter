@@ -55,6 +55,7 @@ class UserRepository {
     } else {
       return UserModel.fromJson(data.docs.first.data());
     }
+  }
 
   //Desc: 사용자 정보 가져오기
   //Date: 2023-01-12
@@ -81,10 +82,8 @@ class UserRepository {
         .get();
     var docs2 = docs1.docs.first.id;
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(docs2)
-        .update({'name': name, 'password': pw, 'birthdate': bdate,'email':email});
+    FirebaseFirestore.instance.collection('users').doc(docs2).update(
+        {'name': name, 'password': pw, 'birthdate': bdate, 'email': email});
   }
 
   //Desc: 사용자 신체 정보 수정
