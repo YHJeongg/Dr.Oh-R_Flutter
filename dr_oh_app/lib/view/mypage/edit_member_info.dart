@@ -150,7 +150,7 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
       height: 70,
       width: 240,
       child: TextField(
-        // controller: dateController,
+        controller: dateController,
         readOnly: true,
         onTap: () {
           _showDatePickerPop();
@@ -169,14 +169,12 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(
-            width: 130,
+            width: 240,
             height: 70,
             child: TextField(
               controller: emailController,
               onChanged: (value) {
-                if ((atSign == '' && emailController.text.trim().isEmail) |
-                    (atSign == '@' &&
-                        emailReg.hasMatch(emailController.text.trim()))) {
+                if (emailController.text.trim().isEmail) {
                   setState(() {
                     correctEmail = true;
                   });
@@ -187,44 +185,44 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                  suffixText: atSign, suffixStyle: TextStyle(), hintText: hint),
+                  hintText: hint),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0, top: 10, bottom: 10),
-            child: DropdownButton(
-              elevation: 0,
-              value: _selectedDropdown,
-              items: _dropdownList.map((String item) {
-                return DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(
-                    item,
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                );
-              }).toList(),
-              onChanged: ((dynamic value) {
-                setState(() {
-                  _selectedDropdown = value;
-                  if (_selectedDropdown == '직접 입력') {
-                    atSign = '';
-                  } else {
-                    atSign = '@';
-                  }
-                });
-                if ((atSign == '' && emailController.text.trim().isEmail) |
-                    (atSign == '@' &&
-                        emailReg.hasMatch(emailController.text.trim()))) {
-                  setState(() {
-                    correctEmail = true;
-                  });
-                } else {
-                  correctEmail = false;
-                }
-              }),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 20.0, top: 10, bottom: 10),
+          //   child: DropdownButton(
+          //     elevation: 0,
+          //     value: _selectedDropdown,
+          //     items: _dropdownList.map((String item) {
+          //       return DropdownMenuItem<String>(
+          //         value: item,
+          //         child: Text(
+          //           item,
+          //           style: const TextStyle(fontSize: 14),
+          //         ),
+          //       );
+          //     }).toList(),
+          //     onChanged: ((dynamic value) {
+          //       setState(() {
+          //         _selectedDropdown = value;
+          //         if (_selectedDropdown == '직접 입력') {
+          //           atSign = '';
+          //         } else {
+          //           atSign = '@';
+          //         }
+          //       });
+          //       if ((atSign == '' && emailController.text.trim().isEmail) |
+          //           (atSign == '@' &&
+          //               emailReg.hasMatch(emailController.text.trim()))) {
+          //         setState(() {
+          //           correctEmail = true;
+          //         });
+          //       } else {
+          //         correctEmail = false;
+          //       }
+          //     }),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -232,7 +230,7 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
 
   // Desc: 생년월일 DatePickerDialog
   // Date: 2023-01-10
-  void _showDatePickerPop() {
+  void _showDatePickerPop() async {
     Future<DateTime?> selectedDate = showDatePicker(
       context: context,
       initialDate: DateTime(2022), //초기값
@@ -267,8 +265,7 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
     _initSharedPreferences();
     idController.text = widget.user.id.toString();
     dateController.text = widget.user.birthdate.toString();
-    int index = widget.user.email.toString().indexOf(atSign);
-    emailController.text = widget.user.email.toString().substring(0, index);
+    emailController.text = widget.user.email.toString();
     nameController.text = widget.user.name.toString();
     correctName = true;
     correctpw = false;

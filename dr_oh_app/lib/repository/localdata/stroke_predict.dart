@@ -28,11 +28,10 @@ class StrokePredict {
         // 'http://192.168.35.33:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
 
         // 유승 ip
-        // 'http://192.168.35.37:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
+         'http://192.168.10.213:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
         // 주현 ip
 
-         'http://localhost:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
-    
+        //'http://localhost:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
 
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
@@ -50,16 +49,12 @@ class StrokePredict {
     // SharedPreferences를 통해 로그인한 사용자 id 가져오기
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('id')!;
-    // 로그인한 사용자 id에 해당하는 Firebase에서 user Collection의 자동설정된id값 가져오기
-    var doc1 = await FirebaseFirestore.instance
-        .collection('users')
-        .where('id', isEqualTo: id)
-        .get();
-    var doc2 = doc1.docs.first.id;
+
+    String date = DateTime.now().toString().substring(0, 10);
+
     // Stroke 데이타 업데이트하기
     FirebaseFirestore.instance
-        .collection('users')
-        .doc(doc2)
-        .update({'Stroke': result});
+        .collection('Stroke_result')
+        .add({'result': result, 'userid': id, 'date': date});
   }
 } // End

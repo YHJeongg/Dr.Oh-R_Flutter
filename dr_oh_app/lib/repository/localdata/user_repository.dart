@@ -84,7 +84,7 @@ class UserRepository {
     FirebaseFirestore.instance
         .collection('users')
         .doc(docs2)
-        .update({'name': name, 'password': pw, 'birthdate': bdate});
+        .update({'name': name, 'password': pw, 'birthdate': bdate,'email':email});
   }
 
   //Desc: 사용자 신체 정보 수정
