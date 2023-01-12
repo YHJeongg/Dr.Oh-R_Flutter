@@ -131,7 +131,6 @@ class _JoinState extends State<Join> {
               height: 70,
               child: TextFormField(
                 controller: textEditingController,
-                maxLength: 16,
                 validator: (String? value) {
                   if (value!.isEmpty) {
                     return '$txt 입력하세요.';
@@ -198,7 +197,6 @@ class _JoinState extends State<Join> {
               height: 70,
               child: TextFormField(
                 controller: textEditingController,
-                maxLength: 16,
                 validator: (String? value) {
                   if (value!.isEmpty) {
                     return '$txt 입력하세요.';
