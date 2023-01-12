@@ -21,8 +21,8 @@ class Login extends StatefulWidget {
 Future<UserCredential> signInWithGoogle() async {
   // Trigger the authentication flow
   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  final userReference = FirebaseFirestore.instance.collection('users');
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  // final userReference = FirebaseFirestore.instance.collection('users');
+  // final FirebaseAuth auth = FirebaseAuth.instance;
 
   // Obtain the auth details from the request
   final GoogleSignInAuthentication? googleAuth =

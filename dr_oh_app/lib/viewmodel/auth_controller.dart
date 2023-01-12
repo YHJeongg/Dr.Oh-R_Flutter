@@ -34,4 +34,13 @@ class AuthController extends GetxController {
     }
     return userData;
   }
+
+  Future<UserModel?> checkId(String id) async {
+    // DB 조회
+    var userData = await UserRepository.checkId(id);
+    if (userData != null) {
+      user(userData);
+    }
+    return userData;
+  }
 }

@@ -60,10 +60,9 @@ class BottomNavController extends GetxController {
 
     // 뒤로가기 클릭시 List에 쌓여있는 value 하나씩 제거
     bottomHistory.removeLast();
-
     var index = bottomHistory.last;
     changeBottomNav(index);
-
+    bottomHistory.clear();
     return false;
   }
 }

@@ -43,4 +43,17 @@ class UserRepository {
       return UserModel.fromJson(data.docs.first.data());
     }
   }
+
+  static Future<UserModel?> checkId(String id) async {
+    var data = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
+
+    if (data.size == 0) {
+      return null;
+    } else {
+      return UserModel.fromJson(data.docs.first.data());
+    }
+  }
 }
