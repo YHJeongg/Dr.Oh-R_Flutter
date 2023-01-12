@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpSession;
 @Service
 public class RServiceImpl implements RService {
 
+	//Desc: 당뇨병 예측
+	//Date: 2023-01-12
 	@Override
 	public void PredictDiabetes(HttpServletRequest request, Model model) throws Exception {
 		request.setCharacterEncoding("utf-8");
@@ -39,6 +41,8 @@ public class RServiceImpl implements RService {
 		String result = conn.eval("result").asString();
 		
 		model.addAttribute("ITEM", result);
+		
+		conn.close();
 	}
 	
 	@Override
@@ -99,6 +103,8 @@ public class RServiceImpl implements RService {
 		String result = conn.eval("result").asString();
 		
 		model.addAttribute("ITEM", result);
+		
+		conn.close();
 	}
 
 	@Override
@@ -133,6 +139,8 @@ public class RServiceImpl implements RService {
 		String result = conn.eval("result").asString();
 		
 		model.addAttribute("ITEM", result);
+		
+		conn.close();
 	}
 
 	

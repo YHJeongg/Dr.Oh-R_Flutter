@@ -16,6 +16,8 @@ public class RController {
 	@Autowired
 	RService service;
 	
+	//Desc: 당뇨병 예측
+	//Date: 2023-01-12
 	@GetMapping("/diabetes")
 	public String Diabetes(HttpServletRequest request, Model model) throws Exception{
 		service.PredictDiabetes(request, model);
