@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/mypage/chart_diabetes.dart';
@@ -282,6 +283,7 @@ class _MyPageState extends State<MyPage> {
         centerTitle: true,
         title: const Text('MY PAGE'),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: SingleChildScrollView(
         child: Column(

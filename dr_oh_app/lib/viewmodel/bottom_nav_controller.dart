@@ -6,7 +6,7 @@ import '../components/message_popup.dart';
 
 // Date: 2023-01-07, jyh
 // 선택된 페이지를 보기 쉽게 문자로 만듬
-enum PageName { HOME, SURVEY, HOSPITAL, INFORMATION, MYPAGE }
+enum PageName { home, survey, hospital, information, mypage }
 
 class BottomNavController extends GetxController {
   static BottomNavController get to => Get.find();
@@ -22,11 +22,11 @@ class BottomNavController extends GetxController {
 
     // bottom_nav에서 선택된 페이지로 이동
     switch (page) {
-      case PageName.HOME:
-      case PageName.SURVEY:
-      case PageName.HOSPITAL:
-      case PageName.INFORMATION:
-      case PageName.MYPAGE:
+      case PageName.home:
+      case PageName.survey:
+      case PageName.hospital:
+      case PageName.information:
+      case PageName.mypage:
         _changePage(value, hasGesture: hasGesture);
         break;
     }

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/components/news_api.dart';
 import 'package:dr_oh_app/model/body_info_model.dart';
-import 'package:dr_oh_app/model/checkup_history_model.dart';
 import 'package:dr_oh_app/model/name_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
 import 'package:dr_oh_app/model/user.dart';
@@ -12,12 +12,9 @@ import 'package:dr_oh_app/view/home/checkup_history.dart';
 import 'package:dr_oh_app/view/home/hospital_visit.dart';
 import 'package:dr_oh_app/view/home/medication.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
-import 'package:dr_oh_app/view/mypage/mypage.dart';
-import 'package:dr_oh_app/viewmodel/bottom_nav_controller.dart';
 import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
@@ -244,7 +241,6 @@ class _HomeState extends State<Home> {
     ));
   }
 
-
   // Desc: 신체정보 받아오기
   // Date: 2023-01-11
   Widget _getBodyinfo(DocumentSnapshot doc) {
@@ -263,7 +259,6 @@ class _HomeState extends State<Home> {
     ));
   }
 
-
   // Desc: shared preferences 받기
   // Date: 2023-01-10
   _initSharedPreferences() async {
@@ -280,6 +275,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('HOME'),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -329,8 +325,8 @@ class _HomeState extends State<Home> {
                         width: 20,
                         child: IconButton(
                           onPressed: () async {
-                            UserRepository usrr=UserRepository();
-                            UserModel user=await usrr.getUserInfo();
+                            UserRepository usrr = UserRepository();
+                            UserModel user = await usrr.getUserInfo();
                             Get.to(EditMemberInfo(user: user));
                           },
                           icon: const Icon(
@@ -377,7 +373,6 @@ class _HomeState extends State<Home> {
               _sizedBox(),
               _head('신체정보'),
               const SizedBox(height: 3),
-
               SingleChildScrollView(
                 child: Container(
                   decoration: _borderBox(),
@@ -412,7 +407,6 @@ class _HomeState extends State<Home> {
                       _button(const BodyInfo(), '입력하러 가기')
                     ],
                   ),
-
                 ),
               ),
               _sizedBox(),

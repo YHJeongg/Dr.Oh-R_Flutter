@@ -1,4 +1,5 @@
 import 'package:dr_oh_app/components/dementia_answer_final.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/view/survey/dementia_survey2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,7 +48,8 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('치매 진단'),
-        elevation: 0,
+        elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Center(
         child: //-------2nd page(설문 시작 전 질문 사항) 이건 당뇨, 뇌졸중이랑 다른 부분이라 따로 위젯을 안뺐음(필요하면 뺌) --------

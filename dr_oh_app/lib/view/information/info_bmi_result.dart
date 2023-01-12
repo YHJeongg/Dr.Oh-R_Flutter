@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +22,7 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
       appBar: AppBar(
         title: const Text('BMI Result'),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

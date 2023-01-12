@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/bmi_message.dart';
 import 'package:dr_oh_app/view/information/info_bmi_result.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
       appBar: AppBar(
         title: const Text('BMI 계산'),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Padding(
         padding: const EdgeInsets.all(14.0),

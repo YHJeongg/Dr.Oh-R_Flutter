@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/view/survey/diabetes_survey_page.dart';
 import 'package:dr_oh_app/view/survey/dementia_survey.dart';
 import 'package:dr_oh_app/view/survey/stroke_survey_page.dart';
@@ -13,6 +14,7 @@ class Survey extends StatelessWidget {
       appBar: AppBar(
         title: const Text('SURVEY'),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Center(
         child: Column(
@@ -20,18 +22,20 @@ class Survey extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            _btn(DiabetesSurveyPage(surveyName: '당뇨병 검사'), '당뇨병 검사 하러가기', context),
+            _btn(DiabetesSurveyPage(surveyName: '당뇨병 검사'), '당뇨병 검사 하러가기',
+                context),
             const SizedBox(
               height: 20,
             ),
             // Date: 2023-01-10, SangwonKim
             // Desc: 뇌졸중 페이지로 가기
-            _btn(StrokeSurveyPage(surveyName: '뇌졸중 검사'), '뇌졸중 검사 하러가기', context),
+            _btn(
+                StrokeSurveyPage(surveyName: '뇌졸중 검사'), '뇌졸중 검사 하러가기', context),
             const SizedBox(
               height: 20,
             ),
             _btn(DementiaSurvey(), '치매 검사 하러가기', context),
-            ],
+          ],
         ),
       ),
     );
@@ -52,10 +56,9 @@ class Survey extends StatelessWidget {
         // foregroundColor: Colors.white,
         // Date: 2023-01-11, SangwonKim
         // Desc: Get.width, Get.height 로 버튼 사이즈 조정
-        minimumSize: Size(Get.width/100*90, Get.height/100*22),
+        minimumSize: Size(Get.width / 100 * 90, Get.height / 100 * 22),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        
       ),
       child: Text(
         title,

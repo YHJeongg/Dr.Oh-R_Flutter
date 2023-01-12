@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -20,6 +21,7 @@ class _HospitalState extends State<Hospital> {
       appBar: AppBar(
         title: const Text('HOSPITAL'),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Stack(
         children: const <Widget>[

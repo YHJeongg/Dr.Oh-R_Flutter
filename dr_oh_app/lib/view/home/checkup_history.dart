@@ -1,11 +1,7 @@
-import 'package:dr_oh_app/model/checkup_history_model.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
-import 'package:dr_oh_app/viewmodel/home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class CheckupHistory extends StatelessWidget {
   CheckupHistory({super.key});
@@ -19,6 +15,8 @@ class CheckupHistory extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('검진기록 조회'),
+        elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: Center(
         child: Column(
