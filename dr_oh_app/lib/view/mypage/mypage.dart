@@ -3,6 +3,7 @@ import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/mypage/chart_diabetes.dart';
+import 'package:dr_oh_app/view/mypage/chart_dimentia.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/view/mypage/sign_out.dart';
 import 'package:dr_oh_app/view/mypage/stroke_chart_record.dart';
@@ -217,7 +218,7 @@ class _MyPageState extends State<MyPage> {
                     Icons.area_chart,
                     color: Color(0xFF99CD89),
                   ),
-                  const SignOut(),
+                  const DementiaChartData(),
                 ),
                 const Divider(),
                 _btnContentActions(
