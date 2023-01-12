@@ -35,7 +35,7 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
 // Desc: 기존 정보 (Text Field 상의)
 // Date: 2023-01-10
 
-  late String id;
+  late String id = '';
 
   late String atSign = '@';
 

@@ -1,5 +1,8 @@
 import 'package:dr_oh_app/components/logout_btn.dart';
+import 'package:dr_oh_app/model/medication_model.dart';
+import 'package:dr_oh_app/viewmodel/my_history_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Medication extends StatefulWidget {
   const Medication({super.key});
@@ -10,11 +13,25 @@ class Medication extends StatefulWidget {
 
 class _MedicationState extends State<Medication> {
   DateTimeRange? _selectedDateRange;
-  TextEditingController startDateController = TextEditingController();
-  TextEditingController endDateController = TextEditingController();
-  TextEditingController hospitalController = TextEditingController();
-  TextEditingController diseaseController = TextEditingController();
-  TextEditingController pillController = TextEditingController();
+  TextEditingController _startDateController = TextEditingController();
+  TextEditingController _endDateController = TextEditingController();
+  TextEditingController _hospitalController = TextEditingController();
+  TextEditingController _diseaseController = TextEditingController();
+  TextEditingController _pillController = TextEditingController();
+  late String id = '';
+
+  _initSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getString('id').toString();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initSharedPreferences();
+  }
 
   Widget _dateTextfield(dynamic controller, String hint) {
     return SizedBox(
@@ -50,8 +67,8 @@ class _MedicationState extends State<Medication> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _dateTextfield(startDateController, '시작일'),
-                    _dateTextfield(endDateController, '종료일'),
+                    _dateTextfield(_startDateController, '시작일'),
+                    _dateTextfield(_endDateController, '종료일'),
                   ],
                 )
               ],
@@ -59,7 +76,7 @@ class _MedicationState extends State<Medication> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                controller: hospitalController,
+                controller: _hospitalController,
                 decoration: const InputDecoration(
                   hintText: '병원명',
                 ),
@@ -68,7 +85,7 @@ class _MedicationState extends State<Medication> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                controller: diseaseController,
+                controller: _diseaseController,
                 decoration: const InputDecoration(
                   hintText: '병명',
                 ),
@@ -77,13 +94,27 @@ class _MedicationState extends State<Medication> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                controller: pillController,
+                controller: _pillController,
                 decoration: const InputDecoration(
                   hintText: '처방의약품명',
                 ),
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('저장'))
+            ElevatedButton(
+                onPressed: () {
+                  MedicationModel medicationModel = MedicationModel(
+                    firstDate:
+                        _startDateController.text.toString().substring(0, 10),
+                    lastDate:
+                        _endDateController.text.toString().substring(0, 10),
+                    hospital: _hospitalController.text,
+                    disease: _diseaseController.text,
+                    pill: _pillController.text,
+                  );
+                  MyHistoryViewModel.to.addMedication(medicationModel, id);
+                  Navigator.pop(context);
+                },
+                child: const Text('추가'))
           ],
         ),
       ),
@@ -103,8 +134,8 @@ class _MedicationState extends State<Medication> {
       // Rebuild the UI
       setState(() {
         _selectedDateRange = result;
-        startDateController.text = result.start.toString().substring(0, 10);
-        endDateController.text = result.end.toString().substring(0, 10);
+        _startDateController.text = result.start.toString().substring(0, 10);
+        _endDateController.text = result.end.toString().substring(0, 10);
       });
     }
   }

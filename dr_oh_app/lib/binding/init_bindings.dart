@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/viewmodel/my_history_view_model.dart';
 import 'package:get/get.dart';
 
 import '../viewmodel/auth_controller.dart';
@@ -9,5 +10,6 @@ class InitBinding extends Bindings {
   void dependencies() {
     Get.put(BottomNavController(), permanent: true);
     Get.put(AuthController(), permanent: true);
+    Get.put(MyHistoryViewModel(), permanent: true);
   }
 }
