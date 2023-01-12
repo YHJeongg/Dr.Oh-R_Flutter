@@ -64,7 +64,6 @@ class _HomeState extends State<Home> {
                 lastDate: DateTime.now(),
                 onDateChanged: ((value) {
                   selectedDate = value;
-                  print(selectedDate);
                 }),
               ),
             ),
