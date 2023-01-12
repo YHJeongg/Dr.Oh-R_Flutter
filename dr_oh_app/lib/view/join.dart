@@ -57,33 +57,6 @@ class _JoinState extends State<Join> {
     );
   }
 
-  Widget _joinText(String txt, TextEditingController textEditingController) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _text(txt),
-        const SizedBox(width: 20),
-        Column(
-          children: [
-            SizedBox(
-              width: Get.width / 2.2,
-              height: 70,
-              child: TextFormField(
-                controller: textEditingController,
-                validator: (String? value) {
-                  if (value!.isEmpty) {
-                    return '$txt 입력하세요.';
-                  }
-                  return null;
-                },
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
   Widget _joinId(String txt, TextEditingController textEditingController) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,13 +71,16 @@ class _JoinState extends State<Join> {
               child: FutureBuilder(
                 future: AuthController.to
                     .checkId(idCont.text)
-                    .then((value) => value?.id),
+                    .then((value) => value!.id),
                 builder: (context, snapshot) => TextFormField(
                   controller: textEditingController,
                   validator: (String? value) {
+                    setState(() {
+                      snapshot.data;
+                    });
                     if (value!.isEmpty) {
                       return '$txt 입력하세요.';
-                    } else if (snapshot.data == idCont.text) {
+                    } else if (value == snapshot.data) {
                       return '이미 등록된 아이디 입니다.';
                     }
                     return null;
