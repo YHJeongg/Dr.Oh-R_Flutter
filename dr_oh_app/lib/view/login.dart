@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/view/join.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../viewmodel/auth_controller.dart';
+import 'findpw.dart';
 
 // Date: 2023-01-09, jyh
 // 화면 디자인 구성완료, API(카카오, 구글) 연동 전
@@ -177,7 +179,14 @@ class _LoginState extends State<Login> {
     return Container(
       alignment: Alignment.centerRight,
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Findpw(),
+            ),
+          );
+        },
         child: const Text(
           '비밀번호를 잊으셨나요?',
           style: TextStyle(
@@ -220,7 +229,6 @@ class _LoginState extends State<Login> {
                   const SizedBox(height: 20),
                   const Text('또는'),
                   const SizedBox(height: 30),
-                  // API연동전 임시 Text
                   TextButton(
                     onPressed: () {
                       signInWithGoogle();
@@ -233,6 +241,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  // API연동전 임시 Text
                   const Text(
                     '카카오로 계속하기',
                     style: TextStyle(
