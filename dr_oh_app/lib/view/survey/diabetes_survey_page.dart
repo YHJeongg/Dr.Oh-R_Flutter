@@ -13,11 +13,8 @@ import 'package:get/get.dart';
 //Date: 2023-01-09 anna
 class DiabetesSurveyPage extends StatelessWidget {
   final String surveyName;
-  final bool _isChecked = false;
   final PageController _nextController = PageController();
   final PageController surveyCont = PageController();
-  List questionList = [];
-  //final DatabaseHandler handler;
 
   DiabetesSurveyPage({
     Key? key,

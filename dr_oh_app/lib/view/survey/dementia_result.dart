@@ -32,7 +32,6 @@ class _DementiaResultState extends State<DementiaResult> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _initSharedPreferences();
 
@@ -67,9 +66,9 @@ class _DementiaResultState extends State<DementiaResult> {
               children: [
                 //Text('예측 결과는 ${widget.result}입니다.'),
 
-                Text('예측 결과는 ${resultReg1}입니다.'),
+                Text('예측 결과는 $resultReg1입니다.'),
                 
-                Text('${id}님의 예측 결과는 ${widget.result == '0' ? normal : widget.result == '0.5' ? lightNormal : abNormal}입니다.',
+                Text('$id님의 예측 결과는 ${widget.result == '0' ? normal : widget.result == '0.5' ? lightNormal : abNormal}입니다.',
                 style: const TextStyle(
                       fontSize: 20,
                     ),
