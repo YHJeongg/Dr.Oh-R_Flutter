@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-// -------------------------------------------------------------------------
+// ---------------------------------------------------------------
 // Date: 2023-01-12, SangwonKim
 // Desc: 차트그리기 Class
 class LineChartWidget extends StatefulWidget {
@@ -74,7 +74,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
   }
 
   // --- Functions ---
-  // -------------------------------------------------------------------------
+  // -----------------------------------------------------------
   // Date: 2023-01-12, SangwonKim
   // Desc: 하단 텍스트
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
@@ -126,7 +126,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     );
   }
 
-  // -------------------------------------------------------------------------
+  // ---------------------------------------------------------
   // Date: 2023-01-12, SangwonKim
   // Desc: Y축 요소 설정하기 -> 0 ~ 100 설정
   Widget leftTitleWidgets(double value, TitleMeta meta) {
@@ -177,8 +177,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  // -------------------------------------------------------------------------
-  // Date: 2023-01-13, SangwonKim
+  // -----------------------------------------------------------
   // Desc: 메인 차트
   LineChartData mainData(List listChart) {
     return LineChartData(
@@ -243,10 +242,10 @@ class _LineChartWidgetState extends State<LineChartWidget> {
               FlSpot(
                   i.toDouble(),
                   // orderby date로 가져오지 못할때 사용하기 ***
-                  // double.parse(listChart[i]['resultValue'].toString())/10),
+                  double.parse(listChart[i]['resultValue'].toString())/10),
 
                   // orderby date로 가져올때 사용하기 ***
-                  double.parse(listChart[listChart.length - i - 1]['resultValue'].toString())/10),
+                  // double.parse(listChart[listChart.length - i - 1]['resultValue'].toString())/10),
             ],
             // FlSpot(3, 3),
           ],
@@ -268,7 +267,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     );
   }
 
-  // -----------------------------------------------------------------------------------
+  // -------------------------------------------------------------------
   // Date: 2023-01-13, SangwonKim
   // Desc: 평균 차트
   LineChartData avgData(List listChart) {

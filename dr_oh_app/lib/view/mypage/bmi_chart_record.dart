@@ -25,7 +25,7 @@ class _BmiChartRecordState extends State<BmiChartRecord> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('뇌졸중 차트 기록'),
+        title: const Text('BMI 차트 기록'),
         elevation: 1,
         actions: const [LogoutBtn()],
       ),
@@ -36,7 +36,7 @@ class _BmiChartRecordState extends State<BmiChartRecord> {
               stream: FirebaseFirestore.instance
                   // >>>1st Try<<
                   .collection('result')
-                  .where('category', isEqualTo: "뇌졸중")
+                  .where('category', isEqualTo: "BMI")
                   .where('userid', isEqualTo: id)
                   // .orderBy('date', descending: true) // 최신 10개 를 위해서 dsc으로 가져오기
                   .limit(10) // 10개만 가져오기

@@ -21,41 +21,42 @@ class Information extends StatelessWidget {
         elevation: 1,
         actions: const [LogoutBtn()],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Center(
-            child: Column(
-              children: [
-                // Date: 2023-01-08, SangwonKim
-                // 당뇨병 정보 버튼
-                _btn(const InfoDiabetes(), '당뇨병 정보', context),
-                const SizedBox(
-                  height: 16,
-                ),
-                // Date: 2023-01-08, SangwonKim
-                // 뇌졸중 정보 버튼
-                _btn(const InfoStroke(), '뇌졸중 정보', context),
-                const SizedBox(
-                  height: 16,
-                ),
-                // Date: 2023-01-08, SangwonKim
-                // 치매 정보 버튼
-                _btn(const InfoDementia(), '치매 정보', context),
-                const SizedBox(
-                  height: 16,
-                ),
-                // Date: 2023-01-08, SangwonKim
-                // BMI 정보 버튼
-                _btn(const InfoBmi(), 'BMI 정보', context),
-                const SizedBox(
-                  height: 16,
-                ),
-                // Date: 2023-01-08, SangwonKim
-                // BMI 계산 버튼
-                _btn(const InfoBmiCalc(), 'BMI 계산', context),
-              ],
-            ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 14,
+              ),
+              // Date: 2023-01-08, SangwonKim
+              // 당뇨병 정보 버튼
+              _btn(const InfoDiabetes(), '당뇨병 정보', context),
+              const SizedBox(
+                height: 16,
+              ),
+              // Date: 2023-01-08, SangwonKim
+              // 뇌졸중 정보 버튼
+              _btn(const InfoStroke(), '뇌졸중 정보', context),
+              const SizedBox(
+                height: 16,
+              ),
+              // Date: 2023-01-08, SangwonKim
+              // 치매 정보 버튼
+              _btn(const InfoDementia(), '치매 정보', context),
+              const SizedBox(
+                height: 16,
+              ),
+              // Date: 2023-01-08, SangwonKim
+              // BMI 정보 버튼
+              _btn(const InfoBmi(), 'BMI 정보', context),
+              const SizedBox(
+                height: 16,
+              ),
+              // Date: 2023-01-08, SangwonKim
+              // BMI 계산 버튼
+              _btn(const InfoBmiCalc(), 'BMI 계산', context),
+            ],
           ),
         ),
       ),
@@ -77,7 +78,7 @@ class Information extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        height: 112,
+        height: Get.height/100*13,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

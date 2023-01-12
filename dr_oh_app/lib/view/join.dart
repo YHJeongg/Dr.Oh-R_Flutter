@@ -343,9 +343,9 @@ class _JoinState extends State<Join> {
                       _dateText(),
                       const SizedBox(height: 10),
                       _genderCheckBox(),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 36),
                       _joinBtn(),
-                      const SizedBox(height: 70),
+                      const SizedBox(height: 36),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/bmi_message.dart';
 import 'package:dr_oh_app/view/information/info_bmi_result.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // --------------------------------------------------------------------
 // Date: 2023-01-08, SangwonKim
@@ -13,6 +15,7 @@ class InfoBmiCalc extends StatefulWidget {
   @override
   State<InfoBmiCalc> createState() => _InfoBmiCalcState();
 }
+
 class _InfoBmiCalcState extends State<InfoBmiCalc> {
   late int numAge; // 나이
   late int numWeight; // 몸무게
@@ -55,8 +58,8 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: Get.width/100*44,
-                      height: Get.height/100*28,
+                      width: Get.width / 100 * 44,
+                      height: Get.height / 100 * 28,
                       // width: 194,
                       // height: 240,
                       decoration: BoxDecoration(
@@ -124,8 +127,8 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                       width: 14,
                     ),
                     Container(
-                      width: Get.width/100*44,
-                      height: Get.height/100*28,
+                      width: Get.width / 100 * 44,
+                      height: Get.height / 100 * 28,
                       // width: 194,
                       // height: 240,
                       decoration: BoxDecoration(
@@ -195,8 +198,8 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                 ),
               ),
               Container(
-                width: Get.width/100*92,
-                height: Get.height/100*24,
+                width: Get.width / 100 * 92,
+                height: Get.height / 100 * 24,
                 // width: 404,
                 // height: 240,
                 decoration: BoxDecoration(
@@ -240,8 +243,8 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                 height: 12,
               ),
               Container(
-                width: Get.width/100*92,
-                height: Get.height/100*14,
+                width: Get.width / 100 * 92,
+                height: Get.height / 100 * 14,
                 // width: 404,
                 // height: 140,
                 decoration: BoxDecoration(
@@ -299,6 +302,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                 onPressed: () {
                   checkBmi();
                   BmiMessage.bmiResult = bmiResult;
+                  _saveResult(bmiResult);
                   Get.to(const InfoBmiResult());
                 },
                 style: ElevatedButton.styleFrom(
@@ -306,8 +310,8 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                       borderRadius: BorderRadius.circular(16)),
                 ),
                 child: SizedBox(
-                  width: Get.width/100*92,
-                  height: Get.height/100*10,
+                  width: Get.width / 100 * 92,
+                  height: Get.height / 100 * 10,
                   // height: 100,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -331,6 +335,22 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
   }
 
   // --- Functions ---
+
+  _saveResult(double result) async {
+    // SharedPreferences를 통해 로그인한 사용자 id 가져오기
+    final prefs = await SharedPreferences.getInstance();
+    String id = prefs.getString('id')!;
+    String date = DateTime.now().toString().substring(0, 10);
+
+    // Stroke 데이타 업데이트하기
+    FirebaseFirestore.instance.collection('result').add({
+      'result': result,
+      'userid': id,
+      'date': date,
+      'category': 'BMI'
+    });
+  }
+
   // --------------------------------------------------------------------
   // Date: 2023-01-08, SangwonKim
   // Desc: 계산하는 함수들
@@ -340,24 +360,28 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
       numAge++;
     });
   }
+
   // 나이 -
   minusAge() {
     setState(() {
       numAge--;
     });
   }
+
   // 몸무게 +
   plusWeight() {
     setState(() {
       numWeight++;
     });
   }
+
   // 몸무게 -
   minusWeight() {
     setState(() {
       numWeight--;
     });
   }
+
   // 성별 확인
   onClickedGender() {
     setState(() {

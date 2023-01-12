@@ -58,7 +58,7 @@ class DiabetesPredict {
     String date = DateTime.now().toString().substring(0, 10);
 
     FirebaseFirestore.instance.collection('result').add({
-      'result': result * 100,
+      'result': result,
       'userid': id,
       'date': date,
       'category': '당뇨병'

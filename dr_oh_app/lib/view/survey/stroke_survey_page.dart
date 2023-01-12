@@ -123,7 +123,7 @@ class StrokeSurveyPage extends StatelessWidget {
                   '문진답변을 확인해주세요',
                   backgroundColor: Colors.redAccent,
                   snackPosition: SnackPosition.TOP,
-                  duration: const Duration(seconds: 1),
+                  duration: const Duration(seconds: 2),
                 );
               } else {
                 StrokePredict predict = StrokePredict();

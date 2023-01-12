@@ -344,6 +344,7 @@ class _MyPageState extends State<MyPage> {
                 color: Colors.grey,
               ),
             ),
+            const SizedBox(height: 24,)
           ],
         ),
       ),

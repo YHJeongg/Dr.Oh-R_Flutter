@@ -37,7 +37,7 @@ class _DiabetesChartRecordState extends State<DiabetesChartRecord> {
                   // >>>1st Try<<
                   .collection('result')
                   .where('category', isEqualTo: "당뇨병")
-                  // .where('userid', isEqualTo: id)
+                  .where('userid', isEqualTo: id)
                   // .orderBy('date', descending: true) // 최신 10개 를 위해서 dsc으로 가져오기
                   .limit(10) // 10개만 가져오기
                   .snapshots(includeMetadataChanges: true),

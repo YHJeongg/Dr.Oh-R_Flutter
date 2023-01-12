@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/components/news_api.dart';
 import 'package:dr_oh_app/model/body_info_model.dart';
 import 'package:dr_oh_app/model/name_model.dart';
@@ -148,7 +149,7 @@ class _HomeState extends State<Home> {
   Widget _button(dynamic path, String title) {
     return ElevatedButton(
       onPressed: () {
-        Get.to(() => path);
+        Get.to(path);
       },
       child: Text(
         title,
@@ -258,7 +259,7 @@ class _HomeState extends State<Home> {
                   child: Text(
                     '키 : ${bodyinfo.height}cm',
                     style: const TextStyle(
-                      fontSize: 30,
+                      fontSize: 28,
                     ),
                   ),
                 ),
@@ -267,7 +268,7 @@ class _HomeState extends State<Home> {
                   child: Text(
                     '몸무게 : ${bodyinfo.weight}kg',
                     style: const TextStyle(
-                      fontSize: 30,
+                      fontSize: 28,
                     ),
                   ),
                 ),
@@ -278,7 +279,8 @@ class _HomeState extends State<Home> {
                 Text(
                   '입력된 신체정보가 없습니다.',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
@@ -302,6 +304,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('HOME'),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -434,7 +437,7 @@ class _HomeState extends State<Home> {
                           }),
                         ),
                       ),
-                      _button(BodyInfo(), '입력하러 가기'),
+                      _button(const BodyInfo(), '입력하러 가기'),
                     ],
                   ),
                 ),
@@ -453,11 +456,11 @@ class _HomeState extends State<Home> {
                         const Text('최근 내원이력'),
                         ElevatedButton(
                           onPressed: () {
-                            Get.to(HospitalVisit());
+                            Get.to(const HospitalVisit());
                           },
-                          child: Text(
+                          child: const Text(
                             '추가',
-                            style: const TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ],
@@ -471,11 +474,11 @@ class _HomeState extends State<Home> {
                         const Text('최근 투약이력'),
                         ElevatedButton(
                           onPressed: () {
-                            Get.to(Medication());
+                            Get.to(const Medication());
                           },
-                          child: Text(
+                          child: const Text(
                             '추가',
-                            style: const TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ],

@@ -61,8 +61,8 @@ class App extends GetView<BottomNavController> {
                 label: 'Information',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.account_box_rounded),
-                activeIcon: Icon(Icons.account_box_rounded),
+                icon: Icon(Icons.account_circle),
+                activeIcon: Icon(Icons.account_circle),
                 label: 'MyPage',
               ),
             ],
