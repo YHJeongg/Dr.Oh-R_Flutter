@@ -1,5 +1,4 @@
 import 'package:dr_oh_app/view/survey/diabetes_survey_page.dart';
-import 'package:dr_oh_app/view/survey/survey_diabetes_widget.dart';
 import 'package:dr_oh_app/view/survey/dementia_survey.dart';
 import 'package:dr_oh_app/view/survey/stroke_survey_page.dart';
 import 'package:flutter/material.dart';
