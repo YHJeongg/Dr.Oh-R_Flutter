@@ -55,5 +55,65 @@ class UserRepository {
     } else {
       return UserModel.fromJson(data.docs.first.data());
     }
+
+  //Desc: 사용자 정보 가져오기
+  //Date: 2023-01-12
+  Future<UserModel> getUserInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    String id = (prefs.getString('id') ?? "");
+    var docs1 = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
+    var docs2 = docs1.docs.first.data();
+
+    return UserModel.fromJson(docs2);
+  }
+
+  //Desc: 사용자 정보 수정
+  //Date: 2023-01-12
+  updateUser(String name, String pw, String email, String bdate) async {
+    final prefs = await SharedPreferences.getInstance();
+    String id = (prefs.getString('id') ?? "");
+    var docs1 = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
+    var docs2 = docs1.docs.first.id;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(docs2)
+        .update({'name': name, 'password': pw, 'birthdate': bdate});
+  }
+
+  //Desc: 사용자 신체 정보 수정
+  //Date: 2023-01-12
+  addAction(String height, String weight) async {
+    final prefs = await SharedPreferences.getInstance();
+    String id = (prefs.getString('id') ?? "");
+    var docs1 = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
+    var docs2 = docs1.docs.first.id;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(docs2)
+        .update({'height': height, 'weight': weight});
+  }
+
+  // Desc: 회원 탈퇴
+  // Date: 2023-01-12
+  deleteUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    String id = (prefs.getString('id') ?? "");
+    var docs1 = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
+    var docs2 = docs1.docs.first.id;
+
+    FirebaseFirestore.instance.collection('users').doc(docs2).delete();
   }
 }

@@ -24,15 +24,23 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('치매 검사'),
+        title: const Text('치매 검사 문진표',
+        style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),),
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            firestore(context),
-          
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              
+              firestore(context),
+            
+            ],
+          ),
         )),
     );
 
@@ -81,16 +89,17 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
                 DementiaPredictReg predictReg = DementiaPredictReg();
                 
                 String result = await predict.predict(
-                  DementiaAnswerFinal.age,
+                  int.parse(DementiaAnswerFinal.age),
                   DementiaAnswerFinal.total,
                   DementiaAnswerFinal.edu1,
                   DementiaAnswerFinal.wage1,
                   DementiaAnswerFinal.gender1,
                   
                    );
-
+                   print('totaltotla');
+  print(DementiaAnswerFinal.total);
                    String resultReg = await predictReg.predict(
-                  DementiaAnswerFinal.age,
+                  int.parse(DementiaAnswerFinal.age),
                   DementiaAnswerFinal.total,
                   DementiaAnswerFinal.edu1,
                   DementiaAnswerFinal.wage1,
@@ -102,8 +111,14 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
 
                 Get.off(DementiaResult(result:result, resultReg:resultReg));
               },
+              style: ButtonStyle(
+                          minimumSize: MaterialStatePropertyAll(Size(300, 60),)
+                        ),
               child: const Text(
                 '진단',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
+                        color: Colors.white
+                        ),
               ),
             ),
           ],

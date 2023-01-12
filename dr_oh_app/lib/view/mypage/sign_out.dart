@@ -1,4 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/repository/localdata/user_repository.dart';
+import 'package:dr_oh_app/view/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class SignOut extends StatefulWidget {
   const SignOut({super.key});
@@ -9,6 +15,20 @@ class SignOut extends StatefulWidget {
 
 class _SignOutState extends State<SignOut> {
   bool isChecked = false;
+  final firestore = FirebaseFirestore.instance;
+
+  getData() async {
+    var result = await firestore.collection('users').doc().get();
+    print(result);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
       MaterialState.pressed,
@@ -87,7 +107,7 @@ class _SignOutState extends State<SignOut> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       checkBox(),
-                      Text('계정을 삭제합니다'),
+                      const Text('계정을 삭제합니다'),
                     ],
                   ),
                 ],
@@ -118,19 +138,24 @@ class _SignOutState extends State<SignOut> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('탈퇴를 위해 비밀번호를 입력해주세요'),
-                  TextField(
+                  const Text('탈퇴를 위해 비밀번호를 입력해주세요'),
+                  const TextField(
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: '비밀번호 입력',
                       )),
                   ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      '삭제',
-                    ),
+                    onPressed: () {
+                      // 삭제 버튼 누르면 정보 삭제되고 로그인으로 이동
+                      UserRepository rep = UserRepository();
+                      rep.deleteUser();
+                      Get.offAll(const Login());
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
+                    ),
+                    child: const Text(
+                      '삭제',
                     ),
                   )
                 ],

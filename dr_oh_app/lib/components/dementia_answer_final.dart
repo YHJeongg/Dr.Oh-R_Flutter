@@ -8,11 +8,15 @@ class DementiaAnswerFinal{
   static int seasoncount = 0;
   static int countrycount = 0;
   static int wordsCount = 0;
+  static int num1 = 0;
+  static int num2 = 0;
+  static int num3 = 0;
+  static int num4 = 0;
   
 
-  static int total = yearCount+seasoncount+countrycount+wordsCount;
+  static int total = yearCount+seasoncount+countrycount+wordsCount+num1+num2+num3+num4;
 
-  static int age = 0;
+  static String age = '';
 
   static String edu = '';
  //var visibility = isPublic ? 'public' : 'private';

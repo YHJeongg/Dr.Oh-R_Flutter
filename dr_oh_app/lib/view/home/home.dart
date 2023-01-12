@@ -1,22 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/news_api.dart';
 import 'package:dr_oh_app/model/body_info_model.dart';
-import 'package:dr_oh_app/model/checkup_history_model.dart';
 import 'package:dr_oh_app/model/name_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
 import 'package:dr_oh_app/model/user.dart';
+import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/home/all_checkup_history.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
 import 'package:dr_oh_app/view/home/hospital_visit.dart';
 import 'package:dr_oh_app/view/home/medication.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
-import 'package:dr_oh_app/view/mypage/mypage.dart';
-import 'package:dr_oh_app/viewmodel/bottom_nav_controller.dart';
 import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
@@ -243,25 +240,53 @@ class _HomeState extends State<Home> {
     ));
   }
 
-
   // Desc: 신체정보 받아오기
   // Date: 2023-01-11
   Widget _getBodyinfo(DocumentSnapshot doc) {
-    final bodyinfo = BodyInfoModel(
-        id: doc['id'],
-        height: doc['height'],
-        weight: doc['weight'],
-        bp: doc['bp']);
+    final bodyinfo =
+        doc.data().toString().contains('height')
+            ? BodyInfoModel(
+                id: doc['id'],
+                height: doc['height'],
+                weight: doc['weight'],
+              )
+            : BodyInfoModel(id: '', height: '', weight: '');
     return ListTile(
-        title: Column(
-      children: [
-        Text('키 : ${bodyinfo.height}'),
-        Text('몸무게 : ${bodyinfo.weight}'),
-        Text('혈압 : ${bodyinfo.bp}'),
-      ],
-    ));
+      title: bodyinfo.height.toString().isNotEmpty
+          ? Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '키 : ${bodyinfo.height}cm',
+                    style: const TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '몸무게 : ${bodyinfo.weight}kg',
+                    style: const TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : Column(
+            children: const [
+             Text(
+                  '입력된 신체정보가 없습니다.',
+                  style: TextStyle(
+                      fontSize: 30,
+                    ),
+                ),
+            ],
+          ),
+    );
   }
-
 
   // Desc: shared preferences 받기
   // Date: 2023-01-10
@@ -285,59 +310,65 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                decoration: _borderBox(),
-                width: 350,
-                padding: const EdgeInsets.only(left: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      height: 60,
-                      width: 300,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('users')
-                            .where('id', isEqualTo: id)
-                            .snapshots(),
-                        builder: ((context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                          final documents = snapshot.data!.docs;
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: _borderBox(),
+                  width: 350,
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        height: 60,
+                        width: 300,
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .where('id', isEqualTo: id)
+                              .snapshots(),
+                          builder: ((context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            final documents = snapshot.data!.docs;
 
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ListView(
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                children:
-                                    documents.map((e) => _getName(e)).toList(),
-                              ),
-                            ],
-                          );
-                        }),
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ListView(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  children: documents
+                                      .map((e) => _getName(e))
+                                      .toList(),
+                                ),
+                              ],
+                            );
+                          }),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 30,
-                        width: 20,
-                        child: IconButton(
-                          onPressed: () {
-                            Get.to(EditMemberInfo());
-                          },
-                          icon: const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
+                      Expanded(
+                        child: SizedBox(
+                          height: 30,
+                          width: 20,
+                          child: IconButton(
+                            onPressed: () async {
+                              UserRepository usrr = UserRepository();
+                              UserModel user = await usrr.getUserInfo();
+                              Get.to(EditMemberInfo(user: user));
+                            },
+                            icon: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               _sizedBox(),
@@ -359,7 +390,7 @@ class _HomeState extends State<Home> {
                     ),
                     TextButton(
                         onPressed: () {
-                          Get.to(AllCheckupHistory());
+                          Get.to(const AllCheckupHistory());
                         },
                         child: const Text('전체기록 보기')),
                   ],
@@ -374,7 +405,6 @@ class _HomeState extends State<Home> {
               _sizedBox(),
               _head('신체정보'),
               const SizedBox(height: 3),
-
               SingleChildScrollView(
                 child: Container(
                   decoration: _borderBox(),
@@ -383,11 +413,11 @@ class _HomeState extends State<Home> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
+                      SizedBox(
                         height: 100,
                         child: StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance
-                              .collection('bodyinfo')
+                              .collection('users')
                               .where('id', isEqualTo: id)
                               .snapshots(),
                           builder: ((context, snapshot) {
@@ -409,7 +439,6 @@ class _HomeState extends State<Home> {
                       _button(const BodyInfo(), '입력하러 가기')
                     ],
                   ),
-
                 ),
               ),
               _sizedBox(),
@@ -424,9 +453,6 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         const Text('최근 내원이력'),
-                        Row(
-                          children: [],
-                        ),
                         _button(const HospitalVisit(), '추가')
                       ],
                     ),
@@ -437,9 +463,6 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         const Text('최근 투약이력'),
-                        Row(
-                          children: [],
-                        ),
                         _button(const Medication(), '추가')
                       ],
                     ),

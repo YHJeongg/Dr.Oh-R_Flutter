@@ -1,13 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/app.dart';
+import 'package:dr_oh_app/components/message_popup.dart';
 import 'package:dr_oh_app/model/user.dart';
+import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditMemberInfo extends StatefulWidget {
-  const EditMemberInfo({super.key});
+  final UserModel user;
+  const EditMemberInfo({super.key, required this.user});
 
   @override
   State<EditMemberInfo> createState() => _EditMemberInfoState();
@@ -16,6 +21,8 @@ class EditMemberInfo extends StatefulWidget {
 class _EditMemberInfoState extends State<EditMemberInfo> {
   List<String> _dropdownList = ['naver.com', 'gmail.com', 'daum.net', '직접 입력'];
   String _selectedDropdown = 'naver.com';
+  RegExp idpwReg = RegExp(r"^[0-9a-z]{8,}$");
+  RegExp emailReg = RegExp(r"^[0-9a-z]+$");
 
   TextEditingController nameController = TextEditingController();
   TextEditingController idController = TextEditingController();
@@ -30,6 +37,11 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
   late String id;
 
   late String atSign = '@';
+
+  late bool pwcheck;
+  late bool correctpw;
+  late bool correctName;
+  late bool correctEmail;
 
 // Desc: 회원정보 수정 항목 + 텍스트필드 조인
 // Date: 2023-01-09
@@ -54,12 +66,17 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
         width: 270,
         child: TextField(
           controller: nameController,
-          readOnly: true,
-          onChanged: (value) {
-            //--
-          },
           textAlign: TextAlign.center,
           decoration: InputDecoration(hintText: hint),
+          onChanged: (value) {
+            if (value.isEmpty) {
+              setState(() {
+                correctName = false;
+              });
+            } else {
+              correctName = true;
+            }
+          },
         ));
   }
 
@@ -72,9 +89,6 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
       child: TextField(
         controller: idController,
         readOnly: true,
-        onChanged: (value) {
-          //--
-        },
         textAlign: TextAlign.center,
         decoration: InputDecoration(hintText: hint),
       ),
@@ -90,7 +104,15 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
       child: TextField(
         controller: passwordController1,
         onChanged: (value) {
-          //--
+          if (idpwReg.hasMatch(value.trim())) {
+            setState(() {
+              correctpw = true;
+            });
+          } else {
+            setState(() {
+              correctpw = false;
+            });
+          }
         },
         obscureText: true,
         textAlign: TextAlign.center,
@@ -107,7 +129,13 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
       child: TextField(
         controller: passwordController2,
         onChanged: (value) {
-          //--
+          if (value == passwordController1.text.trim()) {
+            setState(() {
+              pwcheck = true;
+            });
+          } else {
+            pwcheck = false;
+          }
         },
         obscureText: true,
         textAlign: TextAlign.center,
@@ -122,7 +150,8 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
       height: 70,
       width: 240,
       child: TextField(
-        controller: dateController,
+        // controller: dateController,
+        readOnly: true,
         onTap: () {
           _showDatePickerPop();
         },
@@ -143,9 +172,19 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
             width: 130,
             height: 70,
             child: TextField(
+              controller: emailController,
               onChanged: (value) {
-                //--
+                if ((atSign == '' && emailController.text.trim().isEmail) |
+                    (atSign == '@' &&
+                        emailReg.hasMatch(emailController.text.trim()))) {
+                  setState(() {
+                    correctEmail = true;
+                  });
+                } else {
+                  correctEmail = false;
+                }
               },
+              keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                   suffixText: atSign, suffixStyle: TextStyle(), hintText: hint),
@@ -174,6 +213,15 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
                     atSign = '@';
                   }
                 });
+                if ((atSign == '' && emailController.text.trim().isEmail) |
+                    (atSign == '@' &&
+                        emailReg.hasMatch(emailController.text.trim()))) {
+                  setState(() {
+                    correctEmail = true;
+                  });
+                } else {
+                  correctEmail = false;
+                }
               }),
             ),
           ),
@@ -187,9 +235,9 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
   void _showDatePickerPop() {
     Future<DateTime?> selectedDate = showDatePicker(
       context: context,
-      initialDate: DateTime.now(), //초기값
-      firstDate: DateTime(2000), //시작일
-      lastDate: DateTime.now().add(const Duration(days: 30)), //마지막일
+      initialDate: DateTime(2022), //초기값
+      firstDate: DateTime(1950), //시작일
+      lastDate: DateTime(2023), //마지막일
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.dark(), //다크 테마
@@ -197,8 +245,12 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
         );
       },
     );
-    selectedDate.then(
-        (value) => dateController.text = value.toString().substring(0, 10));
+
+    selectedDate.then((dateTime) {
+      setState(() {
+        dateController.text = dateTime.toString().substring(0, 10);
+      });
+    });
   }
 
   _initSharedPreferences() async {
@@ -213,84 +265,135 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
     // TODO: implement initState
     super.initState();
     _initSharedPreferences();
+    idController.text = widget.user.id.toString();
+    dateController.text = widget.user.birthdate.toString();
+    int index = widget.user.email.toString().indexOf(atSign);
+    emailController.text = widget.user.email.toString().substring(0, index);
+    nameController.text = widget.user.name.toString();
+    correctName = true;
+    correctpw = false;
+    pwcheck = false;
+    correctEmail = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('회원정보 수정'),
-        elevation: 0,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 350,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  style: BorderStyle.solid,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 1,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('회원정보 수정'),
+          elevation: 0,
+        ),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 350,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      style: BorderStyle.solid,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('users')
-                        .where('id', isEqualTo: id)
-                        .snapshots(),
-                    builder: ((context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      final documents = snapshot.data!.docs;
+                  child: Column(
+                    children: [
+                      StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .where('id', isEqualTo: id)
+                            .snapshots(),
+                        builder: ((context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          final documents = snapshot.data!.docs;
 
-                      return documents.map(((e) {
-                        final user = UserModel(
-                          name: e['name'],
-                          id: e['id'],
-                          birthdate: e['birthdate'],
-                          email: e['email'],
-                        );
-                        return Column(
-                          children: [
-                            _joinText('이름', _editName(user.name.toString())),
-                            _joinText('아이디', _editID(user.id.toString())),
-                            _joinText('새 비밀번호', _editPW()),
-                            _joinText('비밀번호 확인', _confirmPW()),
-                            _joinText('생년월일',
-                                _editBirthday(user.birthdate.toString())),
-                            _joinText('이메일', _editEmail(user.email.toString())),
-                          ],
-                        );
-                      })).first;
-                    }),
+                          return documents.map(((e) {
+                            final user = UserModel(
+                              name: e['name'],
+                              id: e['id'],
+                              birthdate: e['birthdate'],
+                              email: e['email']
+                                  .substring(0, e['email'].indexOf('@')),
+                            );
+                            return Column(
+                              children: [
+                                _joinText(
+                                    '이름', _editName(user.name.toString())),
+                                _joinText('아이디', _editID(user.id.toString())),
+                                _joinText('새 비밀번호', _editPW()),
+                                _joinText('비밀번호 확인', _confirmPW()),
+                                _joinText('생년월일',
+                                    _editBirthday(user.birthdate.toString())),
+                                _joinText(
+                                    '이메일', _editEmail(user.email.toString())),
+                              ],
+                            );
+                          })).first;
+                        }),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 50.0),
+                  child: ElevatedButton(
+                      onPressed:
+                          correctName && correctpw && pwcheck && correctEmail
+                              ? () {
+                                  
+                                  _dialog();
+                                }
+                              : null,
+                      child: const Text('수정')),
+                )
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0),
-              child: ElevatedButton(onPressed: () {}, child: const Text('수정')),
-            )
-          ],
+          ),
         ),
       ),
     );
+  }
+
+  //Desc: Dialog
+  //Date: 2023-01-12
+  _dialog(){
+    showDialog(
+        context: Get.context!,
+        builder: (context) => MessagePopup(
+          title: '시스템',
+          message: '회원정보를 수정하시겠습니까?',
+          okCallback: () {
+            UserRepository usrr = UserRepository();
+                                  usrr.updateUser(
+                                      nameController.text,
+                                      passwordController1.text,
+                                      emailController.text,
+                                      dateController.text);
+            Get.to(const App());
+          },
+          cancelCallback: () {
+            Get.back();
+          },
+        ),
+      );
   }
 }

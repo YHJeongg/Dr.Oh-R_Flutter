@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/model/user.dart';
+import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/mypage/chart_diabetes.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/view/mypage/sign_out.dart';
@@ -76,8 +77,10 @@ class _MyPageState extends State<MyPage> {
                   SizedBox(
                     height: 35,
                     child: TextButton(
-                      onPressed: () {
-                        Get.to(() => const EditMemberInfo());
+                      onPressed: () async {
+                        UserRepository usrr=UserRepository();
+                        UserModel usr=await usrr.getUserInfo();
+                        Get.to(EditMemberInfo(user: usr));
                       },
                       child: const Text(
                         '수정',

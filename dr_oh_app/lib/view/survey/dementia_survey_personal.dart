@@ -17,7 +17,9 @@ List<String> wage = <String>[
   '미숙련 작업자',
   '학생, 가정주부'
 ];
-List<Widget> gender = <Widget>[const Text('여자'), const Text('남자')];
+List<Widget> gender = <Widget>[
+  const Text('여자'), 
+  const Text('남자')];
 
 class DementiaPersonal extends StatefulWidget {
   const DementiaPersonal({super.key});
@@ -49,52 +51,28 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
         title: const Text('치매 진단'),
         elevation: 0,
       ),
-      body: Center(
-        child: //-------2nd page(설문 시작 전 질문 사항) 이건 당뇨, 뇌졸중이랑 다른 부분이라 따로 위젯을 안뺐음(필요하면 뺌) --------
-            Column(
-          children: [
-            Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                height: 200,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        //offset: Offset(0, 2)
-                      ),
-                    ]),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      '검사 시행 전 검사를 받는 분의\n교육 수준을 파악하기 위해\n아래와 같은 정보를 입력해 주시기\n바랍니다.',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                )),
-            Container(
-              //container design은 크기 보려고 임시로 해놨습니다.
-              alignment: Alignment.center,
-              margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-              height: 400,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      //offset: Offset(0, 2)
-                    ),
-                  ]),
-              child: Column(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+        child: Center(
+                  
+          child: //-------2nd page(설문 시작 전 질문 사항) 이건 당뇨, 뇌졸중이랑 다른 부분이라 따로 위젯을 안뺐음(필요하면 뺌) --------
+          
+              Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    '검사 시행 전 검사를 받는 분의\n교육 수준을 파악하기 위해\n아래와 같은 정보를 입력해 주시기\n바랍니다.',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
+                        color:  Color(0xFF5B9D46)
+                        ),
+                  ),
+                ],
+              ),
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
@@ -104,7 +82,7 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
                       decoration: const InputDecoration(hintText: '나이'),
                       onChanged: (value) {
                         setState(() {
-                          DementiaAnswerFinal.age = int.parse(ageController.text);
+                          DementiaAnswerFinal.age = ageController.text;
                         });
                       },
                     ),
@@ -174,22 +152,33 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
                   ),
                 ],
               ),
-            ),
-            Column(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      print(DementiaAnswerFinal.age);
-                      print(DementiaAnswerFinal.edu);
-                      print(DementiaAnswerFinal.wage);
-                      print(DementiaAnswerFinal.gender);
-                      Get.off(const DementiaSurveySecond());
-                    },
-                    child: const Text('다음 설문'))
-              ],
-            ),
-          ],
-        ), //2nd page End
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          print(DementiaAnswerFinal.age);
+                          print(DementiaAnswerFinal.edu);
+                          print(DementiaAnswerFinal.wage);
+                          print(DementiaAnswerFinal.gender);
+                          Get.off(const DementiaSurveySecond());
+                        },
+                        style: ButtonStyle(
+                          minimumSize: MaterialStatePropertyAll(Size(300, 60),)
+                        ),
+                        
+                        child: const Text('다음 설문',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
+                        color: Colors.white
+                        ),
+                    )),
+                  ],
+                ),
+              ),
+            ],
+          ), //2nd page End
+        ),
       ),
     );
   }
@@ -234,9 +223,11 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
       },
       borderRadius: const BorderRadius.all(Radius.circular(8)),
       //selectedBorderColor: Colors.red[700],
-      //selectedColor: Colors.white,
-      //fillColor: Colors.red[200],
-      //color: Colors.red[400],
+      
+      selectedColor: Colors.white,
+      fillColor: Color.fromARGB(255, 249, 212, 109),
+      focusColor: Color.fromARGB(255, 213, 160, 1),
+      color: Color.fromARGB(255, 13, 11, 4),
       constraints: const BoxConstraints(
         minHeight: 40.0,
         minWidth: 150.0,

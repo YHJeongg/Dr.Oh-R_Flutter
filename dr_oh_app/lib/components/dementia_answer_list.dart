@@ -22,7 +22,7 @@ class DementiaAnswer {
     NList(),
     OList()
   ];
-  List<Widget> dementiaAnswerTest = const[ZList(), AList(), DList(), HList()];
+  List<Widget> dementiaAnswerTest = const[ZList(), AList(), DList(), HList(), JList(), QList(), KList(), LList()];
 
   List<String> dementiaText = const [
     '1',
@@ -70,7 +70,7 @@ class _ZListState extends State<ZList> {
             onChanged: (value) {
               
               if(yearController.text=='2023'){
-                DementiaAnswerFinal.yearCount = 10;
+                DementiaAnswerFinal.yearCount = 2;
               }else{
                 DementiaAnswerFinal.yearCount = 0;
               }
@@ -94,9 +94,9 @@ class AList extends StatefulWidget {
 }
 
 class _AListState extends State<AList> {
-  List<Widget> season = [Text('봄'),Text('여름'),Text('가을'),Text('겨울')];
+  List<Widget> season = [const Text('봄'),const Text('여름'),const Text('가을'),const Text('겨울')];
 
-  final List<bool> _selectedSeason = <bool>[false, false, false, false];
+  final List<bool> _selectedSeason = <bool>[true, false, false, false];
 
 
   @override
@@ -115,7 +115,7 @@ class _AListState extends State<AList> {
                     }
 
                     if(_selectedSeason == [false, false, false, true]){
-                      DementiaAnswerFinal.seasoncount = 5;
+                      DementiaAnswerFinal.seasoncount = 4;
                     }else{
                       DementiaAnswerFinal.seasoncount = 0;
                     }
@@ -123,6 +123,15 @@ class _AListState extends State<AList> {
                     print(_selectedSeason);
             });
           },
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+               // selectedBorderColor: Colors.green[700],
+                selectedColor: Colors.white,
+                fillColor: Colors.green[200],
+                color: Colors.green[400],
+                constraints: const BoxConstraints(
+                  minHeight: 40.0,
+                  minWidth: 80.0,
+                ),
           isSelected: _selectedSeason,
           children: season)
       ],
@@ -227,7 +236,7 @@ class DList extends StatefulWidget {
 
 class _DListState extends State<DList> {
 
-  List<Widget> country = [Text('대한민국'),Text('미국'),Text('일본')];
+  List<Widget> country = [const Text('대한민국'),const Text('미국'),const Text('일본')];
 
   final List<bool> _selectedcountry = <bool>[false, false, false];
   @override
@@ -246,7 +255,7 @@ class _DListState extends State<DList> {
                       _selectedcountry[i] = i == index;
                     }
                     if(_selectedcountry == [false, true, false]){
-                      DementiaAnswerFinal.countrycount = 5;
+                      DementiaAnswerFinal.countrycount = 4;
                     }else{
                       DementiaAnswerFinal.countrycount = 0;
                     }
@@ -254,6 +263,15 @@ class _DListState extends State<DList> {
                     print(_selectedcountry);
             });
           },
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                //selectedBorderColor: Colors.blue[700],
+                selectedColor: Colors.white,
+                fillColor: Colors.red[200],
+                color: Colors.red[400],
+                constraints: const BoxConstraints(
+                  minHeight: 40.0,
+                  minWidth: 80.0,
+                ),
           isSelected: _selectedcountry,
           children: country),
           
@@ -385,50 +403,78 @@ class _HListState extends State<HList> {
   Widget build(BuildContext context) {
 
     return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          TextField(
-            controller: aProductController,
-            decoration: InputDecoration(
-              hintText: '단어를 입력하세요.'
+          SizedBox(
+            width: 80,
+            height: 40,
+            child: TextField(
+              
+              controller: aProductController,
+              decoration: const InputDecoration(
+                // hintText: '단어를 입력하세요.',
+                // enabledBorder: OutlineInputBorder(
+                //   borderRadius: BorderRadius.all(Radius.circular(20)),
+                //   borderSide: BorderSide(color: Colors.lightGreen,)
+                // )
+              ),
+              onChanged: (value) {
+                if(aProductController.text == '연필'){
+                  DementiaAnswerFinal.wordsCount = 4;
+                }else{
+                  DementiaAnswerFinal.wordsCount = 0;
+                }
+                  print(DementiaAnswerFinal.wordsCount);
+              },
             ),
-            onChanged: (value) {
-              if(aProductController.text == '연필'){
-                DementiaAnswerFinal.wordsCount = 10;
-              }else{
-                DementiaAnswerFinal.wordsCount = 0;
-              }
+          ),
+          
+          SizedBox(
+             width: 80,
+            height: 40,
+            child: TextField(
+              controller: bProductController,
+              decoration: const InputDecoration(
+                // hintText: '단어를 입력하세요.',
+                // enabledBorder: OutlineInputBorder(
+                //   borderRadius: BorderRadius.all(Radius.circular(20)),
+                //   borderSide: BorderSide(color: Colors.lightGreen,)
+                // )
+              ),
+              onChanged: (value) {
+                if(bProductController.text == '모자'){
+                  DementiaAnswerFinal.wordsCount = 10;
+                }else{
+                  DementiaAnswerFinal.wordsCount = 0;
+                }
                 print(DementiaAnswerFinal.wordsCount);
-            },
-          ),
-          TextField(
-            controller: bProductController,
-            decoration: InputDecoration(
-              hintText: '단어를 입력하세요.'
+              },
             ),
-            onChanged: (value) {
-              if(bProductController.text == '모자'){
-                DementiaAnswerFinal.wordsCount = 10;
-              }else{
-                DementiaAnswerFinal.wordsCount = 0;
-              }
-              print(DementiaAnswerFinal.wordsCount);
-            },
           ),
-          TextField(
-            controller: cProductController,
-            decoration: InputDecoration(
-              hintText: '단어를 입력하세요.'
+          
+          SizedBox(
+             width: 80,
+            height: 40,
+            child: TextField(
+              controller: cProductController,
+              decoration: const InputDecoration(
+                // hintText: '단어를 입력하세요.',
+                // enabledBorder: OutlineInputBorder(
+                //   borderRadius: BorderRadius.all(Radius.circular(20)),
+                //   borderSide: BorderSide(color: Colors.lightGreen,)
+                // )
+              ),
+              onChanged: (value) {
+                if(cProductController.text == '나무'){
+                  DementiaAnswerFinal.wordsCount = 10;
+                }else{
+                  DementiaAnswerFinal.wordsCount = 0;
+                }
+                print(DementiaAnswerFinal.wordsCount);
+              },
             ),
-            onChanged: (value) {
-              if(cProductController.text == '나무'){
-                DementiaAnswerFinal.wordsCount = 10;
-              }else{
-                DementiaAnswerFinal.wordsCount = 0;
-              }
-              print(DementiaAnswerFinal.wordsCount);
-            },
           ),
         ],
       ),
@@ -491,10 +537,24 @@ class _JListState extends State<JList> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Row(
+      child: Column(
         children: [
-          TextField(
-            controller: numController,
+          SizedBox(
+            width: 200,
+            height: 40,
+            child: TextField(
+              controller: numController,
+              keyboardType: TextInputType.number,
+            onChanged: (value) {
+              
+              if(numController.text=='93'){
+                DementiaAnswerFinal.num1 = 4;
+              }else{
+                DementiaAnswerFinal.num1 = 0;
+              }
+              print(DementiaAnswerFinal.num1);
+            },
+            ),
           ),
         ],
       ),
@@ -523,10 +583,24 @@ class _QListState extends State<QList> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Row(
+      child: Column(
         children: [
-          TextField(
-            controller: numController,
+          SizedBox(
+            width: 200,
+            height: 40,
+            child: TextField(
+              controller: numController,
+              keyboardType: TextInputType.number,
+            onChanged: (value) {
+              
+              if(numController.text=='86'){
+                DementiaAnswerFinal.num2 = 4;
+              }else{
+                DementiaAnswerFinal.num2 = 0;
+              }
+              print(DementiaAnswerFinal.num2);
+            },
+            ),
           ),
         ],
       ),
@@ -553,13 +627,27 @@ class _KListState extends State<KList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: numController,
-        ),
-      ],
-    );
+    return Column(
+        children: [
+          SizedBox(
+            width: 200,
+            height: 40,
+            child: TextField(
+              controller: numController,
+              keyboardType: TextInputType.number,
+            onChanged: (value) {
+              
+              if(numController.text=='79'){
+                DementiaAnswerFinal.num3 = 4;
+              }else{
+                DementiaAnswerFinal.num3 = 0;
+              }
+              print(DementiaAnswerFinal.num3);
+            },
+            ),
+          ),
+        ],
+      );
   }
 }
 
@@ -582,13 +670,27 @@ class _LListState extends State<LList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: numController,
-        ),
-      ],
-    );
+    return Column(
+        children: [
+          SizedBox(
+            width: 200,
+            height: 40,
+            child: TextField(
+              controller: numController,
+              keyboardType: TextInputType.number,
+            onChanged: (value) {
+              
+              if(numController.text=='72'){
+                DementiaAnswerFinal.num4 = 4;
+              }else{
+                DementiaAnswerFinal.num4 = 0;
+              }
+              print(DementiaAnswerFinal.num4);
+            },
+            ),
+          ),
+        ],
+      );
   }
 }
 
