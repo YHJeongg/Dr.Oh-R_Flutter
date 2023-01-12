@@ -22,7 +22,7 @@ class DementiaAnswer {
     NList(),
     OList()
   ];
-  List<Widget> dementiaAnswerTest = const[ZList(), AList(), DList(), HList()];
+  List<Widget> dementiaAnswerTest = const[ZList(), AList(), DList(), HList(), JList(), QList(), KList(), LList()];
 
   List<String> dementiaText = const [
     '1',
@@ -70,7 +70,7 @@ class _ZListState extends State<ZList> {
             onChanged: (value) {
               
               if(yearController.text=='2023'){
-                DementiaAnswerFinal.yearCount = 10;
+                DementiaAnswerFinal.yearCount = 2;
               }else{
                 DementiaAnswerFinal.yearCount = 0;
               }
@@ -115,7 +115,7 @@ class _AListState extends State<AList> {
                     }
 
                     if(_selectedSeason == [false, false, false, true]){
-                      DementiaAnswerFinal.seasoncount = 5;
+                      DementiaAnswerFinal.seasoncount = 4;
                     }else{
                       DementiaAnswerFinal.seasoncount = 0;
                     }
@@ -255,7 +255,7 @@ class _DListState extends State<DList> {
                       _selectedcountry[i] = i == index;
                     }
                     if(_selectedcountry == [false, true, false]){
-                      DementiaAnswerFinal.countrycount = 5;
+                      DementiaAnswerFinal.countrycount = 4;
                     }else{
                       DementiaAnswerFinal.countrycount = 0;
                     }
@@ -422,7 +422,7 @@ class _HListState extends State<HList> {
               ),
               onChanged: (value) {
                 if(aProductController.text == '연필'){
-                  DementiaAnswerFinal.wordsCount = 10;
+                  DementiaAnswerFinal.wordsCount = 4;
                 }else{
                   DementiaAnswerFinal.wordsCount = 0;
                 }
@@ -537,10 +537,24 @@ class _JListState extends State<JList> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Row(
+      child: Column(
         children: [
-          TextField(
-            controller: numController,
+          SizedBox(
+            width: 200,
+            height: 40,
+            child: TextField(
+              controller: numController,
+              keyboardType: TextInputType.number,
+            onChanged: (value) {
+              
+              if(numController.text=='93'){
+                DementiaAnswerFinal.num1 = 4;
+              }else{
+                DementiaAnswerFinal.num1 = 0;
+              }
+              print(DementiaAnswerFinal.num1);
+            },
+            ),
           ),
         ],
       ),
@@ -569,10 +583,24 @@ class _QListState extends State<QList> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Row(
+      child: Column(
         children: [
-          TextField(
-            controller: numController,
+          SizedBox(
+            width: 200,
+            height: 40,
+            child: TextField(
+              controller: numController,
+              keyboardType: TextInputType.number,
+            onChanged: (value) {
+              
+              if(numController.text=='86'){
+                DementiaAnswerFinal.num2 = 4;
+              }else{
+                DementiaAnswerFinal.num2 = 0;
+              }
+              print(DementiaAnswerFinal.num2);
+            },
+            ),
           ),
         ],
       ),
@@ -599,13 +627,27 @@ class _KListState extends State<KList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: numController,
-        ),
-      ],
-    );
+    return Column(
+        children: [
+          SizedBox(
+            width: 200,
+            height: 40,
+            child: TextField(
+              controller: numController,
+              keyboardType: TextInputType.number,
+            onChanged: (value) {
+              
+              if(numController.text=='79'){
+                DementiaAnswerFinal.num3 = 4;
+              }else{
+                DementiaAnswerFinal.num3 = 0;
+              }
+              print(DementiaAnswerFinal.num3);
+            },
+            ),
+          ),
+        ],
+      );
   }
 }
 
@@ -628,13 +670,27 @@ class _LListState extends State<LList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: numController,
-        ),
-      ],
-    );
+    return Column(
+        children: [
+          SizedBox(
+            width: 200,
+            height: 40,
+            child: TextField(
+              controller: numController,
+              keyboardType: TextInputType.number,
+            onChanged: (value) {
+              
+              if(numController.text=='72'){
+                DementiaAnswerFinal.num4 = 4;
+              }else{
+                DementiaAnswerFinal.num4 = 0;
+              }
+              print(DementiaAnswerFinal.num4);
+            },
+            ),
+          ),
+        ],
+      );
   }
 }
 
