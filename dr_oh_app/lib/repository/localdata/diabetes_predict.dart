@@ -50,18 +50,15 @@ class DiabetesPredict {
     return result;
   }
 
-    //Desc: 검사 결과 저장
+  //Desc: 검사 결과 저장
   //Date: 2023-01-11
   _saveResult(String result) async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('id')!;
-
-    var doc1=await FirebaseFirestore.instance.collection('users').where('id',isEqualTo: id).get();
-    var doc2=doc1.docs.first.id;
+    String date=DateTime.now().toString().substring(0,10);
 
     FirebaseFirestore.instance
-        .collection('users')
-        .doc(doc2)
-        .update({'Diabetes': result});
+        .collection('Diabetes_result')
+        .add({'result': result,'userid':id,'date':date});
   }
 }
