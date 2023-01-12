@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/news_api.dart';
+import 'package:dr_oh_app/model/body_info_model.dart';
 import 'package:dr_oh_app/model/checkup_history_model.dart';
 import 'package:dr_oh_app/model/name_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
