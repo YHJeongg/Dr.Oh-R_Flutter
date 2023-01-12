@@ -4,12 +4,11 @@ import 'package:dr_oh_app/view/survey/dementia_survey_personal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class DementiaSurvey extends StatelessWidget {
   DementiaSurvey({super.key});
 
   final PageController _nextController = PageController();
-  
+
   //final GlobalKey expansionTileKey = GlobalKey();
 
   @override
@@ -48,50 +47,61 @@ class DementiaSurvey extends StatelessWidget {
   } //_pages
 
   Widget surveyStart() {
-    
     return Column(
       children: [
         Column(
           children: const [
-
-            SizedBox(
-              height: 30
+            SizedBox(height: 30),
+            Text(
+              '치매 검사를 ',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+                color: Color(0xFF5B9D46),
+              ),
             ),
-            Text('치매 검사를 ',
-             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color:  Color(0xFF5B9D46),),
-             ),
-             Text('시작하시겠습니까?',
-             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color:  Color(0xFF5B9D46),),
-             ),
-             SizedBox(height: 30),
-             Text('본 질문은 치매의 진단을 예측하는 것으로 \n치매 진단을 목적으로 하지 않습니다. \n정확한 진단을 위해서는 가까운 병원이나 \n보건소에 방문하시기 바랍니다.',
-             style: TextStyle(color: Colors.red),)
+            Text(
+              '시작하시겠습니까?',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+                color: Color(0xFF5B9D46),
+              ),
+            ),
+            SizedBox(height: 30),
+            Text(
+              '본 질문은 치매의 진단을 예측하는 것으로 \n치매 진단을 목적으로 하지 않습니다. \n정확한 진단을 위해서는 가까운 병원이나 \n보건소에 방문하시기 바랍니다.',
+              style: TextStyle(color: Colors.red),
+            )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          SizedBox(
-            width: 350,
-            height: 250,
-            child: Image.asset('images/dementiaStartPage.jpg')),
-            SizedBox(height: 30,),
+            SizedBox(
+                width: 350,
+                height: 250,
+                child: Image.asset('images/dementiaStartPage.jpg')),
+            const SizedBox(
+              height: 30,
+            ),
             ElevatedButton(
-                onPressed: () => Get.off(const DementiaPersonal()),
-                child: const Text('설문하러 가기',
-                style: TextStyle(fontSize: 30, color: Colors.white,
-                fontWeight: FontWeight.bold, 
-                )),
-                style: ElevatedButton.styleFrom(
+              onPressed: () => Get.off(const DementiaPersonal()),
+              style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF5B9D46),
-                  minimumSize: Size(150, 80)
+                  minimumSize: const Size(150, 80)),
+              child: const Text(
+                '설문하러 가기',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
-                
-                ),
-
+              ),
+            ),
           ],
         ),
       ],

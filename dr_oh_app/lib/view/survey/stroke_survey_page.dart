@@ -108,7 +108,8 @@ class StrokeSurveyPage extends StatelessWidget {
               );
             },
           ),
-          // 진단 버튼 누르기 -> Rserve로 보내서 머신러닝 실행
+          // Date: 2023-01-11, SangwonKim
+          // Desc: 진단 버튼 누르기 -> Rserve로 보내서 머신러닝 실행
           ElevatedButton(
             onPressed: () async {
               if (StrokeMessage.hypertension == '' ||
@@ -121,7 +122,7 @@ class StrokeSurveyPage extends StatelessWidget {
                   '안내',
                   '문진답변을 확인해주세요',
                   backgroundColor: Colors.redAccent,
-                  snackPosition: SnackPosition.BOTTOM,
+                  snackPosition: SnackPosition.TOP,
                   duration: const Duration(seconds: 1),
                 );
               } else {
@@ -138,7 +139,8 @@ class StrokeSurveyPage extends StatelessWidget {
                   int.parse(StrokeMessage.residenceType),
                   int.parse(StrokeMessage.smoke),
                 );
-                Get.off(StrokeResultPage(result: result)); // 설문페이지로 안돌아오게 설정
+                // 설문페이지로 안돌아오게 설정
+                Get.off(StrokeResultPage(result: result));
                 // Date: 2023-01-11, SangwonKim
                 // Desc: 사용자의 설문 입력값 초기값으로 설정해주기
                 StrokeMessage.hypertension = '';

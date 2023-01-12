@@ -5,6 +5,7 @@ import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/mypage/chart_diabetes.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/view/mypage/sign_out.dart';
+import 'package:dr_oh_app/view/mypage/stroke_chart_record.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -207,7 +208,7 @@ class _MyPageState extends State<MyPage> {
                     Icons.show_chart,
                     color: Color(0xFF99CD89),
                   ),
-                  const SignOut(),
+                  const StrokeChartRecord(),
                 ),
                 const Divider(),
                 _btnContentActions(

@@ -113,7 +113,7 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
 
                 Get.off(DementiaResult(result:result, resultReg:resultReg));
               },
-              style: ButtonStyle(
+              style: const ButtonStyle(
                           minimumSize: MaterialStatePropertyAll(Size(300, 60),)
                         ),
               child: const Text(
