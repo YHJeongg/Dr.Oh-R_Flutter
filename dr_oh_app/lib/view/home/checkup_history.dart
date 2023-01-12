@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
