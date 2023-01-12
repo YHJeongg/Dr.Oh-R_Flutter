@@ -47,10 +47,8 @@ class _StrokeChartRecordState extends State<StrokeChartRecord> {
                 return const Center(child: CircularProgressIndicator());
               }
               final documents = snapshot.data!.docs;
-              return ListView(
-                children:
-                    documents.map((e) => LineChartSample2(doc: e)).toList(),
-              );
+              return documents.map((e) => chartSample(e)).first;
+              
             }),
       ),
     );
@@ -112,6 +110,16 @@ class _StrokeChartRecordState extends State<StrokeChartRecord> {
       ),
     );
   }
+
+  // Widget chartSample(DocumentSnapshot doc){
+
+  //   return LineChartSample2(doc: doc,);
+  // }
+
+  Widget chartSample(DocumentSnapshot doc) {
+    String chartdata=doc['result'];
+    return LineChartSample2(doc: doc,);
+  }
 }
 
 // -------------------------------------------------------------------------
@@ -151,7 +159,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: <Widget>[
+      children: [
         AspectRatio(
           aspectRatio: 1.20,
           child: DecoratedBox(
@@ -232,14 +240,14 @@ class _LineChartSample2State extends State<LineChartSample2> {
     );
     String text;
     switch (value.toInt()) {
-      case 1:
-        text = '10K';
+      case 0:
+        text = '0';
         break;
       case 3:
-        text = '30k';
+        text = '30';
         break;
       case 5:
-        text = '50k';
+        text = '50';
         break;
       default:
         return Container();
@@ -311,17 +319,17 @@ class _LineChartSample2State extends State<LineChartSample2> {
             for(int i=0; i<numList!.length; i++)...[
             FlSpot(i.toDouble(), double.parse(numList![i].toString())),
             
-            ]
-            // FlSpot(1, numList![1]),
-            // FlSpot(2, numList![2]),
-            // FlSpot(3, numList![3]),
-            // FlSpot(4, numList![4]),
-            // FlSpot(5, numList![5]),
-            // FlSpot(6, numList![6]),
-            // FlSpot(7, numList![7]),
-            // FlSpot(8, numList![8]),
-            // FlSpot(9, numList![9]),
-            // FlSpot(10, numList![10]),
+            ],
+            FlSpot(1, numList![1]),
+            FlSpot(2, numList![2]),
+            FlSpot(3, numList![3]),
+            FlSpot(4, numList![4]),
+            FlSpot(5, numList![5]),
+            FlSpot(6, numList![6]),
+            FlSpot(7, numList![7]),
+            FlSpot(8, numList![8]),
+            FlSpot(9, numList![9]),
+            FlSpot(10, numList![10]),
           ],
           isCurved: true,
           gradient: LinearGradient(
