@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/components/dementia_bar_chart_widget.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
@@ -87,6 +88,7 @@ class _DementiaResultState extends State<DementiaResult> {
                     Get.off(
                       const App(),
                     );
+                    _addAction();
                   },
                   style: const ButtonStyle(
                             minimumSize: MaterialStatePropertyAll(Size(300, 60),)
@@ -110,5 +112,22 @@ class _DementiaResultState extends State<DementiaResult> {
     setState(() {
       id = (prefs.getString('id') ?? "");
     });
-  }
+  }//_initSharedPreferences
+
+
+  _addAction() async {
+    
+    String date=DateTime.now().toString().substring(0,10);
+
+    var data = await FirebaseFirestore.instance
+      .collection('users')
+      .where('id',isEqualTo: id)
+      .get();
+
+      FirebaseFirestore.instance
+      .collection('users').doc(data.docs.first.id)
+      .collection('dementia_p').add({'date' : date, 'dementia_p' : resultReg1});
+  }// -addAction
+
+
 }

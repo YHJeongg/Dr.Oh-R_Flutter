@@ -130,7 +130,7 @@ class _AListState extends State<AList> {
                 color: Colors.green[400],
                 constraints: const BoxConstraints(
                   minHeight: 40.0,
-                  minWidth: 80.0,
+                  minWidth: 75.0,
                 ),
           isSelected: _selectedSeason,
           children: season)
@@ -238,7 +238,7 @@ class _DListState extends State<DList> {
 
   List<Widget> country = [const Text('대한민국'),const Text('미국'),const Text('일본')];
 
-  final List<bool> _selectedcountry = <bool>[false, false, false];
+  final List<bool> _selectedcountry = <bool>[true, false, false];
   @override
   Widget build(BuildContext context) {
     return 
@@ -254,7 +254,7 @@ class _DListState extends State<DList> {
                     for (int i = 0; i < _selectedcountry.length; i++) {
                       _selectedcountry[i] = i == index;
                     }
-                    if(_selectedcountry == [false, true, false]){
+                    if(_selectedcountry == [true, false, false]){
                       DementiaAnswerFinal.countrycount = 4;
                     }else{
                       DementiaAnswerFinal.countrycount = 0;
