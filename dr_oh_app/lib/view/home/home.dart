@@ -5,6 +5,7 @@ import 'package:dr_oh_app/model/checkup_history_model.dart';
 import 'package:dr_oh_app/model/name_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
 import 'package:dr_oh_app/model/user.dart';
+import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/home/all_checkup_history.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
@@ -327,8 +328,10 @@ class _HomeState extends State<Home> {
                         height: 30,
                         width: 20,
                         child: IconButton(
-                          onPressed: () {
-                            Get.to(EditMemberInfo());
+                          onPressed: () async {
+                            UserRepository usrr=UserRepository();
+                            UserModel user=await usrr.getUserInfo();
+                            Get.to(EditMemberInfo(user: user));
                           },
                           icon: const Icon(
                             Icons.arrow_forward_ios,
