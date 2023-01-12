@@ -244,6 +244,7 @@ class _HomeState extends State<Home> {
     ));
   }
 
+
   // Desc: 신체정보 받아오기
   // Date: 2023-01-11
   Widget _getBodyinfo(DocumentSnapshot doc) {
@@ -261,6 +262,7 @@ class _HomeState extends State<Home> {
       ],
     ));
   }
+
 
   // Desc: shared preferences 받기
   // Date: 2023-01-10
@@ -327,8 +329,8 @@ class _HomeState extends State<Home> {
                         width: 20,
                         child: IconButton(
                           onPressed: () async {
-                            UserRepository usrr = UserRepository();
-                            UserModel user = await usrr.getUserInfo();
+                            UserRepository usrr=UserRepository();
+                            UserModel user=await usrr.getUserInfo();
                             Get.to(EditMemberInfo(user: user));
                           },
                           icon: const Icon(
@@ -375,6 +377,7 @@ class _HomeState extends State<Home> {
               _sizedBox(),
               _head('신체정보'),
               const SizedBox(height: 3),
+
               SingleChildScrollView(
                 child: Container(
                   decoration: _borderBox(),
@@ -399,7 +402,6 @@ class _HomeState extends State<Home> {
                             final documents = snapshot.data!.docs;
 
                             return ListView(
-                              physics: const NeverScrollableScrollPhysics(),
                               children: documents
                                   .map((e) => _getBodyinfo(e))
                                   .toList(),
@@ -410,6 +412,7 @@ class _HomeState extends State<Home> {
                       _button(const BodyInfo(), '입력하러 가기')
                     ],
                   ),
+
                 ),
               ),
               _sizedBox(),
