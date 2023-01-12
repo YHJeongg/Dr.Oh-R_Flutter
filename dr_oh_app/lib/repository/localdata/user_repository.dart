@@ -90,4 +90,18 @@ class UserRepository {
         .doc(docs2)
         .update({'height': height, 'weight': weight});
   }
+
+  // Desc: 회원 탈퇴
+  // Date: 2023-01-12
+  deleteUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    String id = (prefs.getString('id') ?? "");
+    var docs1 = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
+    var docs2 = docs1.docs.first.id;
+
+    FirebaseFirestore.instance.collection('users').doc(docs2).delete();
+  }
 }
