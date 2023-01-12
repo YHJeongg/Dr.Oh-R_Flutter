@@ -19,7 +19,7 @@ class _HospitalState extends State<Hospital> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HOSPITAL'),
+        title: const Text('병원 찾기'),
         elevation: 1,
         actions: const [LogoutBtn()],
       ),
