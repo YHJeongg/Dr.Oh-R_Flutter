@@ -13,6 +13,8 @@ public interface RService {
 	public void PredictStroke(HttpServletRequest request, Model model) throws Exception;
 	
 	public void PredictDementia(HttpServletRequest request, Model model) throws Exception;
+	
+	public void PredictDementiaReg(HttpServletRequest request, Model model) throws Exception;
 
 
 }

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-class DementiaPredict {
+class DementiaPredictReg {
   
   Future<String> predict(
     int age,
@@ -22,12 +22,12 @@ class DementiaPredict {
     print(gender1);
     
     var url = Uri.parse(
-        'http://localhost:8080/dementia?Age=$age&EDUC=$edu1&SES=$wage1&MMSE=$total&SexCode=$gender1');
+        'http://localhost:8080/dementiareg?Age=$age&EDUC=$edu1&SES=$wage1&MMSE=$total&SexCode=$gender1');
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
-    String result = dataConvertedJSON['result'];
-print('result');
-print(result);
-    return result;
+    String resultReg = dataConvertedJSON['result'];
+print("resultReg");
+print(resultReg);
+    return resultReg;
   }
 }

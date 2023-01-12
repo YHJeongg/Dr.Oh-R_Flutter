@@ -127,7 +127,7 @@ public class RServiceImpl implements RService {
 		
 		conn.voidEval("library(randomForest)");
 		conn.voidEval("setwd('" + path + "')");
-		conn.voidEval("machine <- readRDS('randomR_dementia.rds','rb')");
+		conn.voidEval("machine <- readRDS('random_dementia.rds','rb')");
 		conn.voidEval("result=as.character(predict(machine,list(Age=" + Age + ", EDUC=" + EDUC + ", SES=" + SES + ", MMSE=" + MMSE + ", SexCode=" + SexCode + ")))");
 
 		String result = conn.eval("result").asString();
@@ -135,6 +135,43 @@ public class RServiceImpl implements RService {
 		model.addAttribute("ITEM", result);
 	}
 
+	@Override
+	public void PredictDementiaReg(HttpServletRequest request, Model model) throws Exception {
+		
+		request.setCharacterEncoding("utf-8");
+		HttpSession session=request.getSession();
+		ServletContext context=session.getServletContext();
+		String path=context.getRealPath("/");
+		path=path.replaceAll("\\\\", "/");
+		
+		int Age = Integer.parseInt(request.getParameter("Age"));
+		int EDUC = Integer.parseInt(request.getParameter("EDUC"));
+		int SES = Integer.parseInt(request.getParameter("SES"));
+		int MMSE = Integer.parseInt(request.getParameter("MMSE"));
+		int SexCode = Integer.parseInt(request.getParameter("SexCode"));
+		
+		System.out.println(Age+"ghgh");
+		System.out.println(EDUC);
+		System.out.println(SES);
+		System.out.println(MMSE);
+		System.out.println(SexCode);
+		
+		
+		RConnection conn = new RConnection();
+		
+		conn.voidEval("library(randomForest)");
+		conn.voidEval("setwd('" + path + "')");
+		conn.voidEval("machine <- readRDS('randomRegres3_dementia.rds','rb')");
+		conn.voidEval("result=as.character(predict(machine,list(Age=" + Age + ", EDUC=" + EDUC + ", SES=" + SES + ", MMSE=" + MMSE + ", SexCode=" + SexCode + ")))");
+
+		String result = conn.eval("result").asString();
+		
+		model.addAttribute("ITEM", result);
+		
+	}
+
+
+	
 	
 
 
