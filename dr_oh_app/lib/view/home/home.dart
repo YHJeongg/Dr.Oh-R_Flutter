@@ -8,7 +8,7 @@ import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/home/all_checkup_history.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
-import 'package:dr_oh_app/view/home/hospital_visit.dart';
+import 'package:dr_oh_app/view/home/hospital_visit_model.dart';
 import 'package:dr_oh_app/view/home/medication.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
@@ -148,7 +148,7 @@ class _HomeState extends State<Home> {
   Widget _button(dynamic path, String title) {
     return ElevatedButton(
       onPressed: () {
-        Get.to(path);
+        Get.to(() => path);
       },
       child: Text(
         title,
@@ -242,14 +242,13 @@ class _HomeState extends State<Home> {
   // Desc: 신체정보 받아오기
   // Date: 2023-01-11
   Widget _getBodyinfo(DocumentSnapshot doc) {
-    final bodyinfo =
-        doc.data().toString().contains('height')
-            ? BodyInfoModel(
-                id: doc['id'],
-                height: doc['height'],
-                weight: doc['weight'],
-              )
-            : BodyInfoModel(id: '', height: '', weight: '');
+    final bodyinfo = doc.data().toString().contains('height')
+        ? BodyInfoModel(
+            id: doc['id'],
+            height: doc['height'],
+            weight: doc['weight'],
+          )
+        : BodyInfoModel(id: '', height: '', weight: '');
     return ListTile(
       title: bodyinfo.height.toString().isNotEmpty
           ? Column(
@@ -275,15 +274,15 @@ class _HomeState extends State<Home> {
               ],
             )
           : Column(
-            children: const [
-             Text(
+              children: const [
+                Text(
                   '입력된 신체정보가 없습니다.',
                   style: TextStyle(
-                      fontSize: 30,
-                    ),
+                    fontSize: 30,
+                  ),
                 ),
-            ],
-          ),
+              ],
+            ),
     );
   }
 
@@ -435,7 +434,7 @@ class _HomeState extends State<Home> {
                           }),
                         ),
                       ),
-                      _button(const BodyInfo(), '입력하러 가기')
+                      _button(BodyInfo(), '입력하러 가기'),
                     ],
                   ),
                 ),
@@ -452,7 +451,15 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         const Text('최근 내원이력'),
-                        _button(const HospitalVisit(), '추가')
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.to(HospitalVisit());
+                          },
+                          child: Text(
+                            '추가',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -462,7 +469,15 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         const Text('최근 투약이력'),
-                        _button(const Medication(), '추가')
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.to(Medication());
+                          },
+                          child: Text(
+                            '추가',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ],
                     ),
                   ),
