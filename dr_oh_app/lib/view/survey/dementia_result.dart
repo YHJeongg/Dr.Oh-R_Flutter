@@ -42,8 +42,8 @@ class _DementiaResultState extends State<DementiaResult> {
     abNormal = '치매';
 
     normalComment = ' 정상입니다. 가벼운 산책이나 요가 등 운동을 꾸준히 하시면 치매 예방에 도움이 됩니다.';
-    lightComment = ' 경도 치매가 의심됩니다. 가까운 병원을 알려드릴게요.';
-    abNormalComment = ' 치매가 의심됩니다. 가까운 병원을 알려드릴게요';
+    lightComment = ' 경도 치매가 의심됩니다. 가까운 병원을 알아보세요!.';
+    abNormalComment = ' 치매가 의심됩니다. 가까운 병원을 알아보세요!';
 
     resultReg1 = double.parse(widget.resultReg)*100;
   }
@@ -59,15 +59,15 @@ class _DementiaResultState extends State<DementiaResult> {
         ),
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('예측 결과는 ${widget.result}입니다.'),
+                //Text('예측 결과는 ${widget.result}입니다.'),
 
-                //Text('예측 결과는 ${resultReg1}입니다.'),
+                Text('예측 결과는 ${resultReg1}입니다.'),
                 
-                Text('${id}님의 예측 결과는 ${widget.result == '0.0' ? normal : widget.result == '0.5' ? lightNormal : abNormal}입니다.',
+                Text('${id}님의 예측 결과는 ${widget.result == '0' ? normal : widget.result == '0.5' ? lightNormal : abNormal}입니다.',
                 style: const TextStyle(
                       fontSize: 20,
                     ),
@@ -75,7 +75,7 @@ class _DementiaResultState extends State<DementiaResult> {
 
                 const DementiaBarChart(),
                
-                Text('${id}님 ${widget.result == '0.0' ? normalComment : widget.result == '0.5' ? lightComment : abNormalComment}',
+                Text('${id}님 ${widget.result == '0' ? normalComment : widget.result == '0.5' ? lightComment : abNormalComment}',
                 style: const TextStyle(
                       fontSize: 20,
                     ),
