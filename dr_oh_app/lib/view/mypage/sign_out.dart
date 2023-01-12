@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/login.dart';
+import 'package:dr_oh_app/viewmodel/auth_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignOut extends StatefulWidget {
   const SignOut({super.key});
@@ -18,6 +20,20 @@ class _SignOutState extends State<SignOut> {
   final firestore = FirebaseFirestore.instance;
 
   TextEditingController pwController = TextEditingController();
+  late String id = '';
+
+  _initSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getString('id').toString();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initSharedPreferences();
+  }
 
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -130,9 +146,10 @@ class _SignOutState extends State<SignOut> {
                 children: [
                   const Text('탈퇴를 위해 비밀번호를 입력해주세요'),
                   // 비밀번호 입력받고 맞으면 deleteUser();
-                  const TextField(
+                  TextField(
+                      controller: pwController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: '비밀번호 입력',
                       )),
                   ElevatedButton(
@@ -141,8 +158,25 @@ class _SignOutState extends State<SignOut> {
 
                       UserRepository rep = UserRepository();
 
-                      // rep.deleteUser();
-                      // Get.offAll(const Login());
+                      AuthController.to.loginIdUser(id, pwController.text).then(
+                        (value) {
+                          if (value?.id == id &&
+                              value?.password == pwController.text) {
+                            // 비밀번호 맞는 경우
+                            rep.deleteUser();
+                            Get.offAll(const Login());
+                          } else {
+                            // 비밀번호 틀린 경우
+                            showDialog(
+                                context: context,
+                                builder: ((context) {
+                                  return const AlertDialog(
+                                    title: Text('비밀번호를 확인해주세요'),
+                                  );
+                                }));
+                          }
+                        },
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,

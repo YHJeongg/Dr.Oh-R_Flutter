@@ -185,8 +185,7 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
               },
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                  hintText: hint),
+              decoration: InputDecoration(hintText: hint),
             ),
           ),
           // Padding(
@@ -358,7 +357,6 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
                       onPressed:
                           correctName && correctpw && pwcheck && correctEmail
                               ? () {
-                                  
                                   _dialog();
                                 }
                               : null,
@@ -374,25 +372,22 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
 
   //Desc: Dialog
   //Date: 2023-01-12
-  _dialog(){
+  _dialog() {
     showDialog(
-        context: Get.context!,
-        builder: (context) => MessagePopup(
-          title: '시스템',
-          message: '회원정보를 수정하시겠습니까?',
-          okCallback: () {
-            UserRepository usrr = UserRepository();
-                                  usrr.updateUser(
-                                      nameController.text,
-                                      passwordController1.text,
-                                      emailController.text,
-                                      dateController.text);
-            Get.to(const App());
-          },
-          cancelCallback: () {
-            Get.back();
-          },
-        ),
-      );
+      context: Get.context!,
+      builder: (context) => MessagePopup(
+        title: '시스템',
+        message: '회원정보를 수정하시겠습니까?',
+        okCallback: () {
+          UserRepository usrr = UserRepository();
+          usrr.updateUser(nameController.text, passwordController1.text,
+              emailController.text, dateController.text);
+          Get.to(const App());
+        },
+        cancelCallback: () {
+          Get.back();
+        },
+      ),
+    );
   }
 }
