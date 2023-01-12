@@ -17,17 +17,7 @@ class _SignOutState extends State<SignOut> {
   bool isChecked = false;
   final firestore = FirebaseFirestore.instance;
 
-  getData() async {
-    var result = await firestore.collection('users').doc().get();
-    print(result);
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getData();
-  }
+  TextEditingController pwController = TextEditingController();
 
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -139,6 +129,7 @@ class _SignOutState extends State<SignOut> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text('탈퇴를 위해 비밀번호를 입력해주세요'),
+                  // 비밀번호 입력받고 맞으면 deleteUser();
                   const TextField(
                       obscureText: true,
                       decoration: InputDecoration(
@@ -147,9 +138,11 @@ class _SignOutState extends State<SignOut> {
                   ElevatedButton(
                     onPressed: () {
                       // 삭제 버튼 누르면 정보 삭제되고 로그인으로 이동
+
                       UserRepository rep = UserRepository();
-                      rep.deleteUser();
-                      Get.offAll(const Login());
+
+                      // rep.deleteUser();
+                      // Get.offAll(const Login());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
