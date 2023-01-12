@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class Findpw extends StatefulWidget {
   const Findpw({super.key});
@@ -27,58 +26,58 @@ class _FindpwState extends State<Findpw> {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: SingleChildScrollView(
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              '비밀번호 찾기',
-            ),
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          title: const Text(
+            '비밀번호 찾기',
           ),
-          body: Center(
-            child: Column(
-              children: [
-                SizedBox(
-                  width: 200,
-                  height: 70,
-                  child: TextField(
-                    controller: idCont,
-                    decoration: const InputDecoration(
-                      labelText: "ID",
-                    ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 200,
+                height: 70,
+                child: TextField(
+                  controller: idCont,
+                  decoration: const InputDecoration(
+                    labelText: "ID",
                   ),
                 ),
-                SizedBox(
-                  width: 200,
-                  height: 70,
-                  child: TextField(
-                    controller: nameCont,
-                    decoration: const InputDecoration(
-                      labelText: "이름",
-                    ),
+              ),
+              SizedBox(
+                width: 200,
+                height: 70,
+                child: TextField(
+                  controller: nameCont,
+                  decoration: const InputDecoration(
+                    labelText: "이름",
                   ),
                 ),
-                SizedBox(
-                  width: 200,
-                  height: 70,
-                  child: TextField(
-                    controller: ageCont,
-                    decoration: const InputDecoration(
-                      labelText: "생년월일",
-                    ),
+              ),
+              SizedBox(
+                width: 200,
+                height: 70,
+                child: TextField(
+                  controller: ageCont,
+                  decoration: const InputDecoration(
+                    labelText: "생년월일",
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: nameCont.text.trim().isNotEmpty &&
-                          ageCont.text.isNotEmpty &&
-                          idCont.text.isNotEmpty
-                      ? () {
-                          //--
-                        }
-                      : null,
-                  child: const Text('비밀번호 찾기'),
-                ),
-              ],
-            ),
+              ),
+              ElevatedButton(
+                onPressed: nameCont.text.trim().isNotEmpty &&
+                        ageCont.text.isNotEmpty &&
+                        idCont.text.isNotEmpty
+                    ? () {
+                        //--
+                      }
+                    : null,
+                child: const Text('비밀번호 찾기'),
+              ),
+            ],
           ),
         ),
       ),
