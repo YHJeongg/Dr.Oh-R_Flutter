@@ -49,66 +49,48 @@ class DementiaSurvey extends StatelessWidget {
     
     return Column(
       children: [
-        Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-          height: 200,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  //offset: Offset(0, 2)
-                ),
-              ]),
-            // UserModel user = UserModel(),
-          child: Column(
-            children: const [
-              
-              
-              Text('병원 방문 없이 간편하게 치매를 점검하세요.'),
-              SizedBox(
-                height: 30,
-              ),
-               Text('치매 검사를 \n시작하시겠습니까?',
-               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color:  Color(0xFF5B9D46),),
-               ),
-               Text('본 질문은 치매의 진단을')
-            ],
-          ),
-        ),
-        Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-          height: 200,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  //offset: Offset(0, 2)
-                ),
-              ]),
-          child: Column(
-            children: [
-              ElevatedButton(
-                  onPressed: () => Get.off(const DementiaPersonal()),
-                  child: const Text('설문하러 가기'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF5B9D46),
-                    minimumSize: Size(150, 80)
-                  ),
-                  
-                  ),
+        Column(
+          children: const [
 
-            ],
-          ),
+            SizedBox(
+              height: 30
+            ),
+            Text('치매 검사를 ',
+             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color:  Color(0xFF5B9D46),),
+             ),
+             Text('시작하시겠습니까?',
+             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color:  Color(0xFF5B9D46),),
+             ),
+             SizedBox(height: 30),
+             Text('본 질문은 치매의 진단을 예측하는 것으로 \n치매 진단을 목적으로 하지 않습니다. \n정확한 진단을 위해서는 가까운 병원이나 \n보건소에 방문하시기 바랍니다.',
+             style: TextStyle(color: Colors.red),)
+          ],
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          SizedBox(
+            width: 350,
+            height: 250,
+            child: Image.asset('images/dementiaStartPage.jpg')),
+            SizedBox(height: 30,),
+            ElevatedButton(
+                onPressed: () => Get.off(const DementiaPersonal()),
+                child: const Text('설문하러 가기',
+                style: TextStyle(fontSize: 30, color: Colors.white,
+                fontWeight: FontWeight.bold, 
+                )),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF5B9D46),
+                  minimumSize: Size(150, 80)
+                ),
+                
+                ),
+
+          ],
         ),
       ],
     );

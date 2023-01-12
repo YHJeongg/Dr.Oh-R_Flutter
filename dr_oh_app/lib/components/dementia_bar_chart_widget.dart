@@ -54,19 +54,13 @@ class _DBarChart extends StatelessWidget {
     String text;
     switch (value.toInt()) {
       
-      case 1:
-        text = '~40대';
-        break;
-      case 2:
-        text = '50대';
-        break;
-      case 3:
+      case 0:
         text = '60대';
         break;
-      case 4:
+      case 1:
         text = '70대';
         break;
-      case 5:
+      case 2:
         text = '80대';
         break;
       default:
@@ -128,7 +122,7 @@ class _DBarChart extends StatelessWidget {
           x: 0,
           barRods: [
             BarChartRodData(
-              toY: 0,
+              toY: 35,
               gradient: _barsGradient,
             )
           ],
@@ -138,7 +132,7 @@ class _DBarChart extends StatelessWidget {
           x: 1,
           barRods: [
             BarChartRodData(
-              toY: 0,
+              toY: 46,
               gradient: _barsGradient,
             )
           ],
@@ -148,26 +142,6 @@ class _DBarChart extends StatelessWidget {
           x: 2,
           barRods: [
             BarChartRodData(
-              toY: 35,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: [
-            BarChartRodData(
-              toY: 46,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 4,
-          barRods: [
-            BarChartRodData(
               toY: 44,
               gradient: _barsGradient,
             )
@@ -175,7 +149,7 @@ class _DBarChart extends StatelessWidget {
           showingTooltipIndicators: [0],
         ),
         BarChartGroupData(
-          x: 5,
+          x: 3,
           barRods: [
             BarChartRodData(
               toY: 35,
