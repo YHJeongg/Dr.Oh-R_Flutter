@@ -73,7 +73,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     );
   }
 
-
   // --- Functions ---
   // -------------------------------------------------------------------------
   // Date: 2023-01-12, SangwonKim
@@ -92,10 +91,14 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     // Desc: 날짜 가져오기
     for (int i = 0; i < widget.listChart.length; i++) {
       if (value.toInt() == i) {
+        
         text = Text(
-          widget.listChart[widget.listChart.length - i - 1]['dateValue']
-              .toString()
-              .replaceFirst('-', '\n'),
+          // orderby date로 가져오지 못할때 사용하기 ***
+          widget.listChart[i]['dateValue'].toString().replaceFirst('-', '\n'),
+
+          // orderby date로 가져올때 사용 ***
+          // widget.listChart[widget.listChart.length - i - 1]['dateValue'].toString().replaceFirst('-', '\n'),
+          
           style: style,
         );
       }
@@ -239,11 +242,11 @@ class _LineChartWidgetState extends State<LineChartWidget> {
             for (int i = 0; i < listChart.length; i++) ...[
               FlSpot(
                   i.toDouble(),
-                  double.parse(listChart[listChart.length - i - 1]
-                              ['resultValue']
-                          .toString()) *
-                      100 /
-                      10),
+                  // orderby date로 가져오지 못할때 사용하기 ***
+                  // double.parse(listChart[i]['resultValue'].toString())/10),
+
+                  // orderby date로 가져올때 사용하기 ***
+                  double.parse(listChart[listChart.length - i - 1]['resultValue'].toString())/10),
             ],
             // FlSpot(3, 3),
           ],
@@ -275,7 +278,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     double avgResult = 0;
     for (int i = 0; i < listChart.length; i++) {
       sumResult = sumResult +
-          (double.parse(listChart[i]['resultValue'].toString()) * 100 / 10);
+          (double.parse(listChart[i]['resultValue'].toString())/10);
     }
     avgResult = sumResult / listChart.length;
 

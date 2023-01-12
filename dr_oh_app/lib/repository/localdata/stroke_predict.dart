@@ -25,10 +25,10 @@ class StrokePredict {
     var url = Uri.parse(
         // 상원 ip
         'http://192.168.35.167:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
-        // 유승 ip
-        //  'http://192.168.55.245:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
-        // 주현 ip
-        // 'http://localhost:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
+    // 유승 ip
+    //  'http://192.168.55.245:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
+    // 주현 ip
+    // 'http://localhost:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
 
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
@@ -43,15 +43,18 @@ class StrokePredict {
   //Date: 2023-01-11, SangwonKim
   //Desc: 뇌졸중 검사 결과 저장하기
   _saveResult(String result) async {
+    
     // SharedPreferences를 통해 로그인한 사용자 id 가져오기
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('id')!;
-
     String date = DateTime.now().toString().substring(0, 10);
 
     // Stroke 데이타 업데이트하기
-    FirebaseFirestore.instance
-        .collection('result')
-        .add({'result': result, 'userid': id, 'date': date, 'category': '뇌졸중'});
+    FirebaseFirestore.instance.collection('result').add({
+      'result': result * 100,
+      'userid': id,
+      'date': date,
+      'category': '뇌졸중'
+    });
   }
 } // End

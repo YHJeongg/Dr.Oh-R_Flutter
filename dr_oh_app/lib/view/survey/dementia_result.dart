@@ -10,7 +10,8 @@ class DementiaResult extends StatefulWidget {
   final String result;
   final String resultReg;
 
-  const DementiaResult({super.key, required this.result, required this.resultReg});
+  const DementiaResult(
+      {super.key, required this.result, required this.resultReg});
 
   @override
   State<DementiaResult> createState() => _DementiaResultState();
@@ -29,8 +30,6 @@ class _DementiaResultState extends State<DementiaResult> {
 
   late String id;
 
-
-
   @override
   void initState() {
     super.initState();
@@ -46,7 +45,8 @@ class _DementiaResultState extends State<DementiaResult> {
     lightComment = ' 경도 치매가 의심됩니다. 가까운 병원을 알아보세요!.';
     abNormalComment = ' 치매가 의심됩니다. 가까운 병원을 알아보세요!';
 
-    resultReg1 = double.parse((double.parse(widget.resultReg)*100).toStringAsFixed(2));
+    resultReg1 =
+        double.parse((double.parse(widget.resultReg) * 100).toStringAsFixed(2));
   }
 
   @override
@@ -68,19 +68,21 @@ class _DementiaResultState extends State<DementiaResult> {
                 //Text('예측 결과는 ${widget.result}입니다.'),
 
                 Text('예측 결과는 $resultReg1입니다.'),
-                
-                Text('$id님의 예측 결과는 ${widget.result == '0' ? normal : widget.result == '0.5' ? lightNormal : abNormal}입니다.',
-                style: const TextStyle(
-                      fontSize: 20,
-                    ),
+
+                Text(
+                  '$id님의 예측 결과는 ${widget.result == '0' ? normal : widget.result == '0.5' ? lightNormal : abNormal}입니다.',
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
 
                 const DementiaBarChart(),
-               
-                Text('${id}님 ${widget.result == '0' ? normalComment : widget.result == '0.5' ? lightComment : abNormalComment}',
-                style: const TextStyle(
-                      fontSize: 20,
-                    ),
+
+                Text(
+                  '${id}님 ${widget.result == '0' ? normalComment : widget.result == '0.5' ? lightComment : abNormalComment}',
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
 
                 ElevatedButton(
@@ -91,13 +93,15 @@ class _DementiaResultState extends State<DementiaResult> {
                     _addAction();
                   },
                   style: const ButtonStyle(
-                            minimumSize: MaterialStatePropertyAll(Size(300, 60),)
-                          ),
+                      minimumSize: MaterialStatePropertyAll(
+                    Size(300, 60),
+                  )),
                   child: const Text(
                     '처음으로',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                          color: Colors.white
-                          ),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
               ],
@@ -106,28 +110,26 @@ class _DementiaResultState extends State<DementiaResult> {
         ));
   }
 
-
   _initSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       id = (prefs.getString('id') ?? "");
     });
-  }//_initSharedPreferences
-
+  } //_initSharedPreferences
 
   _addAction() async {
-    
-    String date=DateTime.now().toString().substring(0,10);
+    String date = DateTime.now().toString().substring(0, 10);
 
     var data = await FirebaseFirestore.instance
-      .collection('users')
-      .where('id',isEqualTo: id)
-      .get();
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
 
-      FirebaseFirestore.instance
-      .collection('users').doc(data.docs.first.id)
-      .collection('dementia_p').add({'date' : date, 'dementia_p' : resultReg1});
-  }// -addAction
-
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(data.docs.first.id)
+        .collection('dementia_p')
+        .add({'date': date, 'dementia_p': resultReg1});
+  } // -addAction
 
 }

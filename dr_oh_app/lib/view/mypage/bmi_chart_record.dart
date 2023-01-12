@@ -4,14 +4,14 @@ import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class StrokeChartRecord extends StatefulWidget {
-  const StrokeChartRecord({super.key});
+class BmiChartRecord extends StatefulWidget {
+  const BmiChartRecord({super.key});
 
   @override
-  State<StrokeChartRecord> createState() => _StrokeChartRecordState();
+  State<BmiChartRecord> createState() => _BmiChartRecordState();
 }
 
-class _StrokeChartRecordState extends State<StrokeChartRecord> {
+class _BmiChartRecordState extends State<BmiChartRecord> {
   late String id;
 
   @override
