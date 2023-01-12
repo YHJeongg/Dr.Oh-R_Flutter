@@ -15,6 +15,7 @@ class Join extends StatefulWidget {
 }
 
 class _JoinState extends State<Join> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   RegExp idpwReg = RegExp(r"^[0-9a-z]{8,}$"); //영문 소문자, 숫자만으로 8자리 이상 정규식
   late TextEditingController idCont;
   late TextEditingController pwCont;
@@ -59,10 +60,16 @@ class _JoinState extends State<Join> {
         Column(
           children: [
             SizedBox(
-              width: Get.width / 2.1,
+              width: Get.width / 2.2,
               height: 70,
-              child: TextField(
+              child: TextFormField(
                 controller: textEditingController,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return '$txt 입력하세요.';
+                  }
+                  return null;
+                },
               ),
             ),
           ],
@@ -90,8 +97,12 @@ class _JoinState extends State<Join> {
             birthdate: dateCont.text,
             gender: gender,
           );
-          AuthController.to.submitSignup(signupUser);
-          Navigator.of(context).pop();
+          if (!_formKey.currentState!.validate()) {
+            return;
+          } else {
+            AuthController.to.submitSignup(signupUser);
+            Navigator.of(context).pop();
+          }
         },
         child: const Text('회원가입'),
       ),
@@ -160,12 +171,17 @@ class _JoinState extends State<Join> {
         Column(
           children: [
             SizedBox(
-              width: Get.width / 2.1,
+              width: Get.width / 2.2,
               height: 70,
-              child: TextField(
+              child: TextFormField(
                 controller: dateCont,
                 readOnly: true,
-                onTap: () => showDatePickerPop(),
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return '출생연도 입력하세요.';
+                  }
+                  return null;
+                },
               ),
             ),
           ],
@@ -192,49 +208,52 @@ class _JoinState extends State<Join> {
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 30),
-                    const Text(
-                      "Dr. Oh",
-                      style: TextStyle(
-                          color: Color(0xFF99CD89),
-                          fontSize: 50,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 30),
-                    _joinText('아이디', idCont),
-                    _joinText('이름', nameCont),
-                    _joinText('비밀번호', pwCont),
-                    _joinText('비밀번호 확인', pwContCheck),
-                    _joinText('이메일', emailCont),
-                    _dateText(),
-                    const SizedBox(height: 10),
-                    _genderCheckBox(),
-                    const SizedBox(height: 50),
-                    _joinBtn(),
-                    const SizedBox(height: 70),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          '계정이 있으신가요?',
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text(
-                            '로그인하기',
-                            style: TextStyle(
-                              color: Colors.blue,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 30),
+                      const Text(
+                        "Dr. Oh",
+                        style: TextStyle(
+                            color: Color(0xFF99CD89),
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 30),
+                      _joinText('아이디', idCont),
+                      _joinText('이름', nameCont),
+                      _joinText('비밀번호', pwCont),
+                      _joinText('비밀번호 확인', pwContCheck),
+                      _joinText('이메일', emailCont),
+                      _dateText(),
+                      const SizedBox(height: 10),
+                      _genderCheckBox(),
+                      const SizedBox(height: 50),
+                      _joinBtn(),
+                      const SizedBox(height: 70),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text(
+                            '계정이 있으신가요?',
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text(
+                              '로그인하기',
+                              style: TextStyle(
+                                color: Colors.blue,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
