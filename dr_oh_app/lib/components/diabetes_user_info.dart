@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/model/body_info_model.dart';
 import 'package:dr_oh_app/model/diabetes_message.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DUserInfo extends StatefulWidget {
   final PageController pageCont;
@@ -138,6 +141,40 @@ class _DUserInfoState extends State<DUserInfo> {
                 ),
                 const SizedBox(
                   height: 100,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    String id = (prefs.getString('id') ?? "");
+                    var docs1 = await FirebaseFirestore.instance
+                        .collection('users')
+                        .where('id', isEqualTo: id)
+                        .get();
+                    final bodyinfo =
+                        docs1.docs.first.data().toString().contains('height')
+                            ? BodyInfoModel(
+                                id: docs1.docs.first.data()['id'],
+                                height: docs1.docs.first.data()['height'],
+                                weight: docs1.docs.first.data()['weight'],
+                              )
+                            : BodyInfoModel(id: '', height: '', weight: '');
+                    final userage=docs1.docs.first.data()['birthdate'].toString().substring(0,4);
+                    if (bodyinfo.height.toString().isNotEmpty) {
+                      heightCont.text = bodyinfo.height.toString();
+                      weightCont.text = bodyinfo.weight.toString();
+                      setState(() {
+                        correctHeight=true;
+                        correctWeight=true;
+                      });
+                    }
+                    ageCont.text=userage;
+                    setState(() {
+                      correctYear=true;
+                    });
+                  },
+                  child: const Text(
+                    '내 정보 가져오기',
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(15),

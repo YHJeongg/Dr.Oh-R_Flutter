@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/model/body_info_model.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../model/stroke_message.dart';
 
 // ------------------------------------------------------------------------
@@ -161,6 +164,42 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
               const SizedBox(
                 height: 16,
               ),
+              ElevatedButton(
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    String id = (prefs.getString('id') ?? "");
+                    var docs1 = await FirebaseFirestore.instance
+                        .collection('users')
+                        .where('id', isEqualTo: id)
+                        .get();
+                    final bodyinfo =
+                        docs1.docs.first.data().toString().contains('height')
+                            ? BodyInfoModel(
+                                id: docs1.docs.first.data()['id'],
+                                height: docs1.docs.first.data()['height'],
+                                weight: docs1.docs.first.data()['weight'],
+                              )
+                            : BodyInfoModel(id: '', height: '', weight: '');
+                    final userage=docs1.docs.first.data()['birthdate'].toString().substring(0,4);
+                    final usersex=docs1.docs.first.data()['gender'].toString();
+                    if (bodyinfo.height.toString().isNotEmpty) {
+                      heightController.text = bodyinfo.height.toString();
+                      weightController.text = bodyinfo.weight.toString();
+                      setState(() {
+                        correctHeight=true;
+                        correctWeight=true;
+                      });
+                    }
+                    ageController.text=userage;
+                    setState(() {
+                      correctYear=true;
+                      sexSwitchValue=usersex=='남자'?false:true;
+                    });
+                  },
+                  child: const Text(
+                    '내 정보 가져오기',
+                  ),
+                ),
               // 다음 버튼 -> 본 설문페이지로 넘어가기
               ElevatedButton(
                 onPressed: correctYear && correctHeight && correctWeight
