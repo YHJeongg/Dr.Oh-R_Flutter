@@ -37,4 +37,18 @@ class MyHistoryRepository {
       return false;
     }
   }
+
+  static Future<void> getHospitalVisit(String id) async {
+    var data = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
+    var doc1Id = data.docs.first.id;
+
+    var result = await FirebaseFirestore.instance
+        .collection('users/$doc1Id/HospitalVisit')
+        .get();
+    var doc2Id = result.docs.first.data();
+    print(doc1Id);
+  }
 }
