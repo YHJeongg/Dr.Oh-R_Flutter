@@ -119,7 +119,8 @@ class _DementiaResultState extends State<DementiaResult> {
                     Get.off(
                       const App(),
                     );
-                    _addAction();
+                    //subcollection try!!
+                    //_addAction();
                   },
                   style: const ButtonStyle(
                       minimumSize: MaterialStatePropertyAll(
@@ -146,20 +147,22 @@ class _DementiaResultState extends State<DementiaResult> {
     });
   } //_initSharedPreferences
 
-  _addAction() async {
-    String date = DateTime.now().toString().substring(0, 10);
 
-    var data = await FirebaseFirestore.instance
-        .collection('users')
-        .where('id', isEqualTo: id)
-        .get();
+//subcollection try!!-향후계획 
+  // _addAction() async {
+  //   String date = DateTime.now().toString().substring(0, 10);
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(data.docs.first.id)
-        .collection('dementia_p')
-        .add({'date': date, 'dementia_p': resultReg1});
-  } // -addAction
+  //   var data = await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .where('id', isEqualTo: id)
+  //       .get();
+
+  //   FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(data.docs.first.id)
+  //       .collection('dementia_p')
+  //       .add({'date': date, 'dementia_p': resultReg1});
+  // } // -addAction
 
 
   Widget _graph() {
