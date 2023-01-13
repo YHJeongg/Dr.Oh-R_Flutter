@@ -23,9 +23,9 @@ class DiabetesPredict {
     var url = Uri.parse(
 
         // 상원 ip
-        'http://192.168.35.167:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+        //'http://192.168.35.167:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
     // 유승 ip
-    //  'http://192.168.10.213:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+      'http://192.168.10.213:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
     // 주현 ip
     // 'http://localhost:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
 
@@ -58,7 +58,7 @@ class DiabetesPredict {
     String date = DateTime.now().toString().substring(0, 10);
 
     FirebaseFirestore.instance.collection('result').add({
-      'result': result,
+      'result': (double.parse(result)*100).toString(),
       'userid': id,
       'date': date,
       'category': '당뇨병'

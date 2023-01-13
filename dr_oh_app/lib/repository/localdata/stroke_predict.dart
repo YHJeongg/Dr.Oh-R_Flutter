@@ -51,7 +51,7 @@ class StrokePredict {
 
     // Stroke 데이타 업데이트하기
     FirebaseFirestore.instance.collection('result').add({
-      'result': result,
+      'result': (double.parse(result)*100).toString(),
       'userid': id,
       'date': date,
       'category': '뇌졸중'
