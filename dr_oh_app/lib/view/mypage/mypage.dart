@@ -9,6 +9,7 @@ import 'package:dr_oh_app/view/mypage/chart_diabetes.dart';
 import 'package:dr_oh_app/view/mypage/bmi_chart_record.dart';
 
 import 'package:dr_oh_app/view/mypage/chart_dimentia.dart';
+import 'package:dr_oh_app/view/mypage/dementia_chart_record.dart';
 import 'package:dr_oh_app/view/mypage/diabetes_chart_record.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/view/mypage/sign_out.dart';
@@ -230,7 +231,7 @@ class _MyPageState extends State<MyPage> {
                   ),
                   // 2023-01-13, SangwonKim
                   // Desc: 뇌졸중 차트 기록으로 가기
-                  const ChartTest(),
+                  const DementiaChartRecord(),
                 ),
                 const Divider(),
                 _btnContentActions(
