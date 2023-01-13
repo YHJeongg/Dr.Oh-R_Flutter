@@ -41,7 +41,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
                   bottom: 20,
                 ),
                 child: LineChart(
-                  // mainData: 꺽은선 그래프
                   showAvg
                       ? avgData(widget.listChart) // 유저 평균
                       : mainData(widget.listChart), // 유저 날짜별 위험도 기록

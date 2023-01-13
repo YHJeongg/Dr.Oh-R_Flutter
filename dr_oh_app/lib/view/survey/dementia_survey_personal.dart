@@ -53,133 +53,135 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
         elevation: 1,
         actions: const [LogoutBtn()],
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
-        child: Center(
-                  
-          child: //-------2nd page(설문 시작 전 질문 사항) 이건 당뇨, 뇌졸중이랑 다른 부분이라 따로 위젯을 안뺐음(필요하면 뺌) --------
-          
-              Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    '검사 시행 전 검사를 받는 분의\n교육 수준을 파악하기 위해\n아래와 같은 정보를 입력해 주시기\n바랍니다.',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                        color:  Color(0xFF5B9D46)
-                        ),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: TextField(
-                      controller: ageController,
-                      decoration: const InputDecoration(hintText: '나이'),
-                      onChanged: (value) {
-                        setState(() {
-                          DementiaAnswerFinal.age = ageController.text;
-                        });
-                      },
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+          child: Center(
+                    
+            child: //-------2nd page(설문 시작 전 질문 사항) 이건 당뇨, 뇌졸중이랑 다른 부분이라 따로 위젯을 안뺐음(필요하면 뺌) --------
+            
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      '검사 시행 전 검사를 받는 분의\n교육 수준을 파악하기 위해\n아래와 같은 정보를 입력해 주시기\n바랍니다.',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
+                          color:  Color(0xFF5B9D46)
+                          ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  SizedBox(
-                      width: 300,
-                      child: DropdownButtonFormField(
-                        decoration: const InputDecoration(
-                            hintText: '교육연수',
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)))),
-                        items:
-                            edu.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            DementiaAnswerFinal.edu = value!;
-                          });
-                        },
-                      )),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                      width: 300,
-                      child: DropdownButtonFormField(
-                        decoration: const InputDecoration(
-                            hintText: '연봉(단위: 만원)',
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)))),
-                        items:
-                            wage.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            DementiaAnswerFinal.wage = value!;
-                            print(DementiaAnswerFinal.wage);
-                          });
-                        },
-                      )),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // SizedBox(
-                  //   width: 300,
-                  //   child: _dropDownBtn('생년월일'),
-                  // ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[_gender()],
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          print(DementiaAnswerFinal.age);
-                          print(DementiaAnswerFinal.edu);
-                          print(DementiaAnswerFinal.wage);
-                          print(DementiaAnswerFinal.gender);
-                          Get.off(const DementiaSurveySecond());
-                        },
-                        style: ButtonStyle(
-                          minimumSize: MaterialStatePropertyAll(Size(300, 60),)
-                        ),
-                        
-                        child: const Text('다음 설문',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                        color: Colors.white
-                        ),
-                    )),
                   ],
                 ),
-              ),
-            ],
-          ), //2nd page End
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: TextField(
+                        controller: ageController,
+                        decoration: const InputDecoration(hintText: '나이'),
+                        onChanged: (value) {
+                          setState(() {
+                            DementiaAnswerFinal.age = ageController.text;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    SizedBox(
+                        width: 300,
+                        child: DropdownButtonFormField(
+                          decoration: const InputDecoration(
+                              hintText: '교육연수',
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)))),
+                          items:
+                              edu.map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              DementiaAnswerFinal.edu = value!;
+                            });
+                          },
+                        )),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                        width: 300,
+                        child: DropdownButtonFormField(
+                          decoration: const InputDecoration(
+                              hintText: '연봉(단위: 만원)',
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)))),
+                          items:
+                              wage.map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              DementiaAnswerFinal.wage = value!;
+                              print(DementiaAnswerFinal.wage);
+                            });
+                          },
+                        )),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    // SizedBox(
+                    //   width: 300,
+                    //   child: _dropDownBtn('생년월일'),
+                    // ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[_gender()],
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            print(DementiaAnswerFinal.age);
+                            print(DementiaAnswerFinal.edu);
+                            print(DementiaAnswerFinal.wage);
+                            print(DementiaAnswerFinal.gender);
+                            Get.off(const DementiaSurveySecond());
+                          },
+                          style: ButtonStyle(
+                            minimumSize: MaterialStatePropertyAll(Size(300, 60),)
+                          ),
+                          
+                          child: const Text('다음 설문',
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
+                          color: Colors.white
+                          ),
+                      )),
+                    ],
+                  ),
+                ),
+              ],
+            ), //2nd page End
+          ),
         ),
       ),
     );

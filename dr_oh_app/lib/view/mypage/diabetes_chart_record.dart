@@ -82,4 +82,5 @@ class _DiabetesChartRecordState extends State<DiabetesChartRecord> {
       id = prefs.getString('id').toString();
     });
   }
+  
 } // End
