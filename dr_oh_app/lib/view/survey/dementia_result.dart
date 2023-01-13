@@ -99,7 +99,7 @@ class _DementiaResultState extends State<DementiaResult> {
                 ),
 
                 _graph(),
-                Text('$resultReg1%',
+                Text('$id님이 치매에 걸릴 확률 : $resultReg1%',
                     style: const TextStyle(
                       fontSize: 15,
                     )),
