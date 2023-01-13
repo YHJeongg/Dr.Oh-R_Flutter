@@ -4,6 +4,9 @@ import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// -----------------------------------------------------------------
+// Date: 2023-01-13, SangwonKim
+// Desc: 당뇨병 차트 기록 페이지
 class DiabetesChartRecord extends StatefulWidget {
   const DiabetesChartRecord({super.key});
 
@@ -34,7 +37,7 @@ class _DiabetesChartRecordState extends State<DiabetesChartRecord> {
         child: Center(
           child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  // >>>1st Try<<
+                  // 당뇨병 기록 불러오기
                   .collection('result')
                   .where('category', isEqualTo: "당뇨병")
                   .where('userid', isEqualTo: id)
@@ -42,13 +45,6 @@ class _DiabetesChartRecordState extends State<DiabetesChartRecord> {
                   .limit(10) // 10개만 가져오기
                   .snapshots(includeMetadataChanges: true),
 
-              // >>>2st Try<<<
-              // .collection('users').doc().collection('dimentia_p')
-              // .where('id', isEqualTo: id)
-              // // .where('category', isEqualTo: '뇌졸중')
-              // // .orderBy('date', descending: false)
-              // .limit(10)
-              // .snapshots(includeMetadataChanges: true),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return const Center(child: CircularProgressIndicator());

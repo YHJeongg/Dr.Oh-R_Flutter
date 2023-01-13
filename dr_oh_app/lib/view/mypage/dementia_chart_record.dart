@@ -4,6 +4,9 @@ import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// -----------------------------------------------------------------
+// Date: 2023-01-13, SangwonKim
+// Desc: 치매 차트 기록 페이지
 class DementiaChartRecord extends StatefulWidget {
   const DementiaChartRecord({super.key});
 
@@ -19,9 +22,9 @@ class _DementiaChartRecordState extends State<DementiaChartRecord> {
   void initState() {
     super.initState();
     id = '';
-    data = _initFirestore();
     _initSharedPreferences();
-    // _initFirestore();
+    // data = _initFirestore();
+    // // _initFirestore();
   }
 
   @override
@@ -37,22 +40,21 @@ class _DementiaChartRecordState extends State<DementiaChartRecord> {
         child: Center(
           child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  // // >>>1st Try<<
-                  // .collection('result')
-                  // .where('category', isEqualTo: "뇌졸중")
-                  // .where('userid', isEqualTo: id)
-                  // // .orderBy('date', descending: true) // 최신 10개 를 위해서 dsc으로 가져오기
-                  // .limit(10) // 10개만 가져오기
-                  // .snapshots(includeMetadataChanges: true),
-
-                  
-                  // >>>2st Try<<<
-                  .collection('users')
-                  .doc(data)
-                  .collection('dementia_p')
-                  // .orderBy('date', descending: false)
-                  // .limit(10)
+                  // >>>1st Try<<
+                  .collection('result')
+                  .where('category', isEqualTo: "치매")
+                  .where('userid', isEqualTo: id)
+                  // .orderBy('date', descending: true) // 최신 10개 를 위해서 dsc으로 가져오기
+                  .limit(10) // 10개만 가져오기
                   .snapshots(includeMetadataChanges: true),
+
+                  // // >>>2st Try<<<
+                  // .collection('users')
+                  // .doc(data)
+                  // .collection('dementia_p')
+                  // // .orderBy('date', descending: false)
+                  // // .limit(10)
+                  // .snapshots(includeMetadataChanges: true),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return const Center(child: CircularProgressIndicator());
@@ -69,7 +71,7 @@ class _DementiaChartRecordState extends State<DementiaChartRecord> {
                 List listChart = snapshot.data!.docs.map((e) {
                   return {
                     'dateValue': e['date'],
-                    'resultValue': e['dementia_p'],
+                    'resultValue': e['result'],
                   };
                 }).toList();
 
@@ -91,11 +93,11 @@ class _DementiaChartRecordState extends State<DementiaChartRecord> {
     });
   }
 
-  _initFirestore() async{
-    data = await FirebaseFirestore.instance
-        .collection('users')
-        .where('id', isEqualTo: id)
-        .get();
-  }
+  // _initFirestore() async{
+  //   data = await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .where('id', isEqualTo: id)
+  //       .get();
+  // }
 
 } // End
