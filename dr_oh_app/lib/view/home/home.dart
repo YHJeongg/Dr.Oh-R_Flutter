@@ -406,40 +406,38 @@ class _HomeState extends State<Home> {
               _sizedBox(),
               _head('신체정보'),
               const SizedBox(height: 3),
-              SingleChildScrollView(
-                child: Container(
-                  decoration: _borderBox(),
-                  height: 200,
-                  width: 350,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 100,
-                        child: StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection('users')
-                              .where('id', isEqualTo: id)
-                              .snapshots(),
-                          builder: ((context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            final documents = snapshot.data!.docs;
-
-                            return ListView(
-                              children: documents
-                                  .map((e) => _getBodyinfo(e))
-                                  .toList(),
+              Container(
+                decoration: _borderBox(),
+                height: 200,
+                width: 350,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 100,
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .where('id', isEqualTo: id)
+                            .snapshots(),
+                        builder: ((context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
                             );
-                          }),
-                        ),
+                          }
+                          final documents = snapshot.data!.docs;
+
+                          return ListView(
+                            children: documents
+                                .map((e) => _getBodyinfo(e))
+                                .toList(),
+                          );
+                        }),
                       ),
-                      _button(const BodyInfo(), '입력하러 가기'),
-                    ],
-                  ),
+                    ),
+                    _button(const BodyInfo(), '입력하러 가기'),
+                  ],
                 ),
               ),
               _sizedBox(),
