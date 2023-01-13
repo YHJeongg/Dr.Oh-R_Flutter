@@ -230,7 +230,7 @@ class _MyPageState extends State<MyPage> {
                   ),
                   // 2023-01-13, SangwonKim
                   // Desc: 뇌졸중 차트 기록으로 가기
-                  const DementiaChartData(),
+                  const ChartTest(),
                 ),
                 const Divider(),
                 _btnContentActions(
