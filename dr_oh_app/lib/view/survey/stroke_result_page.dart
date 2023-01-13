@@ -31,7 +31,7 @@ class _StrokeResultPageState extends State<StrokeResultPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          '예측 결과',
+          '뇌졸중 예측 결과',
         ),
         elevation: 1,
         actions: const [LogoutBtn()],
