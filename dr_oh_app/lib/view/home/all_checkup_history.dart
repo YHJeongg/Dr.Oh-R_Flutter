@@ -34,15 +34,19 @@ class CustomRadio extends StatefulWidget {
 
 class _CustomRadioState extends State<CustomRadio> {
   int value = 0;
+  List<String> categoryGroup = ['전체', '당뇨병', '뇌졸중', '치매'];
+  late String selectedCategory = '전체';
 
   Widget _customRadioButton(String text, int index) {
-    return SizedBox(
-      height: 30,
-      width: 65,
+    return Container(
+      height: 50,
+      width: 85,
+      padding: EdgeInsets.all(10),
       child: OutlinedButton(
         onPressed: () {
           setState(() {
             value = index;
+            selectedCategory = categoryGroup[index];
           });
         },
         child: Text(
@@ -60,10 +64,10 @@ class _CustomRadioState extends State<CustomRadio> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        _customRadioButton('전체', 0),
-        _customRadioButton('당뇨병', 1),
-        _customRadioButton('뇌졸중', 2),
-        _customRadioButton('치매', 3),
+        _customRadioButton(categoryGroup[0], 0),
+        _customRadioButton(categoryGroup[1], 1),
+        _customRadioButton(categoryGroup[2], 2),
+        _customRadioButton(categoryGroup[3], 3),
       ],
     );
   }
