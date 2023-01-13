@@ -70,7 +70,7 @@ class DementiaSurvey extends StatelessWidget {
             ),
             SizedBox(height: 30),
             Text(
-              '본 질문은 치매의 진단을 예측하는 것으로 \n치매 진단을 목적으로 하지 않습니다. \n정확한 진단을 위해서는 가까운 병원이나 \n보건소에 방문하시기 바랍니다.',
+              '본 질문은 치매의 진단을 예측하는 것으로 \n치매 진단을 목적으로 하지 않습니다. \n정확한 진단을 위해서는 가까운 병원이나 \n보건소에 방문하시기 바랍니다.\n(연령 60대 이상 권장)',
               style: TextStyle(color: Colors.red),
             )
           ],
