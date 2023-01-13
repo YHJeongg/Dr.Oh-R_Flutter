@@ -1,5 +1,8 @@
 import 'package:dr_oh_app/components/logout_btn.dart';
+import 'package:dr_oh_app/model/hospital_visit_model.dart';
+import 'package:dr_oh_app/viewmodel/my_history_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HospitalVisit extends StatefulWidget {
   const HospitalVisit({super.key});
@@ -9,9 +12,25 @@ class HospitalVisit extends StatefulWidget {
 }
 
 class _HospitalVisitState extends State<HospitalVisit> {
-  TextEditingController hospitalController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
+  TextEditingController _hospitalController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
   int value = 0;
+  List<String> purposeGroup = ['진료', '처방', '검진'];
+  String selectedPurpose = '진료';
+  late String id = '';
+
+  _initSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getString('id').toString();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initSharedPreferences();
+  }
 
   // Desc: 내원 목적 라디오버튼
   // Date: 2023-01-10
@@ -20,6 +39,7 @@ class _HospitalVisitState extends State<HospitalVisit> {
       onPressed: () {
         setState(() {
           value = index;
+          selectedPurpose = purposeGroup[index];
         });
       },
       child: Text(
@@ -46,7 +66,7 @@ class _HospitalVisitState extends State<HospitalVisit> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                controller: dateController,
+                controller: _dateController,
                 readOnly: true,
                 onTap: () {
                   _showDatePickerPop();
@@ -59,7 +79,7 @@ class _HospitalVisitState extends State<HospitalVisit> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                controller: hospitalController,
+                controller: _hospitalController,
                 decoration: const InputDecoration(
                   hintText: '병원명',
                 ),
@@ -69,12 +89,22 @@ class _HospitalVisitState extends State<HospitalVisit> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 const Text('내원 목적'),
-                _customRadioButton('진료', 0),
-                _customRadioButton('처방', 1),
-                _customRadioButton('검진', 2)
+                _customRadioButton(purposeGroup[0].toString(), 0),
+                _customRadioButton(purposeGroup[1].toString(), 1),
+                _customRadioButton(purposeGroup[2].toString(), 2)
               ],
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('추가'))
+            ElevatedButton(
+                onPressed: () {
+                  HospitalVisitModel hospitalVisitModel = HospitalVisitModel(
+                    hospital: _hospitalController.text,
+                    date: _dateController.text,
+                    purpose: selectedPurpose.toString(),
+                  );
+                  MyHistoryViewModel.to.addHospital(hospitalVisitModel, id);
+                  Navigator.pop(context);
+                },
+                child: const Text('추가'))
           ],
         ),
       ),
@@ -95,7 +125,7 @@ class _HospitalVisitState extends State<HospitalVisit> {
       },
     );
     selectedDate.then((value) {
-      dateController.text = value.toString().substring(0, 10);
+      _dateController.text = value.toString().substring(0, 10);
     });
   }
 }

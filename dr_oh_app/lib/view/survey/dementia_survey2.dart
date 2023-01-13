@@ -17,35 +17,30 @@ class DementiaSurveySecond extends StatefulWidget {
 }
 
 class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
-  
-
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('치매 검사 문진표',
-        style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),),
+        title: const Text(
+          '치매 검사 문진표',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         elevation: 1,
         actions: const [LogoutBtn()],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              
-              firestore(context),
-            
-            ],
-          ),
-        )),
+          child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            firestore(context),
+          ],
+        ),
+      )),
     );
-
   } //build
 
   //---------------Widget---------------
@@ -71,12 +66,11 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 final documents = snapshot.data!.docs;
-          
+
                 return SizedBox(
                   width: 500,
                   height: 600,
                   child: ListView(
-                      
                       scrollDirection: Axis.vertical,
                       children: documents
                           .map((index) => _buildItemWidget(index))
@@ -89,38 +83,37 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
                 print(DementiaAnswerFinal.wordsCount);
                 DementiaPredict predict = DementiaPredict();
                 DementiaPredictReg predictReg = DementiaPredictReg();
-                
+
                 String result = await predict.predict(
                   int.parse(DementiaAnswerFinal.age),
                   DementiaAnswerFinal.total,
                   DementiaAnswerFinal.edu1,
                   DementiaAnswerFinal.wage1,
                   DementiaAnswerFinal.gender1,
-                  
-                   );
-                   print('totaltotla');
-  print(DementiaAnswerFinal.total);
-                   String resultReg = await predictReg.predict(
+                );
+                print('totaltotla');
+                print(DementiaAnswerFinal.total);
+                String resultReg = await predictReg.predict(
                   int.parse(DementiaAnswerFinal.age),
                   DementiaAnswerFinal.total,
                   DementiaAnswerFinal.edu1,
                   DementiaAnswerFinal.wage1,
                   DementiaAnswerFinal.gender1,
-                  
-                   );
-                  print(DementiaAnswerFinal.total);
-            
+                );
+                print(DementiaAnswerFinal.total);
 
-                Get.off(DementiaResult(result:result, resultReg:resultReg));
+                Get.off(DementiaResult(result: result, resultReg: resultReg));
               },
               style: const ButtonStyle(
-                          minimumSize: MaterialStatePropertyAll(Size(300, 60),)
-                        ),
+                  minimumSize: MaterialStatePropertyAll(
+                Size(300, 60),
+              )),
               child: const Text(
                 '진단',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                        color: Colors.white
-                        ),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
             ),
           ],
@@ -129,47 +122,40 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
     );
   } //firestore read data
 
-
 //read questions from firestore
-  Widget _buildItemWidget(
-    DocumentSnapshot doc) {
-
+  Widget _buildItemWidget(DocumentSnapshot doc) {
     DementiaAnswer answerList = DementiaAnswer();
 
     final dementia = Dementia(seq: doc['seq'], question: doc['question']);
-  print(dementia.seq);
+    print(dementia.seq);
 
     return SingleChildScrollView(
-      // height: 100,
-      // width: 100,
-      
-      // child: Column(
-      //   children: [
-      //     const SizedBox(
-      //       height: 30,
-      //     ),
-      //     Text('${dementia.seq}. ${dementia.question}'),
-      //     const SizedBox(
-      //       height: 30,
-      //     ),
-      //     answerList.dementiaAnswerTest[dementia.seq - 1],
-      //     const SizedBox(
-      //       height: 20,
-      //     ),
-          
-      //   ],
-      // ),
-      
-      child: Card(
-        child: ListTile(
-          title: Text('${dementia.seq}. ${dementia.question}'),
-          subtitle: answerList.dementiaAnswerTest[dementia.seq - 1],
-        ),
+        // height: 100,
+        // width: 100,
 
-      )
+        // child: Column(
+        //   children: [
+        //     const SizedBox(
+        //       height: 30,
+        //     ),
+        //     Text('${dementia.seq}. ${dementia.question}'),
+        //     const SizedBox(
+        //       height: 30,
+        //     ),
+        //     answerList.dementiaAnswerTest[dementia.seq - 1],
+        //     const SizedBox(
+        //       height: 20,
+        //     ),
 
-    );
+        //   ],
+        // ),
+
+        child: Card(
+      child: ListTile(
+        title: Text('${dementia.seq}. ${dementia.question}'),
+        subtitle: answerList.dementiaAnswerTest[dementia.seq - 1],
+      ),
+    ));
   } //_buildItemWidget
-
 
 }//end

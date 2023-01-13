@@ -84,7 +84,7 @@ class _ListBodyState extends State<ListBody> {
       child: Card(
         child: ListTile(
           title: Text(
-              '날짜 : ${doc['date']}\n검사항목 : ${doc['category']}\n검사결과 : ${(double.parse(doc['result'])*100).round()}'),
+              '날짜 : ${doc['date']}\n검사항목 : ${doc['category']}\n검사결과 : ${(double.parse(doc['result'])).round()}'),
         ),
       ),
     );

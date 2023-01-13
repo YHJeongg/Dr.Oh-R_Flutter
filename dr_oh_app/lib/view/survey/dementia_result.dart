@@ -95,6 +95,7 @@ class _DementiaResultState extends State<DementiaResult> {
                           fontSize: 20,
                         )),
                   ],
+
                 ),
 
                 _graph(),
@@ -105,7 +106,9 @@ class _DementiaResultState extends State<DementiaResult> {
                 const DementiaBarChart(),
 
                 Text(
+
                   '$id님 ${widget.result == '0' ? normalComment : widget.result == '0.5' ? lightComment : abNormalComment}',
+
                   style: const TextStyle(
                     fontSize: 20,
                   ),
@@ -158,6 +161,7 @@ class _DementiaResultState extends State<DementiaResult> {
         .add({'date': date, 'dementia_p': resultReg1});
   } // -addAction
 
+
   Widget _graph() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -208,4 +212,5 @@ class _DementiaResultState extends State<DementiaResult> {
       ],
     );
   }
+
 }

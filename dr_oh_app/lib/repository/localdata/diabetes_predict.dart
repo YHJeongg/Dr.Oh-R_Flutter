@@ -23,11 +23,11 @@ class DiabetesPredict {
     var url = Uri.parse(
 
         // 상원 ip
-        //'http://192.168.10.176:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
-        // 유승 ip
-         'http://192.168.10.213:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
-        // 주현 ip
-        // 'http://localhost:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+        //'http://192.168.35.167:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+    // 유승 ip
+      'http://192.168.10.213:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
+    // 주현 ip
+    // 'http://localhost:8080/diabetes?age=$age&bmi=$bmi&physact=$physact&genhealth=$genhealth&hdattack=$hdattack&highbp=$highbp&stroke=$stroke&physhealth=$physhealth&diffwalk=$diffwalk');
 
     var response = await http.get(url);
     var dataConvertedJSON = await json.decode(utf8.decode(response.bodyBytes));
@@ -55,10 +55,13 @@ class DiabetesPredict {
   _saveResult(String result) async {
     final prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('id')!;
-    String date=DateTime.now().toString().substring(0,10);
+    String date = DateTime.now().toString().substring(0, 10);
 
-    FirebaseFirestore.instance
-        .collection('result')
-        .add({'result': result,'userid':id,'date':date,'category':'당뇨병'});
+    FirebaseFirestore.instance.collection('result').add({
+      'result': (double.parse(result)*100).toString(),
+      'userid': id,
+      'date': date,
+      'category': '당뇨병'
+    });
   }
 }

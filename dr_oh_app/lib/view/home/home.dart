@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/components/news_api.dart';
 import 'package:dr_oh_app/model/body_info_model.dart';
 import 'package:dr_oh_app/model/name_model.dart';
@@ -242,14 +243,13 @@ class _HomeState extends State<Home> {
   // Desc: 신체정보 받아오기
   // Date: 2023-01-11
   Widget _getBodyinfo(DocumentSnapshot doc) {
-    final bodyinfo =
-        doc.data().toString().contains('height')
-            ? BodyInfoModel(
-                id: doc['id'],
-                height: doc['height'],
-                weight: doc['weight'],
-              )
-            : BodyInfoModel(id: '', height: '', weight: '');
+    final bodyinfo = doc.data().toString().contains('height')
+        ? BodyInfoModel(
+            id: doc['id'],
+            height: doc['height'],
+            weight: doc['weight'],
+          )
+        : BodyInfoModel(id: '', height: '', weight: '');
     return ListTile(
       title: bodyinfo.height.toString().isNotEmpty
           ? Column(
@@ -259,7 +259,7 @@ class _HomeState extends State<Home> {
                   child: Text(
                     '키 : ${bodyinfo.height}cm',
                     style: const TextStyle(
-                      fontSize: 30,
+                      fontSize: 28,
                     ),
                   ),
                 ),
@@ -268,22 +268,23 @@ class _HomeState extends State<Home> {
                   child: Text(
                     '몸무게 : ${bodyinfo.weight}kg',
                     style: const TextStyle(
-                      fontSize: 30,
+                      fontSize: 28,
                     ),
                   ),
                 ),
               ],
             )
           : Column(
-            children: const [
-             Text(
+              children: const [
+                Text(
                   '입력된 신체정보가 없습니다.',
                   style: TextStyle(
-                      fontSize: 30,
-                    ),
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-            ],
-          ),
+              ],
+            ),
     );
   }
 
@@ -303,6 +304,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('HOME'),
         elevation: 1,
+        actions: const [LogoutBtn()],
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -435,7 +437,7 @@ class _HomeState extends State<Home> {
                           }),
                         ),
                       ),
-                      _button(const BodyInfo(), '입력하러 가기')
+                      _button(const BodyInfo(), '입력하러 가기'),
                     ],
                   ),
                 ),
@@ -452,7 +454,15 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         const Text('최근 내원이력'),
-                        _button(const HospitalVisit(), '추가')
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.to(const HospitalVisit());
+                          },
+                          child: const Text(
+                            '추가',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -462,7 +472,15 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         const Text('최근 투약이력'),
-                        _button(const Medication(), '추가')
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.to(const Medication());
+                          },
+                          child: const Text(
+                            '추가',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ],
                     ),
                   ),

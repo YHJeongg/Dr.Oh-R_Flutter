@@ -2,9 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
+
 import 'package:dr_oh_app/view/mypage/chart_dementia_test.dart';
 import 'package:dr_oh_app/view/mypage/chart_diabetes.dart';
+
+import 'package:dr_oh_app/view/mypage/bmi_chart_record.dart';
+
 import 'package:dr_oh_app/view/mypage/chart_dimentia.dart';
+import 'package:dr_oh_app/view/mypage/diabetes_chart_record.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/view/mypage/sign_out.dart';
 import 'package:dr_oh_app/view/mypage/stroke_chart_record.dart';
@@ -82,8 +87,8 @@ class _MyPageState extends State<MyPage> {
                     height: 35,
                     child: TextButton(
                       onPressed: () async {
-                        UserRepository usrr=UserRepository();
-                        UserModel usr=await usrr.getUserInfo();
+                        UserRepository usrr = UserRepository();
+                        UserModel usr = await usrr.getUserInfo();
                         Get.to(EditMemberInfo(user: usr));
                       },
                       child: const Text(
@@ -196,25 +201,29 @@ class _MyPageState extends State<MyPage> {
             child: Column(
               children: <Widget>[
                 _btnContentActions(
-                  "당뇨병 그래프",
+                  "당뇨병 차트 기록",
                   const Icon(
                     Icons.bar_chart,
                     color: Color(0xFF99CD89),
                   ),
-                  ChartDiabetes(),
+                  // 2023-01-13, SangwonKim
+                  // Desc: 당뇨병 차트 기록으로 가기
+                  const DiabetesChartRecord(),
                 ),
                 const Divider(),
                 _btnContentActions(
-                  "뇌졸중 그래프",
+                  "뇌졸중 차트 기록",
                   const Icon(
                     Icons.show_chart,
                     color: Color(0xFF99CD89),
                   ),
+                  // 2023-01-13, SangwonKim
+                  // Desc: 뇌졸중 차트 기록으로 가기
                   const StrokeChartRecord(),
                 ),
                 const Divider(),
                 _btnContentActions(
-                  "치매 그래프",
+                  "치매 차트 기록",
                   const Icon(
                     Icons.area_chart,
                     color: Color(0xFF99CD89),
@@ -223,12 +232,14 @@ class _MyPageState extends State<MyPage> {
                 ),
                 const Divider(),
                 _btnContentActions(
-                  "BMI 그래프",
+                  "BMI 차트 기록",
                   const Icon(
                     Icons.pie_chart,
                     color: Color(0xFF99CD89),
                   ),
-                  const SignOut(),
+                  // 2023-01-13, SangwonKim
+                  // Desc: BMI 차트 기록으로 가기
+                  const BmiChartRecord(),
                 ),
               ],
             ),
@@ -338,6 +349,7 @@ class _MyPageState extends State<MyPage> {
                 color: Colors.grey,
               ),
             ),
+            const SizedBox(height: 24,)
           ],
         ),
       ),

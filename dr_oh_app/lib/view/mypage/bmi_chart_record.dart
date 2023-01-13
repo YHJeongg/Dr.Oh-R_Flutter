@@ -4,14 +4,14 @@ import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class StrokeChartRecord extends StatefulWidget {
-  const StrokeChartRecord({super.key});
+class BmiChartRecord extends StatefulWidget {
+  const BmiChartRecord({super.key});
 
   @override
-  State<StrokeChartRecord> createState() => _StrokeChartRecordState();
+  State<BmiChartRecord> createState() => _BmiChartRecordState();
 }
 
-class _StrokeChartRecordState extends State<StrokeChartRecord> {
+class _BmiChartRecordState extends State<BmiChartRecord> {
   late String id;
 
   @override
@@ -25,7 +25,7 @@ class _StrokeChartRecordState extends State<StrokeChartRecord> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('뇌졸중 차트 기록'),
+        title: const Text('BMI 차트 기록'),
         elevation: 1,
         actions: const [LogoutBtn()],
       ),
@@ -36,7 +36,7 @@ class _StrokeChartRecordState extends State<StrokeChartRecord> {
               stream: FirebaseFirestore.instance
                   // >>>1st Try<<
                   .collection('result')
-                  .where('category', isEqualTo: "뇌졸중")
+                  .where('category', isEqualTo: "BMI")
                   .where('userid', isEqualTo: id)
                   // .orderBy('date', descending: true) // 최신 10개 를 위해서 dsc으로 가져오기
                   .limit(10) // 10개만 가져오기
