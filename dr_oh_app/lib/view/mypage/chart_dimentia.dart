@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/dementia_answer_list.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';

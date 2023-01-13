@@ -24,7 +24,7 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
         title: const Text(
           '치매 검사 문진표',
           style: TextStyle(
-            fontSize: 30,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),

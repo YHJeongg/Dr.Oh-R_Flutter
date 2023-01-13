@@ -125,7 +125,7 @@ class _BarChart extends StatelessWidget {
         topTitles: AxisTitles(
           // 차트 제목
           axisNameWidget: const Text(
-            '연령대별 고혈압 위험도 평균',
+            '연령대별 당뇨병 위험도 평균',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
