@@ -90,98 +90,116 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
                           });
                         },
                       ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    SizedBox(
-                        width: 300,
-                        child: DropdownButtonFormField(
-                          decoration: const InputDecoration(
-                              hintText: '교육연수',
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)))),
-                          items:
-                              edu.map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              DementiaAnswerFinal.edu = value!;
-                            });
-                          },
-                        )),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                        width: 300,
-                        child: DropdownButtonFormField(
-                          decoration: const InputDecoration(
-                              hintText: '연봉(단위: 만원)',
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)))),
-                          items:
-                              wage.map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              DementiaAnswerFinal.wage = value!;
-                              print(DementiaAnswerFinal.wage);
-                            });
-                          },
-                        )),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    // SizedBox(
-                    //   width: 300,
-                    //   child: _dropDownBtn('생년월일'),
-                    // ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[_gender()],
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            print(DementiaAnswerFinal.age);
-                            print(DementiaAnswerFinal.edu);
-                            print(DementiaAnswerFinal.wage);
-                            print(DementiaAnswerFinal.gender);
-                            Get.off(const DementiaSurveySecond());
-                          },
-                          style: ButtonStyle(
-                            minimumSize: MaterialStatePropertyAll(Size(300, 60),)
-                          ),
-                          
-                          child: const Text('다음 설문',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
-                          color: Colors.white
-                          ),
-                      )),
                     ],
                   ),
-                ),
-              ],
-            ), //2nd page End
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: TextField(
+                          controller: ageController,
+                          decoration: const InputDecoration(hintText: '나이'),
+                          keyboardType: TextInputType.number,
+                          onChanged: (value) {
+                            setState(() {
+                              DementiaAnswerFinal.age = ageController.text;
+                            });
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                          width: 300,
+                          child: DropdownButtonFormField(
+                            decoration: const InputDecoration(
+                                hintText: '교육연수',
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)))),
+                            items:
+                                edu.map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                DementiaAnswerFinal.edu = value!;
+                              });
+                            },
+                          )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                          width: 300,
+                          child: DropdownButtonFormField(
+                            decoration: const InputDecoration(
+                                hintText: '연봉(단위: 만원)',
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)))),
+                            items:
+                                wage.map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                DementiaAnswerFinal.wage = value!;
+                                print(DementiaAnswerFinal.wage);
+                              });
+                            },
+                          )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      // SizedBox(
+                      //   width: 300,
+                      //   child: _dropDownBtn('생년월일'),
+                      // ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[_gender()],
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              print(DementiaAnswerFinal.age);
+                              print(DementiaAnswerFinal.edu);
+                              print(DementiaAnswerFinal.wage);
+                              print(DementiaAnswerFinal.gender);
+                              Get.off(const DementiaSurveySecond());
+                            },
+                            style: ButtonStyle(
+                              minimumSize: MaterialStatePropertyAll(Size(300, 60),)
+                            ),
+                            
+                            child: const Text('다음 설문',
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
+                            color: Colors.white
+                            ),
+                        )),
+                      ],
+                    ),
+                  ),
+                ],
+              ), //2nd page End
+            ),
           ),
         ),
       ),
