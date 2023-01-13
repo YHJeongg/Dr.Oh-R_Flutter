@@ -15,13 +15,15 @@ class CheckupHistory extends StatelessWidget {
     // Desc: 조회한 날짜 표시
     var selectedDate = Get.arguments;
 
-    return ListBody(selectedDate: selectedDate,);
+    return ListBody(
+      selectedDate: selectedDate,
+    );
   }
 }
 
 class ListBody extends StatefulWidget {
   final selectedDate;
-  const ListBody({super.key,required this.selectedDate});
+  const ListBody({super.key, required this.selectedDate});
 
   @override
   State<ListBody> createState() => _ListBodyState();
@@ -48,7 +50,8 @@ class _ListBodyState extends State<ListBody> {
           stream: FirebaseFirestore.instance
               .collection('result')
               .where('userid', isEqualTo: id)
-              .where('date',isEqualTo: widget.selectedDate.toString().substring(0,10))
+              .where('date',
+                  isEqualTo: widget.selectedDate.toString().substring(0, 10))
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -83,8 +86,37 @@ class _ListBodyState extends State<ListBody> {
       },
       child: Card(
         child: ListTile(
-          title: Text(
-              '날짜 : ${doc['date']}\n검사항목 : ${doc['category']}\n검사결과 : ${(double.parse(doc['result'])).round()}'),
+          title: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  '날짜 : ${doc['date']}',
+                  style: const TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  '검사항목 : ${doc['category']}',
+                  style: const TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  '검사결과 : ${(double.parse(doc['result'].toString())).round()}',
+                  style: const TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

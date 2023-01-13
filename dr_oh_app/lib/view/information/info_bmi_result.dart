@@ -20,7 +20,7 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('BMI Result'),
+        title: const Text('계산 결과'),
         elevation: 1,
         actions: const [LogoutBtn()],
       ),

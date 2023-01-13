@@ -72,7 +72,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                             height: 20,
                           ),
                           const Text(
-                            'Age',
+                            '나이',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -141,7 +141,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                             height: 20,
                           ),
                           const Text(
-                            'Weight',
+                            '몸무게',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -212,7 +212,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                       height: 16,
                     ),
                     const Text(
-                      'Height',
+                      '키',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -257,7 +257,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                       height: 20,
                     ),
                     const Text(
-                      'Gender',
+                      '성별',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -271,7 +271,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                           width: 32,
                         ),
                         const Text(
-                          'Male',
+                          '남성',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -283,7 +283,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                           },
                         ),
                         const Text(
-                          'Female',
+                          '여성',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -317,7 +317,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text(
-                        'CHECK',
+                        '계산',
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,

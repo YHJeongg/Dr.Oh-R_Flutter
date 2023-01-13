@@ -45,6 +45,19 @@ class _BodyInfoState extends State<BodyInfo> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
+              children: const [
+                Text(
+                  '신체정보 입력',
+                  style: TextStyle(
+                    fontSize: 40,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 100,
+            ),
+            Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 100, right: 100),
@@ -69,6 +82,9 @@ class _BodyInfoState extends State<BodyInfo> {
                     },
                   ),
                 ),
+                const SizedBox(
+                  height: 50,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 100, right: 100),
                   child: TextField(
@@ -91,6 +107,9 @@ class _BodyInfoState extends State<BodyInfo> {
                       }
                     },
                   ),
+                ),
+                const SizedBox(
+                  height: 100,
                 ),
                 ElevatedButton(
                     onPressed: correctheight && correctweight
