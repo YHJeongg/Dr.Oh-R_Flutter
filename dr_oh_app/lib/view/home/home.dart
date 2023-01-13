@@ -36,6 +36,16 @@ class _HomeState extends State<Home> {
 
   CheckupHistoryViewModel _checkupHistoryViewModel = CheckupHistoryViewModel();
   late String id = '';
+
+  // Desc: shared preferences 받기
+  // Date: 2023-01-10
+  _initSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getString('id') ?? '';
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -288,15 +298,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Desc: shared preferences 받기
-  // Date: 2023-01-10
-  _initSharedPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      id = prefs.getString('id').toString();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -429,9 +430,9 @@ class _HomeState extends State<Home> {
                           final documents = snapshot.data!.docs;
 
                           return ListView(
-                            children: documents
-                                .map((e) => _getBodyinfo(e))
-                                .toList(),
+                            physics: const NeverScrollableScrollPhysics(),
+                            children:
+                                documents.map((e) => _getBodyinfo(e)).toList(),
                           );
                         }),
                       ),
@@ -451,13 +452,16 @@ class _HomeState extends State<Home> {
                     width: 165,
                     child: Column(
                       children: [
-                        const Text('최근 내원이력'),
+                        const Text(
+                          '최근 내원이력',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         ElevatedButton(
                           onPressed: () {
-                            Get.to(const HospitalVisit());
+                            Get.to(HospitalVisit());
                           },
                           child: const Text(
-                            '추가',
+                            '조회',
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -469,13 +473,16 @@ class _HomeState extends State<Home> {
                     width: 165,
                     child: Column(
                       children: [
-                        const Text('최근 투약이력'),
+                        const Text(
+                          '최근 투약이력',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         ElevatedButton(
                           onPressed: () {
                             Get.to(const Medication());
                           },
                           child: const Text(
-                            '추가',
+                            '조회',
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
