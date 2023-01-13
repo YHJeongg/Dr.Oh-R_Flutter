@@ -172,10 +172,10 @@ class _DementiaBarChartState extends State<DementiaBarChart> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 1.2,
+      aspectRatio: 1.3,
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         color: Theme.of(context).primaryColor.withOpacity(0.5),
         child: const _DBarChart(),
       ),
