@@ -17,7 +17,7 @@ class DementiaPredict {
     print(gender1);
 
     var url = Uri.parse(
-        'http://localhost:8080/dementia?Age=$age&EDUC=$edu1&SES=$wage1&MMSE=$total&SexCode=$gender1');
+        'http://192.168.10.213:8080/dementia?Age=$age&EDUC=$edu1&SES=$wage1&MMSE=$total&SexCode=$gender1');
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
     String result = dataConvertedJSON['result'];
