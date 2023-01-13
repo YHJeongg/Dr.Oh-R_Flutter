@@ -339,8 +339,11 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
                                 _joinText('아이디', _editID(user.id.toString())),
                                 _joinText('새 비밀번호', _editPW()),
                                 _joinText('비밀번호 확인', _confirmPW()),
-                                _joinText('생년월일',
-                                    _editBirthday(user.birthdate.toString())),
+                                _joinText(
+                                    '생년월일',
+                                    _editBirthday(user.birthdate
+                                        .toString()
+                                        .substring(0, 10))),
                                 _joinText(
                                     '이메일', _editEmail(user.email.toString())),
                               ],
@@ -355,11 +358,16 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
                   padding: const EdgeInsets.only(top: 50.0),
                   child: ElevatedButton(
                       onPressed:
-                          correctName && correctpw && pwcheck && correctEmail
-                              ? () {
-                                  _dialog();
-                                }
-                              : null,
+                          // correctName && correctpw && pwcheck && correctEmail
+                          //     ? () {
+                          //         _dialog();
+                          //       }
+                          //     : null,
+                          () {
+                        correctName && correctpw && pwcheck && correctEmail
+                            ? _dialog()
+                            : null;
+                      },
                       child: const Text('수정')),
                 )
               ],
