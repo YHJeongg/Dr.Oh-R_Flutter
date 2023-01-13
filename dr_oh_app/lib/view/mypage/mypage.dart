@@ -2,7 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
+
+import 'package:dr_oh_app/view/mypage/chart_dementia_test.dart';
+import 'package:dr_oh_app/view/mypage/chart_diabetes.dart';
+
 import 'package:dr_oh_app/view/mypage/bmi_chart_record.dart';
+
 import 'package:dr_oh_app/view/mypage/chart_dimentia.dart';
 import 'package:dr_oh_app/view/mypage/diabetes_chart_record.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
@@ -223,7 +228,7 @@ class _MyPageState extends State<MyPage> {
                     Icons.area_chart,
                     color: Color(0xFF99CD89),
                   ),
-                  const DementiaChartData(),
+                  const ChartTest(),
                 ),
                 const Divider(),
                 _btnContentActions(

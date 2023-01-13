@@ -41,9 +41,9 @@ class _DementiaResultState extends State<DementiaResult> {
     lightNormal = '경도 치매';
     abNormal = '치매';
 
-    normalComment = ' 정상입니다. 가벼운 산책이나 요가 등 운동을 꾸준히 하시면 치매 예방에 도움이 됩니다.';
-    lightComment = ' 경도 치매가 의심됩니다. 가까운 병원을 알아보세요!.';
-    abNormalComment = ' 치매가 의심됩니다. 가까운 병원을 알아보세요!';
+    normalComment = ' 가벼운 산책이나 요가 등 운동을 꾸준히 하시면 치매 예방에 도움이 됩니다.';
+    lightComment = ' 가까운 병원을 알아보세요!.';
+    abNormalComment = ' 가까운 병원을 알아보세요!';
 
     resultReg1 =
         double.parse((double.parse(widget.resultReg) * 100).toStringAsFixed(2));
@@ -67,19 +67,48 @@ class _DementiaResultState extends State<DementiaResult> {
               children: [
                 //Text('예측 결과는 ${widget.result}입니다.'),
 
-                Text('예측 결과는 $resultReg1입니다.'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('$id님의 예측 결과는 ',
+                        style: const TextStyle(
+                          fontSize: 20,
+                        )),
+                    Text(
+                      widget.result == '0'
+                          ? normal
+                          : widget.result == '0.5'
+                              ? lightNormal
+                              : abNormal,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: widget.result == '0'
+                            ? Colors.blue
+                            : widget.result == '0.5'
+                                ? Colors.purple
+                                : Colors.red,
+                      ),
+                    ),
+                    const Text('입니다.',
+                        style: TextStyle(
+                          fontSize: 20,
+                        )),
+                  ],
 
-                Text(
-                  '$id님의 예측 결과는 ${widget.result == '0' ? normal : widget.result == '0.5' ? lightNormal : abNormal}입니다.',
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
                 ),
 
+                _graph(),
+                Text('$resultReg1%',
+                    style: const TextStyle(
+                      fontSize: 15,
+                    )),
                 const DementiaBarChart(),
 
                 Text(
-                  '${id}님 ${widget.result == '0' ? normalComment : widget.result == '0.5' ? lightComment : abNormalComment}',
+
+                  '$id님 ${widget.result == '0' ? normalComment : widget.result == '0.5' ? lightComment : abNormalComment}',
+
                   style: const TextStyle(
                     fontSize: 20,
                   ),
@@ -131,5 +160,57 @@ class _DementiaResultState extends State<DementiaResult> {
         .collection('dementia_p')
         .add({'date': date, 'dementia_p': resultReg1});
   } // -addAction
+
+
+  Widget _graph() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          '0',
+          style: TextStyle(
+            fontSize: 30,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(15),
+          child: Container(
+            width: 200,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: const Color(0xCCCCE6C4),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: double.parse(widget.result) * 200,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      // Date: 2023-01-11, SangwonKim
+                      // Desc: 위험도 카테고리별 색상분류
+                      color: resultReg1 >= 75
+                          ? Colors.red
+                          : resultReg1 >= 50
+                              ? Colors.orange
+                              : resultReg1 >= 25
+                                  ? Colors.indigo
+                                  : Colors.green
+                      // const Color(0xFF5B9D46),
+                      ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const Text(
+          '100',
+          style: TextStyle(
+            fontSize: 30,
+          ),
+        ),
+      ],
+    );
+  }
 
 }
