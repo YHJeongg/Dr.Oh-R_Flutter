@@ -12,6 +12,11 @@ class MyHistoryViewModel extends GetxController {
     await MyHistoryRepository.addHospitalVisit(hos, id);
   }
 
+  Future<HospitalVisitModel?> getHospital(String id) async {
+    await MyHistoryRepository.getHospitalVisit(id);
+    return null;
+  }
+
   void addMedication(MedicationModel med, String id) async {
     await MyHistoryRepository.addMedication(med, id);
   }
