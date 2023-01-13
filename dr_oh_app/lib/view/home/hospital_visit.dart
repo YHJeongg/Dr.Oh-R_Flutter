@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/hospital_visit_model.dart';
 import 'package:dr_oh_app/viewmodel/my_history_view_model.dart';
@@ -18,12 +19,22 @@ class _HospitalVisitState extends State<HospitalVisit> {
   List<String> purposeGroup = ['진료', '처방', '검진'];
   String selectedPurpose = '진료';
   late String id = '';
+  late String docId = '';
+
+  _getDocId(String id) async {
+    var data = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
+    docId = data.docs.first.id;
+  }
 
   _initSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       id = prefs.getString('id').toString();
     });
+    _getDocId(id);
   }
 
   @override
@@ -51,11 +62,70 @@ class _HospitalVisitState extends State<HospitalVisit> {
     );
   }
 
+  Widget _getHospitalVisit(DocumentSnapshot doc) {
+    final hospital = doc.data().toString().contains('purpose')
+        ? HospitalVisitModel(
+            date: doc['date'],
+            hospital: doc['hospital'],
+            purpose: doc['purpose'],
+          )
+        : HospitalVisitModel(date: '', hospital: '', purpose: '');
+    return ListTile(
+      title: hospital.purpose.toString().isNotEmpty
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      width: 350,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          style: BorderStyle.solid,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${hospital.date}\t병원명: ${hospital.hospital}\t내원목적:${hospital.purpose}',
+                        style: const TextStyle(
+                          fontSize: 12,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          : Column(
+              children: const [
+                Text(
+                  '내원이력이 없습니다.',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('내원이력 입력'),
+        title: const Text('내원이력'),
         elevation: 1,
         actions: const [LogoutBtn()],
       ),
@@ -63,6 +133,33 @@ class _HospitalVisitState extends State<HospitalVisit> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(docId)
+                  .collection('HospitalVisit')
+                  .snapshots(),
+              builder: ((context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                final documents = snapshot.data!.docs;
+
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children:
+                          documents.map((e) => _getHospitalVisit(e)).toList(),
+                    ),
+                  ],
+                );
+              }),
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(

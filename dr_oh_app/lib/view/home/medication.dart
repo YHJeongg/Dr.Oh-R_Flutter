@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/medication_model.dart';
 import 'package:dr_oh_app/viewmodel/my_history_view_model.dart';
@@ -19,12 +20,22 @@ class _MedicationState extends State<Medication> {
   TextEditingController _diseaseController = TextEditingController();
   TextEditingController _pillController = TextEditingController();
   late String id = '';
+  late String docId = '';
+
+  Future<void> _getDocId(String id) async {
+    var data = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: id)
+        .get();
+    docId = data.docs.first.id;
+  }
 
   _initSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       id = prefs.getString('id').toString();
     });
+    _getDocId(id);
   }
 
   @override
@@ -49,11 +60,77 @@ class _MedicationState extends State<Medication> {
     );
   }
 
+  Widget _getMedication(DocumentSnapshot doc) {
+    final medication = doc.data().toString().contains('firstDate')
+        ? MedicationModel(
+            firstDate: doc['firstDate'],
+            lastDate: doc['lastDate'],
+            hospital: doc['hospital'],
+            disease: doc['disease'],
+            pill: doc['pill'],
+          )
+        : MedicationModel(
+            firstDate: '',
+            lastDate: '',
+            hospital: '',
+            disease: '',
+            pill: '',
+          );
+    return ListTile(
+      title: medication.pill.toString().isNotEmpty
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      width: 350,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          style: BorderStyle.solid,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${medication.firstDate}~${medication.lastDate}\t병원명: ${medication.hospital}\t병명: ${medication.disease}\n처방의약품명: ${medication.pill}',
+                        style: const TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          : Column(
+              children: const [
+                Text(
+                  '내원이력이 없습니다.',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('투약이력 입력'),
+        title: const Text('투약이력'),
         elevation: 1,
         actions: const [LogoutBtn()],
       ),
@@ -61,6 +138,32 @@ class _MedicationState extends State<Medication> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(docId)
+                    .collection('Medication')
+                    .snapshots(),
+                builder: ((context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  final documents = snapshot.data!.docs;
+
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children:
+                            documents.map((e) => _getMedication(e)).toList(),
+                      ),
+                    ],
+                  );
+                })),
             Wrap(
               direction: Axis.horizontal,
               children: [
