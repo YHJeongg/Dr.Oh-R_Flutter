@@ -130,7 +130,7 @@ class _AListState extends State<AList> {
                 color: Colors.green[400],
                 constraints: const BoxConstraints(
                   minHeight: 40.0,
-                  minWidth: 75.0,
+                  minWidth: 60.0,
                 ),
           isSelected: _selectedSeason,
           children: season)
