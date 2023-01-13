@@ -15,10 +15,10 @@ class DiabetesBarChartWidgetState extends State<DiabetesBarChartWidget> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 1.2,
+      aspectRatio: 1.3,
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         color: Theme.of(context).primaryColor.withOpacity(0.5),
         child: const _BarChart(),
       ),
@@ -125,7 +125,7 @@ class _BarChart extends StatelessWidget {
         topTitles: AxisTitles(
           // 차트 제목
           axisNameWidget: const Text(
-            '연령대별 고혈압 위험도 평균',
+            '연령대별 당뇨병 위험도 평균',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
