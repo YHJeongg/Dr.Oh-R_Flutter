@@ -83,6 +83,7 @@ class _DementiaPersonalState extends State<DementiaPersonal> {
                       child: TextField(
                         controller: ageController,
                         decoration: const InputDecoration(hintText: '나이'),
+                        keyboardType: TextInputType.number,
                         onChanged: (value) {
                           setState(() {
                             DementiaAnswerFinal.age = ageController.text;
