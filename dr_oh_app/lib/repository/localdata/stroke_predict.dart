@@ -23,12 +23,10 @@ class StrokePredict {
     double bmi = weight / (height * height * 0.01 * 0.01);
 
     var url = Uri.parse(
-        // 상원 ip
-        //'http://192.168.35.167:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
-    // 유승 ip
-      'http://192.168.10.213:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
-    // 주현 ip
-    // 'http://localhost:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
+        // iphone ip
+        'http://localhost:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
+        // android ip
+        // 'http://192.168.10.213:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
 
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));

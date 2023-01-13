@@ -51,4 +51,5 @@ class MyHistoryRepository {
     var doc2Id = result.docs.first.data();
     print(doc1Id);
   }
+  
 }
