@@ -122,17 +122,17 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
   bool showAvg = false;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    num1 = (double.parse(widget.doc['result'][0]) * 100).round();
-    numList = [];
-    // 가져온 결과 갯수만큼 리스트에 저장하기
-    for (int i = 0; i < widget.doc['result'].toString().length; i++) {
-      numList!.add((double.parse(widget.doc['result'].toString()) * 100).round());
-    }
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   num1 = (double.parse(widget.doc['result'][0]) * 100).round();
+  //   numList = [];
+  //   // 가져온 결과 갯수만큼 리스트에 저장하기
+  //   for (int i = 0; i < widget.doc['result'].toString().length; i++) {
+  //     numList!.add((double.parse(widget.doc['result'].toString()) * 100).round());
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
